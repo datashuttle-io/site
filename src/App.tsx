@@ -1,8 +1,10 @@
 import Nav from './components/Nav'
 import Hero from './components/Hero'
+import WhyIceberg from './components/WhyIceberg'
 import Pain from './components/Pain'
 import HowItWorks from './components/HowItWorks'
 import Features from './components/Features'
+import Partitioning from './components/Partitioning'
 import SqlDemo from './components/SqlDemo'
 import Comparison from './components/Comparison'
 import Connectors from './components/Connectors'
@@ -15,9 +17,11 @@ export default function App() {
       <Nav />
       <main>
         <Hero />
+        <WhyIceberg />
         <Pain />
         <HowItWorks />
         <Features />
+        <Partitioning />
         <SqlDemo />
         <Comparison />
         <Connectors />

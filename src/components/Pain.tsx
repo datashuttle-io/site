@@ -39,7 +39,7 @@ const pains = [
 
 export default function Pain() {
   return (
-    <section id="features" className="bg-slate-950 py-28 px-6">
+    <section id="why" className="bg-slate-950 py-28 px-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">

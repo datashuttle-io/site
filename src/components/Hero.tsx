@@ -5,9 +5,13 @@ const HERO_SQL = `CREATE PIPELINE customer_sync
   TABLES ('accounts', 'orders', 'payments')
   INTO iceberg.warehouse.crm
   SCHEDULE continuous
+  PARTITION BY (day(created_at), bucket(16, account_id))
+  CLUSTER BY (account_id ASC)
   WITH (
     iceberg_format_version = 3,
     delete_mode = 'deletion_vectors',
+    write_distribution_mode = 'hash',
+    target_file_bytes = '64 MB',
     row_lineage = true,
     schema_evolution = 'compatible'
   );`

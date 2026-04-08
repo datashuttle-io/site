@@ -47,6 +47,22 @@ const features = [
       'Automatic table-level and column-level lineage, snapshot provenance, and OpenLineage export. Visibility that closed platforms keep proprietary.',
     detail: 'system.lineage, system.schema_changes, system.pipeline_runs — queryable via SQL.',
   },
+  {
+    title: 'Partitioning & Clustering',
+    badge: 'Layout',
+    color: 'sky',
+    description:
+      'PARTITION BY (day, bucket, truncate, …) and CLUSTER BY land at write time with full Iceberg manifest metadata. Hidden partitioning, manifest-level min/max bounds, write_distribution_mode = hash. Same knobs the spec ships.',
+    detail: 'PARTITION BY (day(event_ts), bucket(16, user_id)) — pruned by every reader.',
+  },
+  {
+    title: 'Snapshot Resume',
+    badge: 'Exactly-once',
+    color: 'fuchsia',
+    description:
+      'Per-flush checkpoint write atomic with each Iceberg commit. The resume cursor lives in the snapshot summary itself, so a restart reads it back from the catalog and continues — no duplicates after a crash, container kill, or token expiry.',
+    detail: 'datashuttle.snapshot_position.* in every commit — survives even a wiped local checkpoint.',
+  },
 ]
 
 const colorMap: Record<string, string> = {
@@ -56,6 +72,8 @@ const colorMap: Record<string, string> = {
   emerald: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20',
   amber: 'text-amber-400 bg-amber-500/10 border-amber-500/20',
   rose: 'text-rose-400 bg-rose-500/10 border-rose-500/20',
+  sky: 'text-sky-400 bg-sky-500/10 border-sky-500/20',
+  fuchsia: 'text-fuchsia-400 bg-fuchsia-500/10 border-fuchsia-500/20',
 }
 
 const dotMap: Record<string, string> = {
@@ -65,11 +83,13 @@ const dotMap: Record<string, string> = {
   emerald: 'bg-emerald-400',
   amber: 'bg-amber-400',
   rose: 'bg-rose-400',
+  sky: 'bg-sky-400',
+  fuchsia: 'bg-fuchsia-400',
 }
 
 export default function Features() {
   return (
-    <section className="bg-slate-900/50 border-t border-slate-800/50 py-28 px-6">
+    <section id="features" className="bg-slate-900/50 border-t border-slate-800/50 py-28 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <p className="text-indigo-400 text-sm font-medium uppercase tracking-widest mb-4">Capabilities</p>

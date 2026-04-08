@@ -20,13 +20,18 @@ export default function Nav() {
 
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-8">
-          {['Features', 'How it works', 'Docs', 'Pricing'].map((item) => (
+          {[
+            { label: 'Why Iceberg', href: '#why-iceberg' },
+            { label: 'How it works', href: '#how-it-works' },
+            { label: 'Features', href: '#features' },
+            { label: 'Layout', href: '#partitioning' },
+          ].map((item) => (
             <a
-              key={item}
-              href={`#${item.toLowerCase().replace(/ /g, '-')}`}
+              key={item.href}
+              href={item.href}
               className="text-sm text-slate-400 hover:text-white transition-colors"
             >
-              {item}
+              {item.label}
             </a>
           ))}
         </div>
@@ -62,14 +67,19 @@ export default function Nav() {
       {/* Mobile menu */}
       {open && (
         <div className="md:hidden border-t border-slate-800 bg-slate-950 px-6 py-4 flex flex-col gap-4">
-          {['Features', 'How it works', 'Docs', 'Pricing'].map((item) => (
+          {[
+            { label: 'Why Iceberg', href: '#why-iceberg' },
+            { label: 'How it works', href: '#how-it-works' },
+            { label: 'Features', href: '#features' },
+            { label: 'Layout', href: '#partitioning' },
+          ].map((item) => (
             <a
-              key={item}
-              href={`#${item.toLowerCase().replace(/ /g, '-')}`}
+              key={item.href}
+              href={item.href}
               className="text-sm text-slate-400 hover:text-white transition-colors"
               onClick={() => setOpen(false)}
             >
-              {item}
+              {item.label}
             </a>
           ))}
           <a
