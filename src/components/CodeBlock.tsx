@@ -25,7 +25,7 @@ function highlight(code: string): string {
 
 export default function CodeBlock({ code, language = 'sql', filename }: CodeBlockProps) {
   return (
-    <div className="rounded-xl border border-slate-700/60 bg-slate-900/80 backdrop-blur overflow-hidden shadow-2xl shadow-black/40 text-left">
+    <div className="rounded-xl border border-slate-700/60 bg-slate-900/80 backdrop-blur overflow-hidden shadow-2xl shadow-black/40 text-left min-w-0 max-w-full">
       {/* Window chrome */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-slate-700/60 bg-slate-800/50">
         <div className="flex items-center gap-1.5">
@@ -40,7 +40,7 @@ export default function CodeBlock({ code, language = 'sql', filename }: CodeBloc
       </div>
 
       {/* Code */}
-      <div className="overflow-x-auto p-6">
+      <div className="overflow-x-auto p-4 sm:p-6">
         <style>{`
           .sql-keyword { color: #818CF8; font-weight: 600; }
           .sql-string  { color: #86EFAC; }

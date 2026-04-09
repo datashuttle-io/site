@@ -113,9 +113,9 @@ export default function Features() {
               <p className="text-slate-400 text-sm leading-relaxed mb-4">{f.description}</p>
 
               {/* Detail pill */}
-              <div className="flex items-start gap-2 px-3 py-2 rounded-lg bg-slate-800/60 text-xs text-slate-500">
+              <div className="flex items-start gap-2 px-3 py-2 rounded-lg bg-slate-800/60 text-xs text-slate-500 min-w-0">
                 <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 mt-0.5 ${dotMap[f.color]}`} />
-                <span className="font-mono">{f.detail}</span>
+                <span className="font-mono min-w-0 break-words">{f.detail}</span>
               </div>
             </div>
           ))}

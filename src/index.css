@@ -1,1 +1,27 @@
 @import "tailwindcss";
+
+/* iOS Safari hardening — see iPhone bug report */
+html,
+body {
+  /* Block any rogue absolute child (Hero blur globs, intrinsic
+     pre width inside flex columns, etc.) from making the whole
+     page horizontally scroll on a 375px viewport. */
+  overflow-x: hidden;
+  /* Stop Safari from upscaling text on landscape rotation,
+     which otherwise breaks the carefully-tuned headline sizes. */
+  -webkit-text-size-adjust: 100%;
+}
+
+#root {
+  /* Same min-width:0 dance as the in-tree flex/grid wrappers,
+     applied at the root so a single oversized child cannot
+     push the whole layout horizontally. */
+  min-width: 0;
+}
+
+/* Drop the obnoxious tap-flash on iOS without disabling click
+   handling. */
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}

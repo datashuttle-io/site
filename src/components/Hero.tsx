@@ -18,7 +18,7 @@ const HERO_SQL = `CREATE PIPELINE customer_sync
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center pt-16 overflow-hidden bg-slate-950">
+    <section className="relative min-h-[100svh] flex flex-col items-center justify-center pt-16 overflow-hidden bg-slate-950">
       {/* Background glow */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[900px] h-[600px] bg-indigo-950/40 rounded-full blur-3xl" />
@@ -34,7 +34,7 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 py-24 flex flex-col items-center text-center">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 py-24 flex flex-col items-center text-center min-w-0">
         {/* Badge */}
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-400 text-xs font-medium mb-8">
           <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
@@ -75,7 +75,7 @@ export default function Hero() {
         </div>
 
         {/* Code block */}
-        <div className="w-full max-w-2xl">
+        <div className="w-full max-w-2xl min-w-0">
           <CodeBlock code={HERO_SQL} language="sql" filename="pipeline.sql" />
         </div>
 
