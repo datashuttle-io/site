@@ -6,6 +6,7 @@
 
 import { useState } from 'react'
 import { TIERS, PAY_OPTIONS, FEATURE_MATRIX, FAQS } from '../data/pricing'
+import { SEO } from '../components/SEO'
 
 function TierCard({
   tier,
@@ -179,6 +180,12 @@ function FaqSection() {
 export default function Pricing() {
   return (
     <main className="mx-auto max-w-6xl px-6 py-16">
+      <SEO
+        title="Pricing — DataShuttle"
+        description="Community, Team, Business, Enterprise plans. 10K–unlimited DPU. Self-host free."
+        path="/pricing"
+        ogImage="og-pricing.jpg"
+      />
       {/* Header */}
       <header className="text-center">
         <h1 className="text-4xl font-bold text-white md:text-5xl">

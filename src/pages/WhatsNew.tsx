@@ -5,6 +5,7 @@
 /// when a release ships a flagship capability.
 
 import { CARDS } from '../data/whats-new'
+import { SEO } from '../components/SEO'
 
 function ShowcaseCard({
   card,
@@ -65,6 +66,12 @@ function ShowcaseCard({
 export default function WhatsNew() {
   return (
     <main className="mx-auto max-w-6xl px-6 py-16">
+      <SEO
+        title="What's new in DataShuttle"
+        description="Highlights from recent releases — Iceberg V3, lineage, resource pools."
+        path="/whats-new"
+        ogImage="og-whatsnew.jpg"
+      />
       <header className="text-center">
         <h1 className="text-4xl font-bold text-white md:text-5xl">
           What's new in DataShuttle

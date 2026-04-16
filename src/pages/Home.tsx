@@ -7,6 +7,7 @@ import Partitioning from '../components/Partitioning'
 import SqlDemo from '../components/SqlDemo'
 import Comparison from '../components/Comparison'
 import Connectors from '../components/Connectors'
+import { SEO } from '../components/SEO'
 
 // #633 — EarlyAccess component + its Node-relay container + the nginx
 // /api/early-access location are all retired; the marketing CTA now
@@ -15,6 +16,11 @@ import Connectors from '../components/Connectors'
 export default function Home() {
   return (
     <>
+      <SEO
+        title="DataShuttle — Iceberg-Native Ingestion Engine"
+        description="Move data from PostgreSQL, MySQL, MongoDB, Kafka into Iceberg tables with sub-minute latency. No Kafka cluster, no Flink, just SQL."
+        path="/"
+      />
       <Hero />
       <WhyIceberg />
       <Pain />

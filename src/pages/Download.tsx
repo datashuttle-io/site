@@ -5,6 +5,7 @@
 /// names is a bug in this page, not in the packaging pipeline.
 
 import { useEffect, useMemo, useState } from 'react'
+import { SEO } from '../components/SEO'
 
 interface InstallTab {
   key: string
@@ -135,6 +136,12 @@ export default function Download() {
 
   return (
     <main className="mx-auto max-w-4xl px-6 py-16">
+      <SEO
+        title="Install DataShuttle"
+        description="Docker, Homebrew, Helm, DEB/RPM, Cargo, source — pick your platform."
+        path="/download"
+        ogImage="og-download.jpg"
+      />
       <header className="text-center">
         <h1 className="text-4xl font-bold text-white md:text-5xl">
           Run DataShuttle on your own infrastructure

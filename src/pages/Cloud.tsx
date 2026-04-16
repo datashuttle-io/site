@@ -1,6 +1,14 @@
+import { SEO } from '../components/SEO'
+
 export default function Cloud() {
   return (
     <div className="pt-20 pb-24">
+      <SEO
+        title="DataShuttle Cloud — Public Beta"
+        description="Managed Iceberg ingestion. The same engine you'd self-host, run by us."
+        path="/cloud"
+        ogImage="og-cloud.jpg"
+      />
       {/* Hero */}
       <section className="max-w-5xl mx-auto px-6 pt-16 pb-20 text-center">
         <div className="inline-flex items-center gap-2 px-3 py-1 mb-6 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-medium">

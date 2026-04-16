@@ -11,6 +11,7 @@ import remarkGfm from 'remark-gfm'
 // inlines the markdown text. If it ever breaks after a vite upgrade,
 // fall back to `public/CHANGELOG.md` + a runtime fetch.
 import changelog from '../../../CHANGELOG.md?raw'
+import { SEO } from '../components/SEO'
 
 function slugify(heading: string): string {
   return heading
@@ -71,6 +72,11 @@ export default function Changelog() {
 
   return (
     <main className="mx-auto max-w-6xl px-6 py-16">
+      <SEO
+        title="Changelog — DataShuttle"
+        description="Full release history — every notable change to DataShuttle, in order."
+        path="/changelog"
+      />
       <header>
         <h1 className="text-4xl font-bold text-white">Changelog</h1>
         <p className="mt-2 text-slate-400">
