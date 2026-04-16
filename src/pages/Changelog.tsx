@@ -90,36 +90,74 @@ export default function Changelog() {
       </header>
 
       <div className="mt-10 grid gap-10 md:grid-cols-[1fr_220px]">
-        {/* Rendered markdown */}
+        {/* Rendered markdown — Tailwind's @tailwindcss/typography isn't
+            installed (kept the website bundle lean), so we hand-style
+            every element with per-component classes instead of
+            relying on `prose`. */}
         <div
           ref={contentRef}
-          className="prose prose-invert prose-headings:scroll-mt-24 max-w-none text-slate-300"
+          className="max-w-none text-slate-300 text-[15px] leading-relaxed"
         >
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             components={{
+              h1: ({ children }) => (
+                <h1 className="text-3xl font-bold text-white mt-10 mb-4 scroll-mt-24">{children}</h1>
+              ),
               h2: ({ children }) => {
                 const text = String(children)
                 const id = slugify(text)
                 return (
-                  <h2 id={id} className="text-white">
+                  <h2 id={id} className="text-2xl font-semibold text-white mt-12 mb-4 pb-2 border-b border-slate-800 scroll-mt-24">
                     {children}
                   </h2>
                 )
               },
               h3: ({ children }) => (
-                <h3 className="text-slate-100">{children}</h3>
+                <h3 className="text-xl font-semibold text-slate-100 mt-8 mb-3 scroll-mt-24">{children}</h3>
               ),
+              h4: ({ children }) => (
+                <h4 className="text-base font-semibold text-slate-100 mt-6 mb-2">{children}</h4>
+              ),
+              p: ({ children }) => <p className="my-4">{children}</p>,
+              ul: ({ children }) => <ul className="list-disc pl-6 my-4 space-y-2">{children}</ul>,
+              ol: ({ children }) => <ol className="list-decimal pl-6 my-4 space-y-2">{children}</ol>,
+              li: ({ children }) => <li className="leading-relaxed">{children}</li>,
               a: ({ href, children }) => (
-                <a href={href} className="text-indigo-300 hover:text-indigo-200">
+                <a href={href} className="text-indigo-300 underline decoration-indigo-300/40 hover:decoration-indigo-200 hover:text-indigo-200">
                   {children}
                 </a>
               ),
-              code: ({ children, ...rest }) => (
-                <code className="rounded bg-slate-800 px-1 py-0.5" {...rest}>
-                  {children}
-                </code>
+              code: ({ children, className, ...rest }) => {
+                const isBlock = className?.includes('language-')
+                if (isBlock) {
+                  return (
+                    <code className="block rounded-lg bg-slate-950 border border-slate-800 p-4 my-4 overflow-x-auto text-[13px] font-mono text-slate-200" {...rest}>
+                      {children}
+                    </code>
+                  )
+                }
+                return (
+                  <code className="rounded bg-slate-800 px-1.5 py-0.5 text-[13px] font-mono text-indigo-200" {...rest}>
+                    {children}
+                  </code>
+                )
+              },
+              pre: ({ children }) => <pre className="my-4 overflow-x-auto">{children}</pre>,
+              blockquote: ({ children }) => (
+                <blockquote className="border-l-4 border-indigo-500/40 pl-4 my-4 text-slate-400 italic">{children}</blockquote>
               ),
+              strong: ({ children }) => <strong className="text-white font-semibold">{children}</strong>,
+              em: ({ children }) => <em className="text-slate-200">{children}</em>,
+              hr: () => <hr className="my-8 border-slate-800" />,
+              table: ({ children }) => (
+                <div className="my-4 overflow-x-auto">
+                  <table className="w-full text-left border-collapse">{children}</table>
+                </div>
+              ),
+              thead: ({ children }) => <thead className="bg-slate-900/50">{children}</thead>,
+              th: ({ children }) => <th className="px-3 py-2 border border-slate-800 font-medium text-slate-200">{children}</th>,
+              td: ({ children }) => <td className="px-3 py-2 border border-slate-800">{children}</td>,
             }}
           >
             {changelog as string}
