@@ -54,6 +54,12 @@ export default function Nav() {
           >
             Pricing
           </Link>
+          <Link
+            to="/download"
+            className="text-sm text-slate-400 hover:text-white transition-colors"
+          >
+            Download
+          </Link>
         </div>
 
         {/* CTA */}
@@ -113,6 +119,13 @@ export default function Nav() {
             onClick={() => setOpen(false)}
           >
             Pricing
+          </Link>
+          <Link
+            to="/download"
+            className="text-sm text-slate-400 hover:text-white transition-colors"
+            onClick={() => setOpen(false)}
+          >
+            Download
           </Link>
           <a
             href="https://app.datashuttle.ai/signup"

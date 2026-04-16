@@ -3,6 +3,7 @@ import Layout from './components/Layout'
 import Home from './pages/Home'
 import Cloud from './pages/Cloud'
 import Pricing from './pages/Pricing'
+import Download from './pages/Download'
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
         <Route index element={<Home />} />
         <Route path="cloud" element={<Cloud />} />
         <Route path="pricing" element={<Pricing />} />
+        <Route path="download" element={<Download />} />
       </Route>
     </Routes>
   )
