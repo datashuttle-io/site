@@ -7,7 +7,10 @@ import Partitioning from '../components/Partitioning'
 import SqlDemo from '../components/SqlDemo'
 import Comparison from '../components/Comparison'
 import Connectors from '../components/Connectors'
-import EarlyAccess from '../components/EarlyAccess'
+
+// #633 — EarlyAccess component + its Node-relay container + the nginx
+// /api/early-access location are all retired; the marketing CTA now
+// routes straight to /cloud (public-beta signup on the React console).
 
 export default function Home() {
   return (
@@ -21,7 +24,6 @@ export default function Home() {
       <SqlDemo />
       <Comparison />
       <Connectors />
-      <EarlyAccess />
     </>
   )
 }

@@ -61,10 +61,10 @@ export default function Hero() {
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row gap-4 mb-20">
           <a
-            href="#early-access"
+            href="/cloud"
             className="px-8 py-3.5 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition-all hover:shadow-lg hover:shadow-indigo-500/25 active:scale-95"
           >
-            Get early access →
+            Start free on Cloud →
           </a>
           <a
             href="#how-it-works"
