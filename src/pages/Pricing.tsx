@@ -239,7 +239,7 @@ export default function Pricing() {
             Start free on Cloud →
           </a>
           <a
-            href="/#download"
+            href="https://hub.docker.com/r/datashuttle/datashuttle"
             className="rounded-full border border-slate-700 px-6 py-2.5 text-sm font-semibold text-slate-200 hover:border-slate-500"
           >
             Self-host with Docker
