@@ -4,7 +4,6 @@ import Home from './pages/Home'
 import Cloud from './pages/Cloud'
 import Pricing from './pages/Pricing'
 import WhatsNew from './pages/WhatsNew'
-import Changelog from './pages/Changelog'
 
 export default function App() {
   // /download page is temporarily removed — it will be rebuilt once
@@ -20,7 +19,6 @@ export default function App() {
         <Route path="cloud" element={<Cloud />} />
         <Route path="pricing" element={<Pricing />} />
         <Route path="whats-new" element={<WhatsNew />} />
-        <Route path="changelog" element={<Changelog />} />
       </Route>
     </Routes>
   )

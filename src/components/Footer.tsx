@@ -42,7 +42,6 @@ export default function Footer() {
               <p className="text-slate-300 font-medium mb-3">Resources</p>
               <ul className="space-y-2">
                 <li><a href="/whats-new" className="text-slate-500 hover:text-slate-300 transition-colors">What's new</a></li>
-                <li><a href="/changelog" className="text-slate-500 hover:text-slate-300 transition-colors">Changelog</a></li>
                 <li><a href="mailto:hello@datashuttle.ai" className="text-slate-500 hover:text-slate-300 transition-colors">Contact</a></li>
               </ul>
             </div>

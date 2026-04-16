@@ -9,55 +9,37 @@ import { SEO } from '../components/SEO'
 
 function ShowcaseCard({
   card,
-  orientation,
 }: {
   card: (typeof CARDS)[number]
-  orientation: 'left' | 'right'
 }) {
-  const textFirst = orientation === 'left'
+  // Cards without a code snippet render as a single-column text-only
+  // block — the previous placeholder ("✨" in a bordered box) read
+  // as an "empty" card to visitors. Cards with snippets keep the
+  // side-by-side grid.
+  if (!card.snippet) {
+    return (
+      <div className="max-w-3xl mx-auto text-center">
+        <span className="inline-block rounded-full border border-indigo-500/40 bg-indigo-500/10 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-indigo-300">
+          {card.badge}
+        </span>
+        <h3 className="mt-3 text-2xl font-semibold text-white">{card.title}</h3>
+        <p className="mt-3 text-slate-300 leading-relaxed">{card.description}</p>
+      </div>
+    )
+  }
   return (
-    <div
-      className={`grid gap-8 md:grid-cols-2 md:items-center ${
-        textFirst ? '' : 'md:[&>div:first-child]:order-2'
-      }`}
-    >
-      {/* Text side */}
+    <div className="grid gap-8 md:grid-cols-2 md:items-center">
       <div>
         <span className="inline-block rounded-full border border-indigo-500/40 bg-indigo-500/10 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-indigo-300">
           {card.badge}
         </span>
         <h3 className="mt-3 text-2xl font-semibold text-white">{card.title}</h3>
-        <p className="mt-3 text-slate-300 leading-relaxed">
-          {card.description}
-        </p>
-        {card.changelogAnchor && (
-          <a
-            href={`/changelog${card.changelogAnchor}`}
-            className="mt-4 inline-block text-sm text-indigo-300 hover:text-indigo-200"
-          >
-            See release notes →
-          </a>
-        )}
+        <p className="mt-3 text-slate-300 leading-relaxed">{card.description}</p>
       </div>
-
-      {/* Snippet side — rendered as a code block; when there's no
-          snippet fall back to a quiet decorative placeholder so the
-          grid keeps its rhythm. */}
       <div className="rounded-2xl border border-slate-800 bg-slate-950/60 p-5">
-        {card.snippet ? (
-          <pre className="overflow-x-auto text-xs leading-relaxed text-slate-100">
-            <code>{card.snippet}</code>
-          </pre>
-        ) : (
-          <div className="flex h-full min-h-[120px] items-center justify-center text-center">
-            <div>
-              <div className="text-4xl">✨</div>
-              <p className="mt-2 text-xs uppercase tracking-wide text-slate-500">
-                {card.badge}
-              </p>
-            </div>
-          </div>
-        )}
+        <pre className="overflow-x-auto text-xs leading-relaxed text-slate-100">
+          <code>{card.snippet}</code>
+        </pre>
       </div>
     </div>
   )
@@ -78,21 +60,12 @@ export default function WhatsNew() {
         </h1>
         <p className="mt-4 mx-auto max-w-2xl text-lg text-slate-400">
           Curated highlights of the capabilities we've shipped recently.
-          Looking for the full release log? Hit {' '}
-          <a href="/changelog" className="text-indigo-400 underline">
-            /changelog
-          </a>
-          .
         </p>
       </header>
 
       <section className="mt-16 space-y-20">
-        {CARDS.map((c, i) => (
-          <ShowcaseCard
-            key={c.title}
-            card={c}
-            orientation={i % 2 === 0 ? 'left' : 'right'}
-          />
+        {CARDS.map((c) => (
+          <ShowcaseCard key={c.title} card={c} />
         ))}
       </section>
 
@@ -106,18 +79,6 @@ export default function WhatsNew() {
             className="rounded-full bg-indigo-600 px-6 py-2.5 text-sm font-semibold text-white hover:bg-indigo-500"
           >
             Try it on Cloud →
-          </a>
-          <a
-            href="https://hub.docker.com/r/datashuttle/datashuttle"
-            className="rounded-full border border-slate-700 px-6 py-2.5 text-sm font-semibold text-slate-200 hover:border-slate-500"
-          >
-            Self-host with Docker
-          </a>
-          <a
-            href="/changelog"
-            className="text-sm text-indigo-300 hover:text-indigo-200"
-          >
-            See the full changelog →
           </a>
         </div>
       </section>
