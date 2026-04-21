@@ -17,13 +17,26 @@ interface InstallTab {
 }
 
 const TABS: InstallTab[] = [
+  // #828 — the top three tabs mirror the two-package reality shipped in
+  // #816. "Server" installs the daemon (datashuttled + all operator
+  // subcommands); "CLI" installs the thin 12 MB client for dev
+  // workstations; "Docker" is the container story for everything.
   {
-    key: 'quick',
-    label: 'Quick install',
+    key: 'server',
+    label: 'Server (daemon)',
     command:
-      'curl -fsSL https://datashuttle.ai/install.sh | bash',
+      'curl -fsSL https://datashuttle.ai/install.sh | sudo bash -s -- --systemd',
     footnote:
-      "Detects your OS + arch and fetches the right release binary. Read install.sh first if curl | bash makes you twitchy.",
+      'Installs datashuttle + datashuttled (daemon alias) + a hardened systemd unit. Full connector catalogue available via --features cdc-all from source. Run `sudo datashuttle setup --quickstart` after install.',
+    os: ['linux'],
+  },
+  {
+    key: 'client',
+    label: 'CLI (your laptop)',
+    command:
+      'curl -fsSL https://datashuttle.ai/install.sh | bash -s -- --client-only',
+    footnote:
+      'Installs only the thin ~12 MB `datashuttle-client` binary. No server, no connector drivers, no embedded UI. Point at a remote daemon with DS_SERVER env var.',
     os: ['linux', 'macos'],
   },
   {
@@ -38,7 +51,7 @@ const TABS: InstallTab[] = [
     key: 'homebrew',
     label: 'Homebrew',
     command: 'brew install datashuttle-ai/tap/datashuttle',
-    footnote: 'macOS + Linuxbrew. Tap auto-updates on each release.',
+    footnote: 'macOS + Linuxbrew. Ships the full daemon binary; `datashuttle-client` bottle is a follow-up. Tap auto-updates on each release.',
     os: ['macos'],
   },
   {
@@ -46,7 +59,7 @@ const TABS: InstallTab[] = [
     label: 'DEB (Debian/Ubuntu)',
     command: 'sudo dpkg -i datashuttle_<version>_amd64.deb',
     footnote:
-      'Download the .deb from the latest GitHub Release (link below). apt-repo landing in a follow-up.',
+      'Download the .deb from the latest GitHub Release. Ships the full daemon + `datashuttled` alias. apt-repo landing in a follow-up.',
     os: ['linux'],
   },
   {
@@ -93,14 +106,17 @@ function CopyButton({ text }: { text: string }) {
 
 export default function Download() {
   const [os, setOs] = useState<OsKind>('unknown')
-  const [active, setActive] = useState<string>('quick')
+  const [active, setActive] = useState<string>('server')
 
   useEffect(() => {
     const detected = detectOs()
     setOs(detected)
-    // Land macOS users on Homebrew, Windows visitors on Docker, Linux
-    // visitors stay on Quick install (the install.sh covers them).
-    if (detected === 'macos') setActive('homebrew')
+    // #828 — default to the "CLI on your laptop" path for macOS
+    // visitors (they almost always want the thin client to talk to a
+    // remote daemon); Windows → Docker (no native server binary on
+    // Windows); Linux sticks on Server tab as the most common dev
+    // target.
+    if (detected === 'macos') setActive('client')
     else if (detected === 'windows') setActive('docker')
   }, [])
 
@@ -122,8 +138,10 @@ export default function Download() {
           Run DataShuttle on your own infrastructure
         </h1>
         <p className="mt-4 mx-auto max-w-2xl text-lg text-slate-400">
-          Free, open core, single binary, no external dependencies.
-          Pick the channel that matches how you already install things.
+          Free, open-core, minimum moving parts: one daemon for the
+          server, an optional 12&nbsp;MB CLI for your laptop, zero
+          orchestration dependencies. Pick the channel that matches
+          how you already install things.
         </p>
         {os !== 'unknown' && (
           <p className="mt-3 text-xs uppercase tracking-wide text-indigo-300">

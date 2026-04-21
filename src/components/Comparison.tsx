@@ -9,7 +9,7 @@ interface Row {
 }
 
 const rows: Row[] = [
-  { feature: 'Iceberg native',         datashuttle: true,          debezium: false,            dlt: false,          fivetran: false },
+  { feature: 'Iceberg native',             datashuttle: true,          debezium: false,            dlt: false,          fivetran: false },
   { feature: 'Deletion vectors',           datashuttle: true,          debezium: false,            dlt: false,          fivetran: false },
   { feature: 'Continuous CDC',             datashuttle: true,          debezium: true,             dlt: '⚠️ Limited',   fivetran: true },
   { feature: 'Schema auto-evolution',      datashuttle: true,          debezium: '⚠️ Partial',     dlt: true,           fivetran: '⚠️ Limited' },
@@ -17,9 +17,15 @@ const rows: Row[] = [
   { feature: 'Arrow Flight buffer',        datashuttle: true,          debezium: false,            dlt: false,          fivetran: false },
   { feature: 'Built-in lineage',           datashuttle: true,          debezium: false,            dlt: false,          fivetran: false },
   { feature: 'Inline transforms (SQL)',    datashuttle: true,          debezium: false,            dlt: true,           fivetran: '⚠️ Limited' },
-  { feature: 'No coordinator / broker',    datashuttle: true,          debezium: false,            dlt: false,          fivetran: 'SaaS' },
-  { feature: 'Self-hosted',               datashuttle: true,          debezium: true,             dlt: true,           fivetran: false },
-  { feature: 'Single binary',             datashuttle: true,          debezium: false,            dlt: false,          fivetran: false },
+  // #828 — sharper positioning after the #816 CLI / daemon split.
+  // Competitors all bring heavy orchestration dependencies (Kafka
+  // Connect, Temporal + Postgres + worker zoo, etc.); DataShuttle's
+  // daemon is a single process with embedded gossip + Flight + Iceberg.
+  { feature: 'Zero orchestration deps',    datashuttle: true,          debezium: '⚠️ Kafka Connect', dlt: 'N/A (ad-hoc)', fivetran: 'N/A (SaaS)' },
+  { feature: 'Single daemon process',      datashuttle: true,          debezium: false,            dlt: 'N/A',          fivetran: 'SaaS' },
+  { feature: 'Thin CLI (~12 MB)',          datashuttle: true,          debezium: false,            dlt: 'Python runtime', fivetran: false },
+  { feature: 'Self-hosted',                datashuttle: true,          debezium: true,             dlt: true,           fivetran: false },
+  { feature: 'Data stays in your VPC',     datashuttle: true,          debezium: true,             dlt: true,           fivetran: false },
 ]
 
 function CellContent({ value }: { value: Cell }) {

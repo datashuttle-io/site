@@ -1,9 +1,9 @@
 const pains = [
   {
     before: '5+ moving parts',
-    after: 'One binary',
+    after: 'One daemon',
     description:
-      'Postgres → Debezium → Kafka → Kafka Connect → Flink → Iceberg Sink → Airflow → your data. DataShuttle replaces the entire chain.',
+      'Postgres → Debezium → Kafka → Kafka Connect → Flink → Iceberg Sink → Airflow → your data. DataShuttle replaces the entire chain with a single daemon — plus an optional 12 MB CLI for your laptop.',
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
