@@ -4,13 +4,34 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#020617" />
+    <meta name="theme-color" content="#FBFAF7" />
     <title>DataShuttle — Iceberg-Native Ingestion Engine</title>
     <meta name="description" content="Move data from any source into Apache Iceberg with one SQL statement. No Kafka, no Flink, no Spark. Sub-minute latency, Iceberg V3 native." />
     <meta property="og:title" content="DataShuttle — Iceberg-Native Ingestion Engine" />
     <meta property="og:description" content="One SQL statement. Any source. Apache Iceberg." />
     <meta property="og:url" content="https://datashuttle.ai" />
     <meta property="og:type" content="website" />
+    <script>
+      // Anti-FOUC: resolve theme before paint.
+      // Website follows OS preference by default; manual overrides stored
+      // under the same key the console uses.
+      (function () {
+        try {
+          var stored = localStorage.getItem("datashuttle.theme");
+          var pref = stored === "light" || stored === "dark" || stored === "system" ? stored : "system";
+          var resolved =
+            pref === "system"
+              ? (window.matchMedia &&
+                window.matchMedia("(prefers-color-scheme: dark)").matches
+                  ? "dark"
+                  : "light")
+              : pref;
+          document.documentElement.dataset.theme = resolved;
+        } catch (_) {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

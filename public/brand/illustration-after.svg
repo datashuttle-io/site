@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" fill="#FBFAF7"></rect>
+  <g font-family="&#39;JetBrains Mono&#39;, monospace" font-size="11">
+    
+    <rect x="20" y="60" width="100" height="36" rx="2" fill="#FFFFFF" stroke="#D9D3C2"></rect>
+    <text x="70" y="83" text-anchor="middle" fill="#0F0F10">POSTGRES</text>
+    <rect x="20" y="110" width="100" height="36" rx="2" fill="#FFFFFF" stroke="#D9D3C2"></rect>
+    <text x="70" y="133" text-anchor="middle" fill="#0F0F10">MONGODB</text>
+    <rect x="20" y="160" width="100" height="36" rx="2" fill="#FFFFFF" stroke="#D9D3C2"></rect>
+    <text x="70" y="183" text-anchor="middle" fill="#0F0F10">KAFKA</text>
+
+    <path d="M120 78 L180 128" stroke="#F47617" stroke-width="1.5"></path>
+    <path d="M120 128 L180 128" stroke="#F47617" stroke-width="1.5"></path>
+    <path d="M120 178 L180 128" stroke="#F47617" stroke-width="1.5"></path>
+
+    
+    <rect x="180" y="90" width="100" height="76" rx="2" fill="#0F0F10"></rect>
+    <path d="M180 90 h20 l8 6 h-20 z" fill="#F47617" opacity="0.0"></path>
+    <text x="230" y="120" text-anchor="middle" fill="#FBFAF7" font-weight="600" letter-spacing="0.16em" font-size="12">DATASHUTTLE</text>
+    <text x="230" y="138" text-anchor="middle" fill="#FF9A4A" font-size="9">one binary</text>
+    <text x="230" y="152" text-anchor="middle" fill="#8E8E97" font-size="9">one SQL statement</text>
+
+    <path d="M280 128 L340 128" stroke="#0F0F10" stroke-width="1.5" marker-end="url(#a2)"></path>
+
+    <rect x="340" y="110" width="50" height="36" rx="2" fill="#FBFAF7" stroke="#0F0F10" stroke-width="1.5"></rect>
+    <text x="365" y="133" text-anchor="middle" fill="#0F0F10" font-weight="600">🧊</text>
+
+    <text x="200" y="240" text-anchor="middle" fill="#6B6B73" letter-spacing="0.12em">// 1 TOOL, SAME DESTINATION</text>
+  </g>
+  <defs>
+    <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0F0F10"></path>
+    </marker>
+  </defs>
+</svg>

@@ -1,0 +1,338 @@
+/* =========================================================================
+   DataShuttle — Foundations
+   Colors + Type. Import this file first; everything else depends on it.
+   ========================================================================= */
+
+/* Fonts are loaded via the entry stylesheet; see index.css. */
+
+/* -------------------------------------------------------------------------
+   COLOR TOKENS
+   DataShuttle's palette is a working-dockyard palette: paper, ink, rust,
+   signal-orange (warning tape), and a single cool accent (cargo blue).
+   Semantic tokens map to these raw values. Always use semantic tokens in
+   UI; reach for raw palette only for illustrations/marketing.
+   ------------------------------------------------------------------------- */
+:root {
+  /* Raw palette ---------------------------------------------------------- */
+  /* Paper — warm off-whites, slightly creamy to feel like shipping labels */
+  --paper-50:  #FBFAF7;
+  --paper-100: #F5F3ED;
+  --paper-200: #EBE7DB;
+  --paper-300: #D9D3C2;
+  --paper-400: #B8B09C;
+
+  /* Ink — neutral charcoals, cool at the top, warm at the bottom */
+  --ink-900: #0F0F10;   /* deepest — body text on paper */
+  --ink-800: #1C1C1E;
+  --ink-700: #2A2A2D;
+  --ink-600: #44444A;
+  --ink-500: #6B6B73;
+  --ink-400: #8E8E97;
+  --ink-300: #B5B5BC;
+  --ink-200: #D4D4D8;
+  --ink-100: #E8E8EA;
+
+  /* Signal — the warning-tape orange. The brand color. Use sparingly. */
+  --signal-50:  #FFF4EC;
+  --signal-100: #FFE3CC;
+  --signal-200: #FFC28C;
+  --signal-300: #FF9A4A;
+  --signal-400: #F47617;   /* PRIMARY — the "DataShuttle orange" */
+  --signal-500: #D85E08;
+  --signal-600: #A8470A;
+  --signal-700: #6E2F0B;
+
+  /* Cargo — deep teal/blue, the only cool accent. For links, info, data viz. */
+  --cargo-50:  #EBF2F3;
+  --cargo-100: #CDDCDE;
+  --cargo-200: #8FB0B4;
+  --cargo-300: #4E7F85;
+  --cargo-400: #1F5B62;   /* PRIMARY cargo */
+  --cargo-500: #124147;
+  --cargo-600: #0C2E32;
+
+  /* Rust — deep oxidized red. Errors + destructive only. */
+  --rust-400: #B3412A;
+  --rust-500: #8A2F1E;
+
+  /* Moss — muted olive-green. Success states. Not pure green. */
+  --moss-300: #8CA069;
+  --moss-400: #5E7344;
+  --moss-500: #3F5030;
+
+  /* Amber — gold/mustard. Warnings (lighter than signal). */
+  --amber-300: #E0B64A;
+  --amber-400: #B8902F;
+
+  /* -------------------------------------------------------------------
+     SEMANTIC TOKENS — use these in UI, not raw palette
+     ------------------------------------------------------------------- */
+
+  /* Backgrounds */
+  --bg:              var(--paper-50);   /* app background */
+  --bg-raised:       #FFFFFF;           /* cards, panels */
+  --bg-sunken:       var(--paper-100);  /* input fields, code blocks */
+  --bg-muted:        var(--paper-200);  /* hover states on raised */
+  --bg-inverse:      var(--ink-900);
+
+  /* Foregrounds */
+  --fg:              var(--ink-900);    /* primary text */
+  --fg-2:            var(--ink-700);    /* body secondary */
+  --fg-3:            var(--ink-500);    /* supporting, labels */
+  --fg-4:            var(--ink-400);    /* disabled, hint */
+  --fg-inverse:      var(--paper-50);
+  --fg-on-signal:    var(--ink-900);    /* text on orange */
+  --fg-on-cargo:     var(--paper-50);
+
+  /* Borders — hairline, subtle, data-table vibe */
+  --border:          var(--paper-300);
+  --border-strong:   var(--ink-300);
+  --border-muted:    var(--paper-200);
+  --border-focus:    var(--signal-400);
+
+  /* Brand */
+  --brand:           var(--signal-400);
+  --brand-hover:     var(--signal-500);
+  --brand-tint:      var(--signal-50);
+  --accent:          var(--cargo-400);
+  --accent-hover:    var(--cargo-500);
+
+  /* Status */
+  --status-success:  var(--moss-400);
+  --status-warning:  var(--amber-400);
+  --status-danger:   var(--rust-400);
+  --status-info:     var(--cargo-400);
+  --status-neutral:  var(--ink-500);
+
+  /* Syntax (code blocks) — muted, engineered, not rainbow */
+  --syn-keyword:     var(--signal-500);
+  --syn-string:      var(--moss-400);
+  --syn-number:      var(--cargo-400);
+  --syn-comment:     var(--ink-400);
+  --syn-fn:          var(--ink-900);
+  --syn-punc:        var(--ink-500);
+
+  /* ---------------------------------------------------------------------
+     TYPOGRAPHY TOKENS
+     Three families:
+       --font-sans  — IBM Plex Sans. UI, body copy. Engineered-neutral.
+       --font-serif — Instrument Serif. Editorial headlines, quotes.
+       --font-mono  — JetBrains Mono. Code, SQL, numeric data, labels.
+     --------------------------------------------------------------------- */
+  --font-sans:  'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-serif: 'Instrument Serif', ui-serif, Georgia, 'Times New Roman', serif;
+  --font-mono:  'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Display scale — used for marketing H1/H2.  Uses Instrument Serif. */
+  --text-d1: clamp(56px, 8vw, 112px);
+  --text-d2: clamp(44px, 6vw, 80px);
+  --text-d3: clamp(36px, 4.5vw, 60px);
+
+  /* UI/heading scale — Plex Sans */
+  --text-h1: 40px;
+  --text-h2: 30px;
+  --text-h3: 22px;
+  --text-h4: 18px;
+  --text-h5: 15px;
+
+  /* Body */
+  --text-lg: 18px;
+  --text-md: 15px;
+  --text-sm: 13px;
+  --text-xs: 11px;
+
+  /* Tracking — Plex at small sizes wants a touch of positive tracking;
+     mono labels get wide tracking for engineering-label feel. */
+  --track-tight:   -0.02em;
+  --track-normal:   0em;
+  --track-wide:     0.04em;
+  --track-label:    0.12em; /* for ALL-CAPS mono labels */
+
+  /* Line heights */
+  --lh-tight: 1.05;
+  --lh-snug:  1.2;
+  --lh-body:  1.55;
+  --lh-loose: 1.7;
+
+  /* ---------------------------------------------------------------------
+     SPACING + RADIUS + ELEVATION
+     4px base unit. Radii are SMALL — DataShuttle is engineered, not soft.
+     --------------------------------------------------------------------- */
+  --s-0: 0;
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+  --s-20: 80px;
+  --s-24: 96px;
+  --s-32: 128px;
+
+  --radius-xs: 2px;    /* buttons, inputs, chips */
+  --radius-sm: 4px;    /* cards, panels */
+  --radius-md: 6px;    /* large panels */
+  --radius-lg: 10px;   /* hero cards */
+  --radius-pill: 999px;
+
+  /* Shadows — hairline + low-elevation only. No dramatic drop shadows. */
+  --shadow-hairline: 0 0 0 1px var(--border);
+  --shadow-1: 0 1px 2px rgba(15,15,16,0.04), 0 0 0 1px var(--border);
+  --shadow-2: 0 2px 6px rgba(15,15,16,0.06), 0 0 0 1px var(--border);
+  --shadow-3: 0 8px 24px rgba(15,15,16,0.08), 0 0 0 1px var(--border);
+  --shadow-inset: inset 0 0 0 1px var(--border);
+
+  /* Focus ring */
+  --ring: 0 0 0 3px rgba(244,118,23,0.30);
+
+  /* Motion — restrained, mechanical easing */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in:  cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-snap: cubic-bezier(0.2, 0.9, 0.2, 1);
+  --dur-fast: 120ms;
+  --dur-med:  200ms;
+  --dur-slow: 380ms;
+}
+
+/* =========================================================================
+   DARK MODE — inverts paper/ink, keeps signal & cargo saturation
+   Apply with <html data-theme="dark">.
+   ========================================================================= */
+[data-theme="dark"] {
+  --bg:              #0B0B0C;
+  --bg-raised:       #131315;
+  --bg-sunken:       #17171A;
+  --bg-muted:        #1E1E21;
+
+  --fg:              #EDECE7;
+  --fg-2:            #C8C7C1;
+  --fg-3:            #8E8D87;
+  --fg-4:            #5A5954;
+
+  --border:          #26262A;
+  --border-strong:   #3A3A3F;
+  --border-muted:    #1E1E21;
+
+  --brand:           var(--signal-300);
+  --brand-hover:     var(--signal-200);
+  --brand-tint:      rgba(244,118,23,0.10);
+  --accent:          #5AA4AE;
+
+  --shadow-1: 0 1px 2px rgba(0,0,0,0.4), 0 0 0 1px var(--border);
+  --shadow-2: 0 2px 6px rgba(0,0,0,0.5), 0 0 0 1px var(--border);
+  --shadow-3: 0 12px 32px rgba(0,0,0,0.6), 0 0 0 1px var(--border);
+}
+
+/* =========================================================================
+   SEMANTIC TYPE ROLES — apply these as classes OR element selectors.
+   Marketing pages should use .display-*.  App UI should use .h* and .body-*.
+   ========================================================================= */
+
+/* Marketing display — Instrument Serif, mixed italic allowed */
+.display-1 {
+  font-family: var(--font-serif);
+  font-size: var(--text-d1);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--track-tight);
+  font-weight: 400;
+  color: var(--fg);
+}
+.display-2 {
+  font-family: var(--font-serif);
+  font-size: var(--text-d2);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--track-tight);
+  font-weight: 400;
+  color: var(--fg);
+}
+.display-3 {
+  font-family: var(--font-serif);
+  font-size: var(--text-d3);
+  line-height: 1.08;
+  letter-spacing: var(--track-tight);
+  font-weight: 400;
+  color: var(--fg);
+}
+
+/* UI headings — Plex Sans, tight */
+.h1 { font: 600 var(--text-h1)/var(--lh-snug) var(--font-sans); letter-spacing: var(--track-tight); color: var(--fg); }
+.h2 { font: 600 var(--text-h2)/var(--lh-snug) var(--font-sans); letter-spacing: var(--track-tight); color: var(--fg); }
+.h3 { font: 600 var(--text-h3)/1.3 var(--font-sans); letter-spacing: -0.01em; color: var(--fg); }
+.h4 { font: 600 var(--text-h4)/1.3 var(--font-sans); color: var(--fg); }
+.h5 { font: 600 var(--text-h5)/1.35 var(--font-sans); color: var(--fg); }
+
+/* Body */
+.body-lg { font: 400 var(--text-lg)/var(--lh-body) var(--font-sans); color: var(--fg-2); }
+.body    { font: 400 var(--text-md)/var(--lh-body) var(--font-sans); color: var(--fg-2); }
+.body-sm { font: 400 var(--text-sm)/1.5 var(--font-sans); color: var(--fg-2); }
+
+/* Mono code */
+.code    { font: 500 var(--text-sm)/1.55 var(--font-mono); color: var(--fg); }
+.code-lg { font: 500 15px/1.6 var(--font-mono); color: var(--fg); }
+
+/* Engineering labels — ALL CAPS mono, wide tracked. Brand signature. */
+.label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--fg-3);
+}
+
+/* Eyebrow — serif italic phrase above display headings */
+.eyebrow {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 20px;
+  color: var(--signal-500);
+  letter-spacing: 0;
+}
+
+/* Numeric — for data tables, stats */
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* =========================================================================
+   BASE ELEMENT DEFAULTS — opt in by importing this file on a page.
+   ========================================================================= */
+
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: var(--text-md);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1 { font: 600 var(--text-h1)/var(--lh-snug) var(--font-sans); letter-spacing: var(--track-tight); margin: 0; }
+h2 { font: 600 var(--text-h2)/var(--lh-snug) var(--font-sans); letter-spacing: var(--track-tight); margin: 0; }
+h3 { font: 600 var(--text-h3)/1.3 var(--font-sans); margin: 0; }
+h4 { font: 600 var(--text-h4)/1.3 var(--font-sans); margin: 0; }
+h5 { font: 600 var(--text-h5)/1.35 var(--font-sans); margin: 0; }
+p  { margin: 0; }
+
+code, pre, kbd {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+a:hover { color: var(--accent-hover); }
+
+::selection { background: var(--signal-200); color: var(--ink-900); }
