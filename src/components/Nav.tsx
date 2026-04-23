@@ -8,8 +8,8 @@ export default function Nav() {
     <>
       <header className="ds-topbar">
         <div className="left">
-          <Link to="/#cargo">Product</Link>
-          <Link to="/#rates">Sources</Link>
+          <Link to="/#capabilities">Product</Link>
+          <Link to="/#sources">Sources</Link>
           <Link to="/pricing">Pricing</Link>
           <a href="https://docs.datashuttle.ai">Docs</a>
         </div>
@@ -21,7 +21,7 @@ export default function Nav() {
           <Link to="/whats-new">Changelog</Link>
           <a href="https://app.datashuttle.ai">Sign in</a>
           <Link to="/cloud" className="cta">
-            Start a pipeline →
+            Start free →
           </Link>
           <button
             className="hamburger"
