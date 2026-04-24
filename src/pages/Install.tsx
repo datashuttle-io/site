@@ -1,10 +1,10 @@
-/// /download — install-channel grid + OS detection (#628).
+/// /install — install-channel grid + OS detection.
 ///
-/// Commands source from repo README.md at commit-pin-time; anything here
-/// that doesn't match install.sh / the Helm chart / the release-asset
-/// names is a bug in this page, not in the packaging pipeline.
+/// Commands are pinned to install.sh + the Helm chart + the release-asset
+/// names. Anything here that doesn't match those is a bug in this page,
+/// not in the packaging pipeline.
 
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { SEO } from '../components/SEO'
 
 interface InstallTab {
@@ -22,7 +22,7 @@ const TABS: InstallTab[] = [
     command:
       'curl -fsSL https://datashuttle.ai/install.sh | sudo bash -s -- --systemd',
     footnote:
-      'Installs datashuttle + datashuttled (daemon alias) + a hardened systemd unit. Full connector catalogue available via --features cdc-all from source. Run `sudo datashuttle setup --quickstart` after install.',
+      'Installs `datashuttle` + `datashuttled` (daemon alias) and drops a hardened systemd unit. Default build ships core connectors (postgres, mysql, mongodb, kafka, file, rest-api); the full catalogue is available via `cargo build --release --features cdc-all` from source. Run `sudo datashuttle setup --quickstart` after install.',
     os: ['linux'],
   },
   {
@@ -31,7 +31,7 @@ const TABS: InstallTab[] = [
     command:
       'curl -fsSL https://datashuttle.ai/install.sh | bash -s -- --client-only',
     footnote:
-      'Installs only the thin ~12 MB `datashuttle-client` binary. No server, no connector drivers, no embedded UI. Point at a remote daemon with DS_SERVER env var.',
+      'Installs the thin `datashuttle-client` binary (~15–25 MB stripped). No server, no connector drivers, no embedded UI. Point at a remote daemon with the `DS_SERVER` env var or the `--server` flag.',
     os: ['linux', 'macos'],
   },
   {
@@ -39,7 +39,7 @@ const TABS: InstallTab[] = [
     label: 'Docker',
     command: 'docker pull ghcr.io/datashuttle-ai/datashuttle:latest',
     footnote:
-      'Multi-arch image (linux/amd64 + linux/arm64). The compose bundle at deploy/jarvis-cloud/ is a working reference stack.',
+      'Multi-arch image (linux/amd64 + linux/arm64). A working compose bundle lives under `deploy/` in the repo — use it as a reference stack, not a production template.',
     os: ['linux', 'macos', 'windows'],
   },
   {
@@ -47,7 +47,7 @@ const TABS: InstallTab[] = [
     label: 'Homebrew',
     command: 'brew install datashuttle-ai/tap/datashuttle',
     footnote:
-      'macOS + Linuxbrew. Ships the full daemon binary; `datashuttle-client` bottle is a follow-up. Tap auto-updates on each release.',
+      'macOS + Linuxbrew. Ships the full daemon binary; the `datashuttle-client` bottle is a follow-up. Tap auto-updates on each release.',
     os: ['macos'],
   },
   {
@@ -55,7 +55,7 @@ const TABS: InstallTab[] = [
     label: 'DEB (Debian/Ubuntu)',
     command: 'sudo dpkg -i datashuttle_<version>_amd64.deb',
     footnote:
-      'Download the .deb from the latest GitHub Release. Ships the full daemon + `datashuttled` alias. apt-repo landing in a follow-up.',
+      'Download the `.deb` from the latest GitHub Release. Ships the full daemon + `datashuttled` alias. apt-repo landing in a follow-up release.',
     os: ['linux'],
   },
   {
@@ -63,7 +63,7 @@ const TABS: InstallTab[] = [
     label: 'RPM (RHEL/Fedora)',
     command: 'sudo rpm -i datashuttle-<version>.x86_64.rpm',
     footnote:
-      'Same pattern as the .deb — grab the .rpm from GitHub Releases. dnf-repo is on the roadmap.',
+      'Same pattern as the `.deb` — grab the `.rpm` from GitHub Releases. A dnf-repo is on the roadmap.',
     os: ['linux'],
   },
 ]
@@ -100,16 +100,19 @@ function CopyButton({ text }: { text: string }) {
   )
 }
 
-export default function Download() {
-  const [os, setOs] = useState<OsKind>('unknown')
-  const [active, setActive] = useState<string>('server')
+// Initial tab for a given OS — picked once at mount.
+function defaultTabForOs(os: OsKind): string {
+  if (os === 'macos') return 'client'
+  if (os === 'windows') return 'docker'
+  return 'server'
+}
 
-  useEffect(() => {
-    const detected = detectOs()
-    setOs(detected)
-    if (detected === 'macos') setActive('client')
-    else if (detected === 'windows') setActive('docker')
-  }, [])
+export default function Install() {
+  // `navigator` exists on first render in the SPA, but guard for SSR/tests
+  // via detectOs()'s own `typeof navigator` check. Lazy initializers keep
+  // state in sync with the detected OS without a setState-in-effect round-trip.
+  const [os] = useState<OsKind>(() => detectOs())
+  const [active, setActive] = useState<string>(() => defaultTabForOs(detectOs()))
 
   const activeTab = useMemo(
     () => TABS.find((t) => t.key === active) ?? TABS[0],
@@ -117,8 +120,8 @@ export default function Download() {
   )
 
   const renderFootnote = (text: string) => {
-    // Render single-backtick `code` spans inline so footnotes retain
-    // their monospaced identifiers without bringing in a markdown dep.
+    // Render single-backtick `code` spans inline so footnotes retain their
+    // monospaced identifiers without bringing in a markdown dep.
     const parts = text.split(/(`[^`]+`)/g)
     return parts.map((p, i) =>
       p.startsWith('`') && p.endsWith('`') ? (
@@ -133,15 +136,15 @@ export default function Download() {
     <>
       <SEO
         title="Install DataShuttle"
-        description="Docker, Homebrew, Helm, DEB/RPM, Cargo, source — pick your platform."
-        path="/download"
+        description="systemd, Docker, Homebrew, DEB, RPM — pick your platform. DataShuttle is proprietary software; Community tier is free to evaluate."
+        path="/install"
         ogImage="og-download.jpg"
       />
       <div className="ds-wrap">
         <section className="ds-hero" style={{ gridTemplateColumns: '1fr' }}>
           <div>
             <div className="eyebrow">
-              <span className="pill">Self-host · free forever</span>
+              <span className="pill">Self-hosted · early access</span>
               {os !== 'unknown' && (
                 <span
                   style={{
@@ -157,10 +160,10 @@ export default function Download() {
             </div>
             <h1>Run DataShuttle on your own infrastructure.</h1>
             <p className="lede">
-              Open-core, minimum moving parts: one daemon for the server,
-              an optional ~12&nbsp;MB CLI for your laptop, zero orchestration
-              dependencies. Pick the channel that matches how you already
-              install things.
+              One Rust daemon, an optional ~15–25&nbsp;MB CLI, zero orchestration
+              dependencies. DataShuttle is distributed under a proprietary
+              license; the Community tier is free to evaluate, Team and above
+              require a license file.
             </p>
           </div>
         </section>
@@ -224,8 +227,8 @@ export default function Download() {
             <div className="eyebrow">02 · verify</div>
             <h2>Verify your download.</h2>
             <p>
-              Every GitHub Release ships a SHA-256 checksum file alongside
-              each binary. Verify before running on production.
+              Every GitHub Release ships a SHA-256 checksum file alongside each
+              binary. Verify before running on production.
             </p>
           </div>
           <div className="ds-verify">
@@ -253,8 +256,8 @@ sha256sum -c datashuttle-<platform>.tar.gz.sha256`}
             >
               <h4>Read the quickstart →</h4>
               <p>
-                5 minutes to first Iceberg commit. Covers a Postgres source
-                and a local MinIO warehouse.
+                End-to-end tutorial: a Postgres source, a local MinIO warehouse,
+                and the first Iceberg commit.
               </p>
             </a>
             <a
@@ -264,8 +267,8 @@ sha256sum -c datashuttle-<platform>.tar.gz.sha256`}
             >
               <h4>Connect your first source →</h4>
               <p>
-                CDC-capable sources: Postgres, MySQL, MongoDB, Kafka. REST
-                and file-based connectors are a one-liner away.
+                Postgres, MySQL, MongoDB, Kafka are on every build. REST and
+                file-based sources are one <code>CREATE CONNECTION</code> away.
               </p>
             </a>
           </div>

@@ -135,10 +135,37 @@ body { font-family: 'Inter Tight', ui-sans-serif, system-ui, sans-serif; }
 .ds-shot .code pre { margin: 0; font: 500 12.5px/1.65 var(--font-mono); color: var(--fg); }
 @media (max-width: 860px) { .ds-shot { grid-template-columns: 1fr; gap: 20px; } }
 
-.ds-footer { padding: 40px 0 60px; border-top: 1px solid var(--border); margin-top: 40px; }
-.ds-footer .row { display: flex; justify-content: space-between; align-items: center; font: 400 12px var(--font-sans); color: var(--fg-3); flex-wrap: wrap; gap: 14px; }
-.ds-footer .brand { display: flex; align-items: center; gap: 10px; }
-.ds-footer .brand img { height: 20px; }
-.ds-footer .links { display: flex; gap: 20px; flex-wrap: wrap; }
-.ds-footer .links a { color: var(--fg-3); text-decoration: none; }
-.ds-footer .links a:hover { color: var(--fg); }
+.ds-footer { padding: 56px 0 40px; border-top: 1px solid var(--border); margin-top: 40px; }
+.ds-footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+.ds-footer-grid .col { display: grid; gap: 10px; align-content: start; }
+.ds-footer-grid .col h4 { font: 600 12px var(--font-sans); letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-3); margin-bottom: 4px; }
+.ds-footer-grid .col a { font: 400 13px var(--font-sans); color: var(--fg-2); text-decoration: none; }
+.ds-footer-grid .col a:hover { color: var(--fg); }
+.ds-footer-grid .col .brand img { height: 22px; }
+.ds-footer-grid .col .tag { font: 400 12px/1.55 var(--font-sans); color: var(--fg-3); max-width: 34ch; }
+.ds-footer-base { padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; font: 400 12px var(--font-sans); color: var(--fg-3); }
+.ds-footer-base .license-note { font: 500 11px var(--font-mono); letter-spacing: 0.02em; }
+@media (max-width: 860px) { .ds-footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; } }
+@media (max-width: 500px) { .ds-footer-grid { grid-template-columns: 1fr; } }
+
+/* Maturity badges used on /product and /status. */
+.ds-maturity { font: 500 10px var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 7px; border-radius: var(--radius-pill); border: 1px solid transparent; display: inline-block; vertical-align: middle; }
+.ds-maturity.ga      { background: var(--accent-50); color: var(--accent-500); border-color: var(--accent-100); }
+.ds-maturity.beta    { background: var(--bg-sunken); color: var(--fg-2); border-color: var(--border); }
+.ds-maturity.alpha   { background: var(--bg-raised); color: var(--fg-3); border-color: var(--border); }
+.ds-maturity.planned { background: transparent; color: var(--fg-3); border-color: var(--border); }
+
+/* Status / deployment matrix tables. */
+.ds-matrix { width: 100%; border-collapse: collapse; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; background: var(--bg-raised); }
+.ds-matrix th, .ds-matrix td { padding: 12px 14px; text-align: left; font: 400 13px/1.5 var(--font-sans); color: var(--fg-2); border-bottom: 1px solid var(--border); vertical-align: top; }
+.ds-matrix thead th { font: 600 12px var(--font-sans); letter-spacing: 0.02em; color: var(--fg); background: var(--bg-sunken); }
+.ds-matrix tr:last-child th, .ds-matrix tr:last-child td { border-bottom: none; }
+.ds-matrix th:first-child { font-weight: 500; color: var(--fg); }
+@media (max-width: 720px) { .ds-matrix { display: block; overflow-x: auto; } }
+
+/* Two-column list for /status deployment + attestations. */
+.ds-status-list { display: grid; gap: 14px; }
+.ds-status-row { display: grid; grid-template-columns: 180px 1fr; gap: 20px; padding: 14px 16px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg-raised); }
+.ds-status-row .label { font: 500 13px var(--font-sans); color: var(--fg); }
+.ds-status-row .value { font: 400 13px/1.55 var(--font-sans); color: var(--fg-2); }
+@media (max-width: 600px) { .ds-status-row { grid-template-columns: 1fr; gap: 4px; } }
