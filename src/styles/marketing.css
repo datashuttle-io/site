@@ -90,6 +90,42 @@ body { font-family: 'Inter Tight', ui-sans-serif, system-ui, sans-serif; }
 .ds-plan ul li svg { width: 14px; height: 14px; color: var(--accent-400); stroke-width: 1.8; margin-top: 1px; }
 @media (max-width: 860px) { .ds-pricing { grid-template-columns: 1fr; } }
 
+/* /download — install-channel tabs + command box. */
+.ds-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+.ds-tab { font: 500 12px var(--font-mono); letter-spacing: 0.02em; padding: 7px 12px; border-radius: var(--radius-pill); border: 1px solid var(--border); background: var(--bg-raised); color: var(--fg-2); cursor: pointer; transition: all 120ms var(--ease-out); }
+.ds-tab:hover { border-color: var(--border-strong); color: var(--fg); }
+.ds-tab[aria-selected="true"] { background: var(--ink-900); color: var(--paper-50); border-color: var(--ink-900); }
+.ds-tab .osmark { font: 500 10px var(--font-mono); color: var(--accent-400); margin-left: 6px; letter-spacing: 0.04em; }
+.ds-tab[aria-selected="true"] .osmark { color: var(--paper-200); }
+.ds-cmd { background: var(--bg-raised); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px 18px; }
+.ds-cmd .top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.ds-cmd pre { margin: 0; flex: 1; overflow-x: auto; font: 500 13px/1.55 var(--font-mono); color: var(--fg); }
+.ds-cmd .footnote { margin-top: 14px; font: 400 13px/1.5 var(--font-sans); color: var(--fg-3); }
+.ds-cmd .footnote code { font: 500 12px var(--font-mono); color: var(--fg-2); background: var(--bg-sunken); padding: 1px 5px; border-radius: 3px; }
+.ds-cmd .footnote a { color: var(--accent-400); text-decoration: none; }
+.ds-cmd .footnote a:hover { color: var(--accent-500); }
+.ds-copy { font: 500 11px var(--font-mono); letter-spacing: 0.04em; padding: 5px 10px; border-radius: var(--radius-xs); border: 1px solid var(--border); background: var(--bg); color: var(--fg-2); cursor: pointer; white-space: nowrap; }
+.ds-copy:hover { border-color: var(--border-strong); color: var(--fg); }
+
+/* /download — verify-download block (dark code well). */
+.ds-verify { background: var(--bg-raised); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 24px; }
+.ds-verify h3 { font: 600 16px var(--font-sans); letter-spacing: -0.01em; color: var(--fg); margin-bottom: 10px; }
+.ds-verify p { font: 400 14px/1.55 var(--font-sans); color: var(--fg-2); margin-bottom: 14px; }
+.ds-verify pre { margin: 0; padding: 14px 16px; background: var(--bg-inverse); color: var(--paper-100); font: 500 12px/1.6 var(--font-mono); border-radius: var(--radius-xs); overflow-x: auto; }
+
+/* /whats-new — showcase card (description + optional snippet). */
+.ds-showcase { display: grid; gap: 48px; }
+.ds-shot { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.ds-shot.solo { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+.ds-shot .badge { font: 500 11px var(--font-mono); letter-spacing: 0.06em; color: var(--accent-500); background: var(--accent-50); border: 1px solid var(--accent-100); padding: 3px 9px; border-radius: var(--radius-pill); display: inline-block; }
+.ds-shot h3 { font: 600 22px var(--font-sans); letter-spacing: -0.02em; color: var(--fg); margin: 12px 0 10px; }
+.ds-shot.solo h3 { font-size: 26px; }
+.ds-shot p { font: 400 15px/1.6 var(--font-sans); color: var(--fg-2); max-width: 52ch; }
+.ds-shot.solo p { margin: 0 auto; }
+.ds-shot .code { background: var(--bg-raised); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 18px 20px; overflow-x: auto; }
+.ds-shot .code pre { margin: 0; font: 500 12.5px/1.65 var(--font-mono); color: var(--fg); }
+@media (max-width: 860px) { .ds-shot { grid-template-columns: 1fr; gap: 20px; } }
+
 .ds-footer { padding: 40px 0 60px; border-top: 1px solid var(--border); margin-top: 40px; }
 .ds-footer .row { display: flex; justify-content: space-between; align-items: center; font: 400 12px var(--font-sans); color: var(--fg-3); flex-wrap: wrap; gap: 14px; }
 .ds-footer .brand { display: flex; align-items: center; gap: 10px; }

@@ -1,69 +1,52 @@
-/// /pricing — usage-based per-DPU rate, no tier breakdown.
-
+import { Link } from 'react-router-dom'
 import { SEO } from '../components/SEO'
 
+function Icon({ n }: { n: string }) {
+  return <img src={`/icons/${n}.svg`} alt="" style={{ width: 14, height: 14 }} />
+}
+
 const RATES = [
-  { mode: 'Cloud (managed)', rate: '50¢', per: 'per DPU' },
-  { mode: 'Self-hosted', rate: '20¢', per: 'per DPU, customer infrastructure' },
-  { mode: 'Airgapped', rate: '30¢', per: 'per DPU, compliance-grade support' },
+  { name: 'Self-hosted', price: '$0', unit: '/ forever', desc: 'Run the binary on your own infrastructure. Community support via GitHub.', bullets: ['All 21 GA connectors', 'Iceberg V3 + deletion vectors', 'Sub-minute CDC', 'No seat minimums'], cta: 'Download', href: '/download', variant: 'secondary' as const },
+  { name: 'Cloud (managed)', price: '50¢', unit: '/ DPU', desc: 'Managed control plane. 10,000 DPU free every month.', bullets: ['Managed control plane', 'SOC 2 · HIPAA-ready', 'SSO · audit log', '99.95% SLA'], cta: 'Start free', href: '/cloud', variant: 'primary' as const, featured: true },
+  { name: 'Airgapped', price: '30¢', unit: '/ DPU', desc: 'Signed tarball behind your firewall. FedRAMP / IL-5 assistance.', bullets: ['Offline runtime', 'FedRAMP assist', 'Dedicated SE', 'BYO catalog'], cta: 'Contact sales', href: 'mailto:sales@datashuttle.ai', variant: 'secondary' as const },
 ]
 
 export default function Pricing() {
   return (
     <>
-      <SEO
-        title="Pricing — DataShuttle"
-        description="Usage-based pricing. Pay per DPU (DataShuttle Processing Unit). 10,000 DPU free every month on cloud."
-        path="/pricing"
-      />
-      <section className="bg-slate-950 py-24 px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-indigo-400 text-sm font-medium uppercase tracking-widest mb-4">
-              Pricing
-            </p>
-            <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-4">
-              Pay per DPU.
-            </h1>
-            <p className="text-slate-400 max-w-xl mx-auto">
-              One metric, one rate. A DPU (DataShuttle Processing Unit) covers
-              any of: 1&nbsp;GB ingested, 100k CDC events, 1 connector-hour, or
-              1 vCPU-hour.
+      <SEO title="Pricing — DataShuttle" description="Pay per DPU. 10,000 DPU free monthly on Cloud. Three deployment modes." path="/pricing" />
+      <div className="ds-wrap">
+        <section className="ds-hero" style={{ gridTemplateColumns: '1fr' }}>
+          <div>
+            <div className="eyebrow"><span className="pill">Pricing</span></div>
+            <h1>Pay per DPU. One metric, three modes.</h1>
+            <p className="lede">
+              A DPU (DataShuttle Processing Unit) covers any of: 1&nbsp;GB ingested,
+              100k CDC events, 1 connector-hour, or 1 vCPU-hour. No seat counts, no
+              pipeline limits, no per-connector tax.
             </p>
           </div>
+        </section>
 
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/40 overflow-hidden">
-            <table className="w-full text-left">
-              <thead className="bg-slate-900/70 text-slate-300 text-sm">
-                <tr>
-                  <th className="py-4 pl-6 pr-3 font-medium">Deployment</th>
-                  <th className="py-4 px-3 font-medium">Rate</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-800">
-                {RATES.map((r) => (
-                  <tr key={r.mode}>
-                    <td className="py-4 pl-6 pr-3 text-slate-100">{r.mode}</td>
-                    <td className="py-4 px-3">
-                      <span className="font-mono text-2xl text-indigo-300">
-                        {r.rate}
-                      </span>
-                      <span className="ml-2 text-sm text-slate-400">
-                        {r.per}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        <section className="ds-sec">
+          <div className="ds-pricing">
+            {RATES.map((r) => (
+              <div className={`ds-plan${r.featured ? ' featured' : ''}`} key={r.name}>
+                <h3>{r.name}</h3>
+                <div className="price"><span className="n">{r.price}</span><span className="u">{r.unit}</span></div>
+                <p className="desc">{r.desc}</p>
+                <ul>{r.bullets.map((b) => <li key={b}><Icon n="check" /><span>{b}</span></li>)}</ul>
+                {r.href.startsWith('mailto:') || r.href.startsWith('http')
+                  ? <a className={`ds-btn ds-btn-${r.variant}`} href={r.href}>{r.cta}</a>
+                  : <Link className={`ds-btn ds-btn-${r.variant}`} to={r.href}>{r.cta}</Link>}
+              </div>
+            ))}
           </div>
-
-          <p className="mt-8 text-center text-sm text-slate-400">
-            10,000 DPU free every month on cloud. Committed-use discounts
-            available on request — <a href="mailto:hello@datashuttle.ai" className="text-indigo-400 hover:text-indigo-300">hello@datashuttle.ai</a>.
+          <p style={{ marginTop: 32, textAlign: 'center', font: '400 13px var(--font-sans)', color: 'var(--fg-3)' }}>
+            Committed-use discounts available on request — <a href="mailto:hello@datashuttle.ai" style={{ color: 'var(--accent-400)' }}>hello@datashuttle.ai</a>.
           </p>
-        </div>
-      </section>
+        </section>
+      </div>
     </>
   )
 }
