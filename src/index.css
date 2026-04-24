@@ -1,4 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
+@import "./styles/datashuttle.css";
+
+/* DataShuttle quiet-technical palette overlaid onto Tailwind's default
+ * color families so existing `bg-slate-*`, `text-indigo-*`, `bg-blue-*`
+ * etc. retint automatically without a class sweep.
+ *   slate / zinc / neutral / gray / stone → paper + ink
+ *   blue / sky / cyan / indigo / violet / purple / fuchsia → slate-teal
+ *   orange → slate-teal (muted accent replaces signal)
+ *   red / pink / rose → brick danger
+ *   yellow / amber → muted gold
+ *   green / emerald / teal / lime → muted olive
+ */
+@theme {
+  --font-sans: "Inter Tight", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+
+  --color-slate-50: #FAFAFB;  --color-slate-100: #F4F4F5; --color-slate-200: #EAEAEC;
+  --color-slate-300: #DDDDE0; --color-slate-400: #BCBCC0; --color-slate-500: #8D8D95;
+  --color-slate-600: #6B6B73; --color-slate-700: #484851; --color-slate-800: #2C2C30;
+  --color-slate-900: #1E1E21; --color-slate-950: #141416;
+  --color-zinc-50: #FAFAFB;   --color-zinc-100: #F4F4F5;  --color-zinc-200: #EAEAEC;
+  --color-zinc-300: #DDDDE0;  --color-zinc-400: #BCBCC0;  --color-zinc-500: #8D8D95;
+  --color-zinc-600: #6B6B73;  --color-zinc-700: #484851;  --color-zinc-800: #2C2C30;
+  --color-zinc-900: #1E1E21;  --color-zinc-950: #141416;
+  --color-gray-50: #FAFAFB;   --color-gray-100: #F4F4F5;  --color-gray-200: #EAEAEC;
+  --color-gray-300: #DDDDE0;  --color-gray-400: #BCBCC0;  --color-gray-500: #8D8D95;
+  --color-gray-600: #6B6B73;  --color-gray-700: #484851;  --color-gray-800: #2C2C30;
+  --color-gray-900: #1E1E21;  --color-gray-950: #141416;
+  --color-neutral-50: #FAFAFB;  --color-neutral-100: #F4F4F5; --color-neutral-200: #EAEAEC;
+  --color-neutral-300: #DDDDE0; --color-neutral-400: #BCBCC0; --color-neutral-500: #8D8D95;
+  --color-neutral-600: #6B6B73; --color-neutral-700: #484851; --color-neutral-800: #2C2C30;
+  --color-neutral-900: #1E1E21; --color-neutral-950: #141416;
+  --color-stone-50: #FAFAFB;    --color-stone-100: #F4F4F5;  --color-stone-200: #EAEAEC;
+  --color-stone-300: #DDDDE0;   --color-stone-400: #BCBCC0;  --color-stone-500: #8D8D95;
+  --color-stone-600: #6B6B73;   --color-stone-700: #484851;  --color-stone-800: #2C2C30;
+  --color-stone-900: #1E1E21;   --color-stone-950: #141416;
+
+  --color-blue-50: #EEF2F2;    --color-blue-100: #D9E2E2;  --color-blue-200: #B4C4C4;
+  --color-blue-300: #7F9797;   --color-blue-400: #527273;  --color-blue-500: #3D5A5B;
+  --color-blue-600: #2B4142;   --color-blue-700: #1E2E2F;  --color-blue-800: #132021;
+  --color-blue-900: #0A1415;   --color-blue-950: #050A0B;
+  --color-sky-300: #7F9797;   --color-sky-400: #527273;   --color-sky-500: #3D5A5B;
+  --color-sky-600: #2B4142;
+  --color-cyan-300: #7F9797;  --color-cyan-400: #527273;  --color-cyan-500: #3D5A5B;
+  --color-cyan-600: #2B4142;
+
+  --color-indigo-50: #EEF2F2;  --color-indigo-100: #D9E2E2; --color-indigo-200: #B4C4C4;
+  --color-indigo-300: #7F9797; --color-indigo-400: #527273; --color-indigo-500: #527273;
+  --color-indigo-600: #3D5A5B; --color-indigo-700: #2B4142; --color-indigo-800: #1E2E2F;
+  --color-indigo-900: #132021; --color-indigo-950: #0A1415;
+  --color-violet-300: #7F9797; --color-violet-400: #527273; --color-violet-500: #527273;
+  --color-violet-600: #3D5A5B; --color-violet-700: #2B4142;
+  --color-purple-300: #7F9797; --color-purple-400: #527273; --color-purple-500: #527273;
+  --color-purple-600: #3D5A5B; --color-purple-700: #2B4142;
+  --color-fuchsia-300: #7F9797; --color-fuchsia-400: #527273; --color-fuchsia-500: #527273;
+
+  --color-orange-300: #7F9797; --color-orange-400: #527273; --color-orange-500: #3D5A5B;
+
+  --color-red-300: #B06C62;   --color-red-400: #9C4A3D;   --color-red-500: #713528;
+  --color-red-600: #4D231A;
+  --color-pink-400: #9C4A3D;   --color-pink-500: #713528;
+  --color-rose-400: #9C4A3D;   --color-rose-500: #713528;
+
+  --color-yellow-300: #C2A65E; --color-yellow-400: #A88A3E; --color-yellow-500: #7A6229;
+  --color-amber-300: #C2A65E; --color-amber-400: #A88A3E; --color-amber-500: #7A6229;
+
+  --color-emerald-300: #8B9B82; --color-emerald-400: #5E7357; --color-emerald-500: #445240;
+  --color-green-400: #5E7357;   --color-green-500: #445240;
+  --color-teal-400: #527273;    --color-teal-500: #3D5A5B;
+  --color-lime-400: #5E7357;    --color-lime-500: #445240;
+}
 
 /* iOS Safari hardening — see iPhone bug report */
 html,

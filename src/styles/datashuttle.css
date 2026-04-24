@@ -1,152 +1,165 @@
 /* =========================================================================
    DataShuttle — Foundations
-   Colors + Type. Import this file first; everything else depends on it.
+   Quiet technical. Cool neutrals + one muted accent. Sans + mono.
+   A quiet serif is available for long-form reading only.
    ========================================================================= */
 
-/* Fonts are loaded via the entry stylesheet; see index.css. */
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&display=swap');
 
 /* -------------------------------------------------------------------------
    COLOR TOKENS
-   DataShuttle's palette is a working-dockyard palette: paper, ink, rust,
-   signal-orange (warning tape), and a single cool accent (cargo blue).
+   A flat, cool neutral palette. Graphite ink on a faintly-cool off-white.
+   One muted accent — "slate-teal" (dusty, desaturated, not a highlighter).
    Semantic tokens map to these raw values. Always use semantic tokens in
-   UI; reach for raw palette only for illustrations/marketing.
+   UI; reach for the raw palette only for illustrations.
    ------------------------------------------------------------------------- */
 :root {
   /* Raw palette ---------------------------------------------------------- */
-  /* Paper — warm off-whites, slightly creamy to feel like shipping labels */
-  --paper-50:  #FBFAF7;
-  --paper-100: #F5F3ED;
-  --paper-200: #EBE7DB;
-  --paper-300: #D9D3C2;
-  --paper-400: #B8B09C;
 
-  /* Ink — neutral charcoals, cool at the top, warm at the bottom */
-  --ink-900: #0F0F10;   /* deepest — body text on paper */
-  --ink-800: #1C1C1E;
-  --ink-700: #2A2A2D;
-  --ink-600: #44444A;
+  /* Paper — cool, almost-neutral off-whites. No warmth. */
+  --paper-50:  #FAFAFB;   /* default page bg */
+  --paper-100: #F4F4F5;   /* sunken (inputs, code) */
+  --paper-200: #EAEAEC;   /* hover fills */
+  --paper-300: #DDDDE0;   /* strong borders */
+  --paper-400: #BCBCC0;
+
+  /* Ink — neutral graphite. Cool, flat, no blue tint. */
+  --ink-900: #141416;
+  --ink-800: #1E1E21;
+  --ink-700: #2C2C30;
+  --ink-600: #484851;
   --ink-500: #6B6B73;
-  --ink-400: #8E8E97;
-  --ink-300: #B5B5BC;
-  --ink-200: #D4D4D8;
-  --ink-100: #E8E8EA;
+  --ink-400: #8D8D95;
+  --ink-300: #B3B3B9;
+  --ink-200: #D2D2D6;
+  --ink-100: #E6E6E9;
 
-  /* Signal — the warning-tape orange. The brand color. Use sparingly. */
-  --signal-50:  #FFF4EC;
-  --signal-100: #FFE3CC;
-  --signal-200: #FFC28C;
-  --signal-300: #FF9A4A;
-  --signal-400: #F47617;   /* PRIMARY — the "DataShuttle orange" */
-  --signal-500: #D85E08;
-  --signal-600: #A8470A;
-  --signal-700: #6E2F0B;
+  /* Accent — dusty slate-teal. The single muted accent. Not a highlighter. */
+  --accent-50:  #EEF2F2;
+  --accent-100: #D9E2E2;
+  --accent-200: #B4C4C4;
+  --accent-300: #7F9797;
+  --accent-400: #527273;   /* PRIMARY accent */
+  --accent-500: #3D5A5B;
+  --accent-600: #2B4142;
 
-  /* Cargo — deep teal/blue, the only cool accent. For links, info, data viz. */
-  --cargo-50:  #EBF2F3;
-  --cargo-100: #CDDCDE;
-  --cargo-200: #8FB0B4;
-  --cargo-300: #4E7F85;
-  --cargo-400: #1F5B62;   /* PRIMARY cargo */
-  --cargo-500: #124147;
-  --cargo-600: #0C2E32;
+  /* Status — all muted, same family as the accent. */
+  --success-400: #5E7357;   /* muted olive */
+  --success-500: #445240;
+  --warning-400: #A88A3E;   /* muted gold */
+  --warning-500: #7A6229;
+  --danger-400:  #9C4A3D;   /* muted brick */
+  --danger-500:  #713528;
 
-  /* Rust — deep oxidized red. Errors + destructive only. */
-  --rust-400: #B3412A;
-  --rust-500: #8A2F1E;
-
-  /* Moss — muted olive-green. Success states. Not pure green. */
-  --moss-300: #8CA069;
-  --moss-400: #5E7344;
-  --moss-500: #3F5030;
-
-  /* Amber — gold/mustard. Warnings (lighter than signal). */
-  --amber-300: #E0B64A;
-  --amber-400: #B8902F;
+  /* Legacy aliases — kept so existing UI kits keep rendering.
+     (These used to be "signal" + "cargo"; they now both point to the
+      single muted accent. Prefer --accent-* in new work.) */
+  --signal-50:  var(--accent-50);
+  --signal-100: var(--accent-100);
+  --signal-200: var(--accent-200);
+  --signal-300: var(--accent-300);
+  --signal-400: var(--accent-400);
+  --signal-500: var(--accent-500);
+  --signal-600: var(--accent-600);
+  --signal-700: var(--accent-600);
+  --cargo-50:   var(--accent-50);
+  --cargo-100:  var(--accent-100);
+  --cargo-200:  var(--accent-200);
+  --cargo-300:  var(--accent-300);
+  --cargo-400:  var(--accent-400);
+  --cargo-500:  var(--accent-500);
+  --cargo-600:  var(--accent-600);
+  --rust-400:   var(--danger-400);
+  --rust-500:   var(--danger-500);
+  --moss-300:   var(--success-400);
+  --moss-400:   var(--success-400);
+  --moss-500:   var(--success-500);
+  --amber-300:  var(--warning-400);
+  --amber-400:  var(--warning-400);
 
   /* -------------------------------------------------------------------
-     SEMANTIC TOKENS — use these in UI, not raw palette
+     SEMANTIC TOKENS — use these in UI.
      ------------------------------------------------------------------- */
 
   /* Backgrounds */
-  --bg:              var(--paper-50);   /* app background */
-  --bg-raised:       #FFFFFF;           /* cards, panels */
-  --bg-sunken:       var(--paper-100);  /* input fields, code blocks */
-  --bg-muted:        var(--paper-200);  /* hover states on raised */
+  --bg:              var(--paper-50);
+  --bg-raised:       #FFFFFF;
+  --bg-sunken:       var(--paper-100);
+  --bg-muted:        var(--paper-200);
   --bg-inverse:      var(--ink-900);
 
   /* Foregrounds */
-  --fg:              var(--ink-900);    /* primary text */
-  --fg-2:            var(--ink-700);    /* body secondary */
-  --fg-3:            var(--ink-500);    /* supporting, labels */
-  --fg-4:            var(--ink-400);    /* disabled, hint */
+  --fg:              var(--ink-900);
+  --fg-2:            var(--ink-700);
+  --fg-3:            var(--ink-500);
+  --fg-4:            var(--ink-400);
   --fg-inverse:      var(--paper-50);
-  --fg-on-signal:    var(--ink-900);    /* text on orange */
-  --fg-on-cargo:     var(--paper-50);
+  --fg-on-accent:    #FFFFFF;
+  --fg-on-signal:    #FFFFFF;   /* legacy alias */
+  --fg-on-cargo:     #FFFFFF;   /* legacy alias */
 
-  /* Borders — hairline, subtle, data-table vibe */
-  --border:          var(--paper-300);
-  --border-strong:   var(--ink-300);
-  --border-muted:    var(--paper-200);
-  --border-focus:    var(--signal-400);
+  /* Borders */
+  --border:          var(--ink-100);
+  --border-strong:   var(--ink-200);
+  --border-muted:    var(--paper-100);
+  --border-focus:    var(--accent-400);
 
   /* Brand */
-  --brand:           var(--signal-400);
-  --brand-hover:     var(--signal-500);
-  --brand-tint:      var(--signal-50);
-  --accent:          var(--cargo-400);
-  --accent-hover:    var(--cargo-500);
+  --brand:           var(--accent-400);
+  --brand-hover:     var(--accent-500);
+  --brand-tint:      var(--accent-50);
+  --accent:          var(--accent-400);
+  --accent-hover:    var(--accent-500);
 
   /* Status */
-  --status-success:  var(--moss-400);
-  --status-warning:  var(--amber-400);
-  --status-danger:   var(--rust-400);
-  --status-info:     var(--cargo-400);
+  --status-success:  var(--success-400);
+  --status-warning:  var(--warning-400);
+  --status-danger:   var(--danger-400);
+  --status-info:     var(--accent-400);
   --status-neutral:  var(--ink-500);
 
-  /* Syntax (code blocks) — muted, engineered, not rainbow */
-  --syn-keyword:     var(--signal-500);
-  --syn-string:      var(--moss-400);
-  --syn-number:      var(--cargo-400);
+  /* Syntax — restrained. Accent + muted tones only. */
+  --syn-keyword:     var(--accent-500);
+  --syn-string:      var(--success-400);
+  --syn-number:      var(--ink-700);
   --syn-comment:     var(--ink-400);
   --syn-fn:          var(--ink-900);
   --syn-punc:        var(--ink-500);
 
   /* ---------------------------------------------------------------------
      TYPOGRAPHY TOKENS
-     Three families:
-       --font-sans  — IBM Plex Sans. UI, body copy. Engineered-neutral.
-       --font-serif — Instrument Serif. Editorial headlines, quotes.
-       --font-mono  — JetBrains Mono. Code, SQL, numeric data, labels.
+       --font-sans  — Inter Tight. UI, body, headings.
+       --font-mono  — JetBrains Mono. Code, numeric data, rare labels.
+       --font-serif — Source Serif 4. Long-form reading only (docs prose).
+                      Never used for display headlines.
      --------------------------------------------------------------------- */
-  --font-sans:  'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-serif: 'Instrument Serif', ui-serif, Georgia, 'Times New Roman', serif;
+  --font-sans:  'Inter Tight', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono:  'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --font-serif: 'Source Serif 4', ui-serif, Georgia, 'Times New Roman', serif;
 
-  /* Display scale — used for marketing H1/H2.  Uses Instrument Serif. */
-  --text-d1: clamp(56px, 8vw, 112px);
-  --text-d2: clamp(44px, 6vw, 80px);
-  --text-d3: clamp(36px, 4.5vw, 60px);
+  /* Display scale — Inter Tight, tight tracking. No serif display. */
+  --text-d1: clamp(48px, 6.5vw, 88px);
+  --text-d2: clamp(36px, 5vw, 64px);
+  --text-d3: clamp(28px, 3.8vw, 48px);
 
-  /* UI/heading scale — Plex Sans */
-  --text-h1: 40px;
-  --text-h2: 30px;
-  --text-h3: 22px;
-  --text-h4: 18px;
-  --text-h5: 15px;
+  /* UI/heading scale */
+  --text-h1: 36px;
+  --text-h2: 26px;
+  --text-h3: 20px;
+  --text-h4: 16px;
+  --text-h5: 14px;
 
   /* Body */
-  --text-lg: 18px;
-  --text-md: 15px;
+  --text-lg: 17px;
+  --text-md: 14px;
   --text-sm: 13px;
   --text-xs: 11px;
 
-  /* Tracking — Plex at small sizes wants a touch of positive tracking;
-     mono labels get wide tracking for engineering-label feel. */
+  /* Tracking */
   --track-tight:   -0.02em;
   --track-normal:   0em;
-  --track-wide:     0.04em;
-  --track-label:    0.12em; /* for ALL-CAPS mono labels */
+  --track-wide:     0.02em;
+  --track-label:    0.08em; /* softer than before — was 0.12em */
 
   /* Line heights */
   --lh-tight: 1.05;
@@ -156,7 +169,7 @@
 
   /* ---------------------------------------------------------------------
      SPACING + RADIUS + ELEVATION
-     4px base unit. Radii are SMALL — DataShuttle is engineered, not soft.
+     4px base unit. Radii small, consistent.
      --------------------------------------------------------------------- */
   --s-0: 0;
   --s-1: 4px;
@@ -173,23 +186,23 @@
   --s-24: 96px;
   --s-32: 128px;
 
-  --radius-xs: 2px;    /* buttons, inputs, chips */
-  --radius-sm: 4px;    /* cards, panels */
-  --radius-md: 6px;    /* large panels */
-  --radius-lg: 10px;   /* hero cards */
+  --radius-xs: 3px;
+  --radius-sm: 5px;
+  --radius-md: 7px;
+  --radius-lg: 10px;
   --radius-pill: 999px;
 
-  /* Shadows — hairline + low-elevation only. No dramatic drop shadows. */
+  /* Shadows — hairline + low. Cool-tinted, not black. */
   --shadow-hairline: 0 0 0 1px var(--border);
-  --shadow-1: 0 1px 2px rgba(15,15,16,0.04), 0 0 0 1px var(--border);
-  --shadow-2: 0 2px 6px rgba(15,15,16,0.06), 0 0 0 1px var(--border);
-  --shadow-3: 0 8px 24px rgba(15,15,16,0.08), 0 0 0 1px var(--border);
+  --shadow-1: 0 1px 2px rgba(20,20,22,0.04), 0 0 0 1px var(--border);
+  --shadow-2: 0 2px 8px rgba(20,20,22,0.05), 0 0 0 1px var(--border);
+  --shadow-3: 0 10px 28px rgba(20,20,22,0.08), 0 0 0 1px var(--border);
   --shadow-inset: inset 0 0 0 1px var(--border);
 
-  /* Focus ring */
-  --ring: 0 0 0 3px rgba(244,118,23,0.30);
+  /* Focus ring — muted accent, not orange */
+  --ring: 0 0 0 3px rgba(82, 114, 115, 0.30);
 
-  /* Motion — restrained, mechanical easing */
+  /* Motion */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in:  cubic-bezier(0.7, 0, 0.84, 0);
   --ease-snap: cubic-bezier(0.2, 0.9, 0.2, 1);
@@ -199,101 +212,113 @@
 }
 
 /* =========================================================================
-   DARK MODE — inverts paper/ink, keeps signal & cargo saturation
-   Apply with <html data-theme="dark">.
+   DARK MODE — cool graphite, same muted accent.
    ========================================================================= */
 [data-theme="dark"] {
-  --bg:              #0B0B0C;
-  --bg-raised:       #131315;
-  --bg-sunken:       #17171A;
-  --bg-muted:        #1E1E21;
+  --bg:              #0C0D0E;
+  --bg-raised:       #141517;
+  --bg-sunken:       #18191B;
+  --bg-muted:        #1E1F22;
 
-  --fg:              #EDECE7;
-  --fg-2:            #C8C7C1;
-  --fg-3:            #8E8D87;
-  --fg-4:            #5A5954;
+  --fg:              #E8E8EA;
+  --fg-2:            #C2C2C6;
+  --fg-3:            #8B8B90;
+  --fg-4:            #5C5C61;
 
-  --border:          #26262A;
-  --border-strong:   #3A3A3F;
-  --border-muted:    #1E1E21;
+  --border:          #26272A;
+  --border-strong:   #3A3B3F;
+  --border-muted:    #1E1F22;
 
-  --brand:           var(--signal-300);
-  --brand-hover:     var(--signal-200);
-  --brand-tint:      rgba(244,118,23,0.10);
-  --accent:          #5AA4AE;
+  --brand:           var(--accent-300);
+  --brand-hover:     var(--accent-200);
+  --brand-tint:      rgba(82, 114, 115, 0.14);
+  --accent:          var(--accent-300);
 
   --shadow-1: 0 1px 2px rgba(0,0,0,0.4), 0 0 0 1px var(--border);
-  --shadow-2: 0 2px 6px rgba(0,0,0,0.5), 0 0 0 1px var(--border);
+  --shadow-2: 0 2px 8px rgba(0,0,0,0.5), 0 0 0 1px var(--border);
   --shadow-3: 0 12px 32px rgba(0,0,0,0.6), 0 0 0 1px var(--border);
 }
 
 /* =========================================================================
-   SEMANTIC TYPE ROLES — apply these as classes OR element selectors.
-   Marketing pages should use .display-*.  App UI should use .h* and .body-*.
+   SEMANTIC TYPE ROLES
+   Use .h*/.body-*/.code in UI. .display-* for marketing hero type.
+   .prose wraps long-form serif reading blocks (docs body only).
    ========================================================================= */
 
-/* Marketing display — Instrument Serif, mixed italic allowed */
+/* Display — Inter Tight, tight tracking, not serif. */
 .display-1 {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: var(--text-d1);
   line-height: var(--lh-tight);
-  letter-spacing: var(--track-tight);
-  font-weight: 400;
+  letter-spacing: -0.035em;
+  font-weight: 500;
   color: var(--fg);
 }
 .display-2 {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: var(--text-d2);
   line-height: var(--lh-tight);
-  letter-spacing: var(--track-tight);
-  font-weight: 400;
+  letter-spacing: -0.03em;
+  font-weight: 500;
   color: var(--fg);
 }
 .display-3 {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: var(--text-d3);
-  line-height: 1.08;
-  letter-spacing: var(--track-tight);
-  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  font-weight: 500;
   color: var(--fg);
 }
 
-/* UI headings — Plex Sans, tight */
+/* UI headings */
 .h1 { font: 600 var(--text-h1)/var(--lh-snug) var(--font-sans); letter-spacing: var(--track-tight); color: var(--fg); }
 .h2 { font: 600 var(--text-h2)/var(--lh-snug) var(--font-sans); letter-spacing: var(--track-tight); color: var(--fg); }
 .h3 { font: 600 var(--text-h3)/1.3 var(--font-sans); letter-spacing: -0.01em; color: var(--fg); }
-.h4 { font: 600 var(--text-h4)/1.3 var(--font-sans); color: var(--fg); }
-.h5 { font: 600 var(--text-h5)/1.35 var(--font-sans); color: var(--fg); }
+.h4 { font: 600 var(--text-h4)/1.35 var(--font-sans); color: var(--fg); }
+.h5 { font: 600 var(--text-h5)/1.4 var(--font-sans); color: var(--fg); }
 
 /* Body */
 .body-lg { font: 400 var(--text-lg)/var(--lh-body) var(--font-sans); color: var(--fg-2); }
 .body    { font: 400 var(--text-md)/var(--lh-body) var(--font-sans); color: var(--fg-2); }
 .body-sm { font: 400 var(--text-sm)/1.5 var(--font-sans); color: var(--fg-2); }
 
+/* Long-form reading — the only place serif appears. */
+.prose {
+  font: 400 17px/1.65 var(--font-serif);
+  color: var(--fg);
+  max-width: 68ch;
+}
+.prose p { margin: 0 0 1em; }
+
 /* Mono code */
 .code    { font: 500 var(--text-sm)/1.55 var(--font-mono); color: var(--fg); }
-.code-lg { font: 500 15px/1.6 var(--font-mono); color: var(--fg); }
+.code-lg { font: 500 14px/1.6 var(--font-mono); color: var(--fg); }
 
-/* Engineering labels — ALL CAPS mono, wide tracked. Brand signature. */
+/* Label — mono, lowercase by default, softer tracking.
+   If you need ALL CAPS, add .label--caps. Use sparingly. */
 .label {
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: var(--track-label);
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   color: var(--fg-3);
 }
+.label--caps {
+  text-transform: uppercase;
+  letter-spacing: var(--track-label);
+}
 
-/* Eyebrow — serif italic phrase above display headings */
+/* Eyebrow — small sans tag above a heading. No serif italic. */
 .eyebrow {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 20px;
-  color: var(--signal-500);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fg-3);
   letter-spacing: 0;
 }
 
-/* Numeric — for data tables, stats */
+/* Numeric */
 .num {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
@@ -301,7 +326,7 @@
 }
 
 /* =========================================================================
-   BASE ELEMENT DEFAULTS — opt in by importing this file on a page.
+   BASE ELEMENT DEFAULTS
    ========================================================================= */
 
 html, body {
@@ -317,8 +342,8 @@ html, body {
 h1 { font: 600 var(--text-h1)/var(--lh-snug) var(--font-sans); letter-spacing: var(--track-tight); margin: 0; }
 h2 { font: 600 var(--text-h2)/var(--lh-snug) var(--font-sans); letter-spacing: var(--track-tight); margin: 0; }
 h3 { font: 600 var(--text-h3)/1.3 var(--font-sans); margin: 0; }
-h4 { font: 600 var(--text-h4)/1.3 var(--font-sans); margin: 0; }
-h5 { font: 600 var(--text-h5)/1.35 var(--font-sans); margin: 0; }
+h4 { font: 600 var(--text-h4)/1.35 var(--font-sans); margin: 0; }
+h5 { font: 600 var(--text-h5)/1.4 var(--font-sans); margin: 0; }
 p  { margin: 0; }
 
 code, pre, kbd {
@@ -335,4 +360,4 @@ a {
 }
 a:hover { color: var(--accent-hover); }
 
-::selection { background: var(--signal-200); color: var(--ink-900); }
+::selection { background: var(--accent-100); color: var(--ink-900); }
