@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="200" height="40" viewBox="0 0 200 40">
-  <defs>
-    <pattern id="tape" x="0" y="0" width="16" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(-20)">
-      <rect width="8" height="40" fill="#F47617"></rect>
-      <rect x="8" width="8" height="40" fill="#0F0F10"></rect>
-    </pattern>
-  </defs>
-  <rect width="200" height="40" fill="url(#tape)"></rect>
-</svg>

@@ -1,8 +1,11 @@
-/// /download — install channels in the manifest style.
+/// /download — 8-channel install grid + OS detection (#628).
+///
+/// Commands source from repo README.md at commit-pin-time; anything here
+/// that doesn't match install.sh / the Helm chart / the release-asset
+/// names is a bug in this page, not in the packaging pipeline.
 
 import { useEffect, useMemo, useState } from 'react'
 import { SEO } from '../components/SEO'
-import LogoMark from '../components/LogoMark'
 
 interface InstallTab {
   key: string
@@ -14,6 +17,10 @@ interface InstallTab {
 }
 
 const TABS: InstallTab[] = [
+  // #828 — the top three tabs mirror the two-package reality shipped in
+  // #816. "Server" installs the daemon (datashuttled + all operator
+  // subcommands); "CLI" installs the thin 12 MB client for dev
+  // workstations; "Docker" is the container story for everything.
   {
     key: 'server',
     label: 'Server (daemon)',
@@ -44,8 +51,7 @@ const TABS: InstallTab[] = [
     key: 'homebrew',
     label: 'Homebrew',
     command: 'brew install datashuttle-ai/tap/datashuttle',
-    footnote:
-      'macOS + Linuxbrew. Ships the full daemon binary; `datashuttle-client` bottle is a follow-up. Tap auto-updates on each release.',
+    footnote: 'macOS + Linuxbrew. Ships the full daemon binary; `datashuttle-client` bottle is a follow-up. Tap auto-updates on each release.',
     os: ['macos'],
   },
   {
@@ -90,10 +96,10 @@ function CopyButton({ text }: { text: string }) {
           // clipboard API blocked — ignore
         }
       }}
-      className="ds-copy-btn"
+      className="rounded border border-slate-700 bg-slate-900/60 px-2.5 py-1 text-xs font-medium text-slate-300 hover:border-slate-500"
       aria-label="Copy command"
     >
-      {copied ? 'COPIED ✓' : 'COPY'}
+      {copied ? 'Copied ✓' : 'Copy'}
     </button>
   )
 }
@@ -105,6 +111,11 @@ export default function Download() {
   useEffect(() => {
     const detected = detectOs()
     setOs(detected)
+    // #828 — default to the "CLI on your laptop" path for macOS
+    // visitors (they almost always want the thin client to talk to a
+    // remote daemon); Windows → Docker (no native server binary on
+    // Windows); Linux sticks on Server tab as the most common dev
+    // target.
     if (detected === 'macos') setActive('client')
     else if (detected === 'windows') setActive('docker')
   }, [])
@@ -115,176 +126,149 @@ export default function Download() {
   )
 
   return (
-    <>
+    <main className="mx-auto max-w-4xl px-6 py-16">
       <SEO
         title="Install DataShuttle"
         description="Docker, Homebrew, Helm, DEB/RPM, Cargo, source — pick your platform."
         path="/download"
         ogImage="og-download.jpg"
       />
+      <header className="text-center">
+        <h1 className="text-4xl font-bold text-white md:text-5xl">
+          Run DataShuttle on your own infrastructure
+        </h1>
+        <p className="mt-4 mx-auto max-w-2xl text-lg text-slate-400">
+          Free, open-core, minimum moving parts: one daemon for the
+          server, an optional 12&nbsp;MB CLI for your laptop, zero
+          orchestration dependencies. Pick the channel that matches
+          how you already install things.
+        </p>
+        {os !== 'unknown' && (
+          <p className="mt-3 text-xs uppercase tracking-wide text-indigo-300">
+            Detected {os === 'macos' ? 'macOS' : os}
+          </p>
+        )}
+      </header>
 
-      <div className="ds-doc">
-        <aside className="ds-spine">
-          <div className="top-mark">MANIFEST · DOWNLOAD</div>
-          <div className="mark-box"><LogoMark height={28} alt="" /></div>
-          <div className="foot-mark">NO. 004</div>
-        </aside>
-
-        <div className="ds-main">
-          <section className="ds-hero" id="download-hero">
-            <div className="ds-hero-grid">
-              <div className="ds-hero-meta">
-                <span className="line">§ 01</span>
-                <span className="line">DOWNLOAD</span>
-                <span className="line">SELF-HOST</span>
-              </div>
-              <div>
-                <h1 className="ds-headline">
-                  Run DataShuttle
-                  <br />
-                  <em>on your own</em> infrastructure.
-                </h1>
-              </div>
-            </div>
-            <div className="ds-hero-below">
-              <div>
-                <p className="lede">
-                  Free, open-core, minimum moving parts: <strong>one daemon</strong>{' '}
-                  for the server, an optional <strong>~12&nbsp;MB CLI</strong> for your
-                  laptop, zero orchestration dependencies. Pick the channel that
-                  matches how you already install things.
-                </p>
-                {os !== 'unknown' && (
-                  <p style={{ marginTop: 12, font: '500 10px var(--font-mono)', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--signal-500)' }}>
-                    Detected · {os === 'macos' ? 'macOS' : os}
-                  </p>
+      {/* Tabs */}
+      <div className="mt-10">
+        <div
+          role="tablist"
+          aria-label="Install channels"
+          className="flex flex-wrap gap-2"
+        >
+          {TABS.map((t) => {
+            const recommended = t.os?.includes(os as any)
+            return (
+              <button
+                key={t.key}
+                role="tab"
+                aria-selected={active === t.key}
+                onClick={() => setActive(t.key)}
+                className={`rounded-full px-4 py-1.5 text-sm transition ${
+                  active === t.key
+                    ? 'bg-indigo-600 text-white'
+                    : 'border border-slate-700 text-slate-300 hover:border-slate-500'
+                }`}
+              >
+                {t.label}
+                {recommended && active !== t.key && (
+                  <span className="ml-2 text-[10px] text-emerald-300">
+                    ✓ your OS
+                  </span>
                 )}
-              </div>
-              <div className="side">
-                <div className="row"><span>License</span><strong>Apache-2.0</strong></div>
-                <div className="row"><span>Server</span><strong>~60 MB release binary</strong></div>
-                <div className="row"><span>CLI</span><strong>~12 MB binary</strong></div>
-                <div className="row"><span>Platforms</span><strong>linux · macos · docker</strong></div>
-              </div>
-            </div>
-          </section>
+              </button>
+            )
+          })}
+        </div>
 
-          {/* Install channel picker */}
-          <section className="ds-sec" id="channels">
-            <div className="ds-sec-head">
-              <div className="ds-sec-num">§ 02</div>
-              <div className="ds-sec-title">Install channels</div>
-              <div className="ds-sec-stamp">{TABS.length} channels</div>
-            </div>
-
-            <div className="ds-ruler" role="tablist" aria-label="Install channels">
-              {TABS.map((t) => {
-                const recommended = t.os?.includes(os as any)
-                return (
-                  <button
-                    key={t.key}
-                    role="tab"
-                    aria-selected={active === t.key}
-                    onClick={() => setActive(t.key)}
-                    className={`tab${active === t.key ? ' active' : ''}`}
-                  >
-                    {t.label}
-                    {recommended && active !== t.key && (
-                      <span className="k">✓ your OS</span>
-                    )}
-                  </button>
-                )
-              })}
-            </div>
-
-            <div className="ds-terminal" style={{ marginTop: 16 }} role="tabpanel">
-              <div className="tbar">
-                <span className="doc-id">CHANNEL · {activeTab.key.toUpperCase()}</span>
-                <span className="doc-name">{activeTab.label}</span>
-                <span className="doc-size">shell</span>
-              </div>
-              <div className="tbody" style={{ gridTemplateColumns: '1fr auto', alignItems: 'start' }}>
-                <pre style={{ padding: 20 }}>{activeTab.command}</pre>
-                <div style={{ padding: 12 }}>
-                  <CopyButton text={activeTab.command} />
-                </div>
-              </div>
-            </div>
-            {activeTab.footnote && (
-              <p style={{ marginTop: 12, font: '400 13px/1.6 var(--font-sans)', color: 'var(--fg-2)', maxWidth: '64ch' }}>
-                {activeTab.footnote}
-              </p>
-            )}
-            {(activeTab.key === 'deb' || activeTab.key === 'rpm') && (
-              <p style={{ marginTop: 8, font: '500 11px var(--font-mono)', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
-                <a href="https://github.com/datashuttle-ai/datashuttle/releases/latest" style={{ color: 'var(--accent)' }} target="_blank" rel="noopener">
-                  Latest release assets →
-                </a>
-              </p>
-            )}
-          </section>
-
-          <section className="ds-sec" id="verify">
-            <div className="ds-sec-head">
-              <div className="ds-sec-num">§ 03</div>
-              <div className="ds-sec-title">Verify your download</div>
-              <div className="ds-sec-stamp">SHA-256</div>
-            </div>
-            <p className="lede" style={{ marginBottom: 18 }}>
-              Every GitHub Release ships a SHA-256 checksum alongside each binary.
-              Verify before running on production.
+        {/* Command */}
+        <div
+          role="tabpanel"
+          className="mt-4 rounded-xl border border-slate-800 bg-slate-950/70 p-4"
+        >
+          <div className="flex items-start justify-between gap-3">
+            <pre className="flex-1 overflow-x-auto text-sm leading-relaxed text-slate-100">
+              <code>{activeTab.command}</code>
+            </pre>
+            <CopyButton text={activeTab.command} />
+          </div>
+          {activeTab.footnote && (
+            <p className="mt-3 text-xs text-slate-500">{activeTab.footnote}</p>
+          )}
+          {activeTab.key === 'quick' && (
+            <p className="mt-2 text-xs">
+              <a
+                href="https://datashuttle.ai/install.sh"
+                target="_blank"
+                rel="noopener"
+                className="text-indigo-400 underline hover:text-indigo-300"
+              >
+                Read install.sh first →
+              </a>
             </p>
-            <div className="ds-terminal">
-              <div className="tbar">
-                <span className="doc-id">VERIFY</span>
-                <span className="doc-name">sha256sum</span>
-                <span className="doc-size">bash</span>
-              </div>
-              <div className="tbody" style={{ gridTemplateColumns: '1fr' }}>
-                <pre>
-                  <span className="com"># Download the binary + its checksum</span>{'\n'}
-                  curl -LO https://github.com/datashuttle-ai/datashuttle/releases/latest/download/datashuttle-&lt;platform&gt;.tar.gz{'\n'}
-                  curl -LO https://github.com/datashuttle-ai/datashuttle/releases/latest/download/datashuttle-&lt;platform&gt;.tar.gz.sha256{'\n'}
-                  {'\n'}
-                  <span className="com"># Verify</span>{'\n'}
-                  sha256sum -c datashuttle-&lt;platform&gt;.tar.gz.sha256
-                </pre>
-              </div>
-            </div>
-          </section>
-
-          <section className="ds-sec" id="next-steps">
-            <div className="ds-sec-head">
-              <div className="ds-sec-num">§ 04</div>
-              <div className="ds-sec-title">Next steps</div>
-              <div className="ds-sec-stamp">2 links</div>
-            </div>
-            <div className="ds-steps">
-              <a href="https://docs.datashuttle.ai/quickstart" className="ds-step" style={{ textDecoration: 'none' }}>
-                <div className="ds-step-num">§ A</div>
-                <div>
-                  <h4>Read the quickstart →</h4>
-                  <p>5 minutes to first Iceberg commit. Covers a Postgres source and a local MinIO warehouse.</p>
-                </div>
+          )}
+          {(activeTab.key === 'deb' || activeTab.key === 'rpm') && (
+            <p className="mt-2 text-xs">
+              <a
+                href="https://github.com/datashuttle-ai/datashuttle/releases/latest"
+                target="_blank"
+                rel="noopener"
+                className="text-indigo-400 underline hover:text-indigo-300"
+              >
+                Download the latest release asset →
               </a>
-              <a href="https://docs.datashuttle.ai/connectors/postgresql" className="ds-step" style={{ textDecoration: 'none' }}>
-                <div className="ds-step-num">§ B</div>
-                <div>
-                  <h4>Connect your first source →</h4>
-                  <p>CDC-capable sources: Postgres, MySQL, MongoDB, Kafka. REST and file-based connectors are a one-liner away.</p>
-                </div>
-              </a>
-              <a href="/cloud" className="ds-step" style={{ textDecoration: 'none' }}>
-                <div className="ds-step-num">§ C</div>
-                <div>
-                  <h4>Skip install · try Cloud →</h4>
-                  <p>Managed control plane with 10K DPU free every month. Same engine, zero ops.</p>
-                </div>
-              </a>
-            </div>
-          </section>
+            </p>
+          )}
         </div>
       </div>
-    </>
+
+      {/* Verify your download */}
+      <section className="mt-12 rounded-2xl border border-slate-800 bg-slate-900/30 p-6">
+        <h2 className="text-lg font-semibold text-white">
+          Verify your download
+        </h2>
+        <p className="mt-2 text-sm text-slate-400">
+          Every GitHub Release ships a SHA-256 checksum file alongside
+          each binary. Verify before running on production:
+        </p>
+        <pre className="mt-3 overflow-x-auto rounded-lg bg-slate-950/70 p-4 text-xs text-slate-200">
+{`# Download the binary + its checksum
+curl -LO https://github.com/datashuttle-ai/datashuttle/releases/latest/download/datashuttle-<platform>.tar.gz
+curl -LO https://github.com/datashuttle-ai/datashuttle/releases/latest/download/datashuttle-<platform>.tar.gz.sha256
+
+# Verify
+sha256sum -c datashuttle-<platform>.tar.gz.sha256`}
+        </pre>
+      </section>
+
+      {/* Next steps */}
+      <section className="mt-12 grid gap-4 sm:grid-cols-2">
+        <a
+          href="https://docs.datashuttle.ai/quickstart"
+          className="rounded-2xl border border-slate-800 bg-slate-950/40 p-6 transition hover:border-slate-600"
+        >
+          <h3 className="text-lg font-semibold text-white">
+            Read the quickstart →
+          </h3>
+          <p className="mt-2 text-sm text-slate-400">
+            5 minutes to first Iceberg commit. Covers a Postgres source
+            and a local MinIO warehouse.
+          </p>
+        </a>
+        <a
+          href="https://docs.datashuttle.ai/connectors/postgresql"
+          className="rounded-2xl border border-slate-800 bg-slate-950/40 p-6 transition hover:border-slate-600"
+        >
+          <h3 className="text-lg font-semibold text-white">
+            Connect your first source →
+          </h3>
+          <p className="mt-2 text-sm text-slate-400">
+            CDC-capable sources: Postgres, MySQL, MongoDB, Kafka.
+            REST and file-based connectors are a one-liner away.
+          </p>
+        </a>
+      </section>
+    </main>
   )
 }
