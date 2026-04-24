@@ -11,6 +11,26 @@
     <meta property="og:description" content="One SQL statement. Any source. Apache Iceberg." />
     <meta property="og:url" content="https://datashuttle.ai" />
     <meta property="og:type" content="website" />
+    <script>
+      // Anti-FOUC: respect user's OS color-scheme preference before
+      // first paint. The page's CSS has [data-theme="dark"] overrides;
+      // this just sets the attribute. No per-user override (yet).
+      (function () {
+        try {
+          var prefersDark = window.matchMedia
+            && window.matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.dataset.theme = prefersDark ? "dark" : "light";
+        } catch (_) {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+      // Keep in sync if the OS preference flips live.
+      try {
+        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function (e) {
+          document.documentElement.dataset.theme = e.matches ? "dark" : "light";
+        });
+      } catch (_) { /* ignore unsupported */ }
+    </script>
   </head>
   <body>
     <div id="root"></div>
