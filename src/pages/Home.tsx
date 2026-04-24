@@ -1,97 +1,138 @@
 import { Link } from 'react-router-dom'
 import { SEO } from '../components/SEO'
 
-function Icon({ n, className = '' }: { n: string; className?: string }) {
-  return <img src={`/icons/${n}.svg`} alt="" className={className} style={{ width: 14, height: 14 }} />
+function Icon({ n, cls = '' }: { n: string; cls?: string }) {
+  return <img src={`/icons/${n}.svg`} alt="" className={cls} style={{ width: 14, height: 14 }} />
 }
 function IconLg({ n }: { n: string }) {
   return <img src={`/icons/${n}.svg`} alt="" className="ico" style={{ width: 22, height: 22 }} />
 }
+
+const FEATURES = [
+  ['hard-drive', 'Iceberg Native',
+    'Deletion vectors, row lineage, default column values, VARIANT type. Built for the modern table format from day one — not bolted onto a legacy writer.'],
+  ['database', 'Continuous CDC',
+    'Track every INSERT, UPDATE, and DELETE from PostgreSQL, MySQL, and MongoDB via native WAL/binlog tailing. No polling, no full scans.'],
+  ['activity', 'Arrow Flight Hot Buffer',
+    'Freshest data served via Apache Arrow Flight at sub-second latency. Cold data lands in Iceberg. One product, two latency tiers.'],
+  ['settings-2', 'Auto Compaction',
+    'DV-aware compaction merges deletion vectors with data files automatically. No manual OPTIMIZE runs, no accumulating small files.'],
+  ['git-branch', 'Schema Evolution',
+    'Source schema changes are detected and propagated to Iceberg as metadata-only operations. New columns use Iceberg default values — no data rewrite.'],
+  ['waypoints', 'Built-in Lineage',
+    'Automatic table-level and column-level lineage, snapshot provenance, and OpenLineage export. Visibility that closed platforms keep proprietary.'],
+]
+
+const RATES = [
+  {
+    name: 'Self-hosted',
+    price: '$0',
+    unit: '/ forever',
+    desc: 'Run the same binary on your infrastructure. Community support via GitHub.',
+    bullets: ['All 21 GA source connectors', 'Iceberg V3 + deletion vectors', 'Sub-minute CDC latency', 'No seat minimums'],
+    cta: 'Download',
+    to: '/download',
+    variant: 'secondary',
+  },
+  {
+    name: 'Cloud (managed)',
+    price: '50¢',
+    unit: '/ DPU',
+    desc: 'Fully managed control plane on datashuttle.ai. 10,000 DPU free every month.',
+    bullets: ['Managed control plane', 'SOC 2 · HIPAA-ready', 'SSO · audit log', '99.95% SLA'],
+    cta: 'Start free',
+    to: '/cloud',
+    variant: 'primary',
+    featured: true,
+  },
+  {
+    name: 'Airgapped',
+    price: '30¢',
+    unit: '/ DPU',
+    desc: 'Signed tarball behind your firewall. FedRAMP / IL-5 assistance, dedicated SE.',
+    bullets: ['Offline runtime', 'FedRAMP assist', 'Dedicated support engineer', 'BYO Iceberg catalog'],
+    cta: 'Contact sales',
+    to: 'mailto:sales@datashuttle.ai',
+    variant: 'secondary',
+  },
+]
 
 export default function Home() {
   return (
     <>
       <SEO
         title="DataShuttle — Iceberg-Native Ingestion Engine"
-        description="Move data from PostgreSQL, MySQL, MongoDB, Kafka into Apache Iceberg with one SQL statement. Sub-minute CDC, auto-compaction, deletion vectors. No Kafka, no Flink."
+        description="Move data from PostgreSQL, MySQL, MongoDB, Kafka into Apache Iceberg with one SQL statement. Sub-minute CDC, deletion vectors, zero operational overhead."
         path="/"
       />
       <div className="ds-wrap">
         <section className="ds-hero">
           <div>
             <div className="eyebrow">
-              <span className="pill">v1.4 · out now</span>
-              exactly-once to Iceberg
+              <span className="pill">Iceberg V3 · now in private beta</span>
             </div>
-            <h1>
-              One binary.<br />One SQL statement.<br />Lakehouse ingestion, collapsed.
-            </h1>
+            <h1>Any source. Apache Iceberg. One SQL statement.</h1>
             <p className="lede">
-              DataShuttle replaces a Kafka + Debezium + Flink + schema-registry + custom-glue
-              stack with a single purpose-built runtime. Write a{' '}
-              <code>CREATE&nbsp;PIPELINE</code>. We commit to Iceberg exactly once — no
-              double-writes, even across operator restarts.
+              DataShuttle is a standalone ingestion engine that moves data from
+              PostgreSQL, MySQL, MongoDB, and Kafka into Iceberg tables — with
+              sub-minute latency, automatic schema evolution, and zero operational
+              overhead.
             </p>
             <div className="actions">
               <Link className="ds-btn ds-btn-primary" to="/cloud">
-                Start free <Icon n="arrow-right" />
+                Start free on Cloud <Icon n="arrow-right" />
               </Link>
-              <a className="ds-btn ds-btn-secondary" href="https://docs.datashuttle.ai">
-                <Icon n="book-open" /> Read the docs
-              </a>
+              <Link className="ds-btn ds-btn-secondary" to="/download">
+                <Icon n="download" /> Download binary
+              </Link>
             </div>
           </div>
           <div className="figure">
             <div className="bar">
               <span className="dots"><span /><span /><span /></span>
-              <span style={{ marginLeft: 10 }}>datashuttle — orders_sync.sql</span>
+              <span style={{ marginLeft: 10 }}>datashuttle — customer_sync.sql</span>
             </div>
             <pre>
-              <span className="cmt">-- ship operational rows into the lake</span>{'\n'}
-              <span className="kw">CREATE PIPELINE</span> orders_sync{'\n'}
-              <span className="kw">FROM</span> postgres <span className="punc">(</span>{'\n'}
-              {'  '}host <span className="punc">=</span> <span className="str">'db.prod.internal'</span><span className="punc">,</span>{'\n'}
-              {'  '}publication <span className="punc">=</span> <span className="str">'ds_pub'</span>{'\n'}
-              <span className="punc">)</span>{'\n'}
-              <span className="kw">TO</span> iceberg<span className="punc">://</span>warehouse<span className="punc">/</span>orders{'\n'}
-              <span className="kw">WITH</span> <span className="punc">(</span>exactly_once <span className="punc">=</span> <span className="kw">true</span><span className="punc">);</span>
+              <span className="kw">CREATE PIPELINE</span> customer_sync{'\n'}
+              {'  '}<span className="kw">SOURCE</span> postgres <span className="kw">CONNECTION</span> <span className="str">'crm_prod'</span>{'\n'}
+              {'  '}<span className="kw">TABLES</span> <span className="punc">(</span><span className="str">'accounts'</span>, <span className="str">'orders'</span>, <span className="str">'payments'</span><span className="punc">)</span>{'\n'}
+              {'  '}<span className="kw">INTO</span> iceberg.warehouse.crm{'\n'}
+              {'  '}<span className="kw">SCHEDULE</span> continuous{'\n'}
+              {'  '}<span className="kw">WITH</span> <span className="punc">(</span>{'\n'}
+              {'    '}iceberg_format_version <span className="punc">=</span> <span className="punc">3</span>,{'\n'}
+              {'    '}delete_mode <span className="punc">=</span> <span className="str">'deletion_vectors'</span>,{'\n'}
+              {'    '}schema_evolution <span className="punc">=</span> <span className="str">'compatible'</span>{'\n'}
+              {'  '}<span className="punc">)</span>;
             </pre>
           </div>
         </section>
 
-        <section className="ds-sec" id="compare">
+        <section className="ds-sec" id="why">
           <div className="ds-sec-head">
-            <div className="eyebrow">01 · the collapse</div>
-            <h2>Seven systems, one runtime.</h2>
-            <p>
-              The lakehouse ingest stack is usually glued together out of four or five
-              open-source projects plus a rotating cast of custom scripts. DataShuttle
-              replaces that stack with a single binary you can run anywhere.
-            </p>
+            <div className="eyebrow">01 · why datashuttle</div>
+            <h2>Ingestion shouldn't require a team to operate.</h2>
+            <p>The lakehouse ingest stack is usually glued together out of four or five open-source projects plus a rotating cast of custom scripts. DataShuttle replaces that stack with a single Rust daemon plus an optional ~12 MB CLI.</p>
           </div>
           <div className="ds-compare">
             <div className="col">
-              <h3>Before <span className="tag">7 components</span></h3>
+              <h3>Typical stack <span className="tag">5+ components</span></h3>
               <div className="stack-list">
                 {[
-                  ['kafka', 'broker cluster'],
-                  ['debezium', 'CDC connectors'],
-                  ['schema-registry', 'schema mgmt'],
+                  ['kafka', 'message broker'],
+                  ['debezium', 'CDC connector'],
+                  ['kafka-connect', 'sink plumbing'],
                   ['flink', 'stream processing'],
-                  ['iceberg-sink', 'writer'],
-                  ['custom-glue', '~2,400 LOC'],
-                  ['ops + on-call', '4 teams'],
+                  ['airflow', 'orchestration'],
+                  ['~6,000 LOC', 'custom glue'],
                 ].map(([name, note]) => (
                   <div className="item" key={name}>
-                    <span className="x">·</span>
-                    <span>{name}</span>
-                    <span className="note">{note}</span>
+                    <span className="x">·</span><span>{name}</span><span className="note">{note}</span>
                   </div>
                 ))}
               </div>
             </div>
             <div className="col">
-              <h3>With DataShuttle <span className="tag">1 component</span></h3>
+              <h3>DataShuttle <span className="tag">1 daemon</span></h3>
               <div className="after-sole">
                 <img className="mark" src="/brand/logo-mark.svg" alt="" />
                 <div>
@@ -100,9 +141,10 @@ export default function Home() {
                 </div>
               </div>
               <p style={{ font: '400 13px/1.55 var(--font-sans)', color: 'var(--fg-2)', marginTop: 16 }}>
-                Postgres/MySQL/Mongo CDC, Kafka consumers, schema evolution, Iceberg commit
-                coordination, backfills, and observability — all inside one runtime. No
-                standalone Kafka. No Flink job. No YAML graph to maintain.
+                Continuous CDC, schema evolution, compaction, deletion vectors, and
+                Iceberg commit coordination — inside one Rust runtime. No standalone
+                Kafka. No Flink job. No YAML graph. Sub-minute freshness instead of
+                6–24 hour batch lag, no Delta / Snowflake lock-in.
               </p>
             </div>
           </div>
@@ -110,19 +152,12 @@ export default function Home() {
 
         <section className="ds-sec" id="features">
           <div className="ds-sec-head">
-            <div className="eyebrow">02 · features</div>
-            <h2>What's in the binary.</h2>
-            <p>The shortest list we could cut it down to. Each one replaces a system you'd otherwise run yourself.</p>
+            <div className="eyebrow">02 · capabilities</div>
+            <h2>Everything your lakehouse ingestion layer needs.</h2>
+            <p>What the binary ships with. Each one replaces a system you'd otherwise run yourself.</p>
           </div>
           <div className="ds-features">
-            {[
-              ['database', 'CDC from Postgres, MySQL, Mongo', 'Logical replication with checkpoints. Backfill and incremental in the same job — no separate snapshot phase to babysit.'],
-              ['waypoints', 'Exactly-once to Iceberg', 'Commits coordinated by the Iceberg catalog. You will not see double-writes, even across operator restarts.'],
-              ['git-branch', 'Schema evolution', 'ADD COLUMN is non-blocking. Type widening is automatic. Breaking changes are flagged in the console before they land.'],
-              ['activity', 'Observability, built in', 'Per-pipeline lag, throughput, and error budget. Prometheus scrape on port 9090. OpenTelemetry traces on request.'],
-              ['server', 'Runs anywhere', 'Managed cloud, self-hosted on your VPC, or fully airgapped. Same binary, same SQL, same runtime semantics.'],
-              ['settings-2', 'SQL, not YAML', 'CREATE PIPELINE is the API. Version it in git. Review it in a PR. No pipeline graphs to draw, no DAGs to orchestrate.'],
-            ].map(([ico, title, body]) => (
+            {FEATURES.map(([ico, title, body]) => (
               <div className="ds-feat" key={title}>
                 <IconLg n={ico} />
                 <h4>{title}</h4>
@@ -135,46 +170,27 @@ export default function Home() {
         <section className="ds-sec" id="pricing">
           <div className="ds-sec-head">
             <div className="eyebrow">03 · pricing</div>
-            <h2>Pay for rows, not seats.</h2>
-            <p>Start free. Usage scales when you do. Self-hosted is source-available and priced per core.</p>
+            <h2>Pay per DPU. One metric, three deployment modes.</h2>
+            <p>A DPU (DataShuttle Processing Unit) covers any of: 1&nbsp;GB ingested, 100k CDC events, 1 connector-hour, or 1 vCPU-hour. 10,000 DPU free every month on Cloud.</p>
           </div>
           <div className="ds-pricing">
-            <div className="ds-plan">
-              <h3>Free</h3>
-              <div className="price"><span className="n">$0</span><span className="u">/ mo</span></div>
-              <p className="desc">Enough headroom to prove it replaces your Flink job on a real workload.</p>
-              <ul>
-                <li><Icon n="check" /><span>5M rows / month</span></li>
-                <li><Icon n="check" /><span>3 pipelines</span></li>
-                <li><Icon n="check" /><span>1 workspace · 2 seats</span></li>
-                <li><Icon n="check" /><span>Community support</span></li>
-              </ul>
-              <Link className="ds-btn ds-btn-secondary" to="/cloud">Start free</Link>
-            </div>
-            <div className="ds-plan featured">
-              <h3>Team</h3>
-              <div className="price"><span className="n">$0.40</span><span className="u">/ 1M rows</span></div>
-              <p className="desc">Usage-based. No per-seat tax. Everything in Free, plus:</p>
-              <ul>
-                <li><Icon n="check" /><span>Unlimited pipelines</span></li>
-                <li><Icon n="check" /><span>Unlimited seats</span></li>
-                <li><Icon n="check" /><span>SSO · audit log</span></li>
-                <li><Icon n="check" /><span>99.95% SLA</span></li>
-              </ul>
-              <Link className="ds-btn ds-btn-primary" to="/cloud">Start 30-day trial</Link>
-            </div>
-            <div className="ds-plan">
-              <h3>Self-hosted</h3>
-              <div className="price"><span className="n">$800</span><span className="u">/ core / yr</span></div>
-              <p className="desc">Source-available. Run on your cluster, in your VPC, or fully airgapped.</p>
-              <ul>
-                <li><Icon n="check" /><span>Airgapped-friendly</span></li>
-                <li><Icon n="check" /><span>BYO Iceberg catalog</span></li>
-                <li><Icon n="check" /><span>Private-network artifact mirror</span></li>
-                <li><Icon n="check" /><span>Dedicated support engineer</span></li>
-              </ul>
-              <a className="ds-btn ds-btn-secondary" href="mailto:sales@datashuttle.ai">Contact sales</a>
-            </div>
+            {RATES.map((r) => (
+              <div className={`ds-plan${r.featured ? ' featured' : ''}`} key={r.name}>
+                <h3>{r.name}</h3>
+                <div className="price"><span className="n">{r.price}</span><span className="u">{r.unit}</span></div>
+                <p className="desc">{r.desc}</p>
+                <ul>
+                  {r.bullets.map((b) => (
+                    <li key={b}><Icon n="check" /><span>{b}</span></li>
+                  ))}
+                </ul>
+                {r.to.startsWith('mailto:') ? (
+                  <a className={`ds-btn ds-btn-${r.variant}`} href={r.to}>{r.cta}</a>
+                ) : (
+                  <Link className={`ds-btn ds-btn-${r.variant}`} to={r.to}>{r.cta}</Link>
+                )}
+              </div>
+            ))}
           </div>
         </section>
       </div>
