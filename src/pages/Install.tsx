@@ -224,6 +224,104 @@ export default function Install() {
 
         <section className="ds-sec">
           <div className="ds-sec-head">
+            <div className="eyebrow">01a · direct downloads</div>
+            <h2>Or grab a binary directly.</h2>
+            <p>
+              All assets ship with a sibling{' '}
+              <code>.sha256</code> file — see <a href="#verify">step 02</a>{' '}
+              before running on production. Stable channel; for the
+              <code>v0.2.0-beta</code> pre-release see the{' '}
+              <a
+                href="https://github.com/datashuttle-io/releases/releases"
+                target="_blank"
+                rel="noopener"
+              >
+                full releases page
+              </a>
+              .
+            </p>
+          </div>
+          <div
+            className="ds-features"
+            style={{ gridTemplateColumns: 'repeat(3,1fr)' }}
+          >
+            <a
+              className="ds-feat"
+              href="https://github.com/datashuttle-io/releases/releases/latest/download/datashuttle-macos-arm64.tar.gz"
+              style={{ textDecoration: 'none' }}
+            >
+              <h4>macOS · Apple Silicon →</h4>
+              <p>
+                <code>datashuttle-macos-arm64.tar.gz</code> — ~45&nbsp;MB.
+                Tarball; extract and put <code>datashuttle</code> on PATH.
+              </p>
+            </a>
+            <a
+              className="ds-feat"
+              href="https://github.com/datashuttle-io/releases/releases/latest/download/datashuttle-linux-amd64.tar.gz"
+              style={{ textDecoration: 'none' }}
+            >
+              <h4>Linux · x86_64 →</h4>
+              <p>
+                <code>datashuttle-linux-amd64.tar.gz</code> — ~50&nbsp;MB.
+                Glibc 2.31+ (Debian 11+, Ubuntu 20.04+, RHEL 9+).
+              </p>
+            </a>
+            <a
+              className="ds-feat"
+              href="https://github.com/datashuttle-io/releases/releases/latest/download/datashuttle-linux-arm64.tar.gz"
+              style={{ textDecoration: 'none' }}
+            >
+              <h4>Linux · ARM64 →</h4>
+              <p>
+                <code>datashuttle-linux-arm64.tar.gz</code> — ~47&nbsp;MB.
+                Graviton / Ampere / Raspberry Pi 5 etc.
+              </p>
+            </a>
+            <a
+              className="ds-feat"
+              href="https://github.com/datashuttle-io/releases/releases/latest"
+              target="_blank"
+              rel="noopener"
+              style={{ textDecoration: 'none' }}
+            >
+              <h4>Debian / Ubuntu (.deb) →</h4>
+              <p>
+                Latest release page — filename embeds version
+                (<code>datashuttle_&lt;ver&gt;_amd64.deb</code>). Then{' '}
+                <code>sudo dpkg -i</code>.
+              </p>
+            </a>
+            <a
+              className="ds-feat"
+              href="https://github.com/datashuttle-io/releases/releases/latest"
+              target="_blank"
+              rel="noopener"
+              style={{ textDecoration: 'none' }}
+            >
+              <h4>RHEL / Fedora (.rpm) →</h4>
+              <p>
+                Latest release page — filename embeds version
+                (<code>datashuttle-&lt;ver&gt;-1.x86_64.rpm</code>). Then{' '}
+                <code>sudo rpm -i</code>.
+              </p>
+            </a>
+            <a
+              className="ds-feat"
+              href="https://github.com/datashuttle-io/releases/releases/latest/download/datashuttle-chart.tgz"
+              style={{ textDecoration: 'none' }}
+            >
+              <h4>Helm chart →</h4>
+              <p>
+                <code>datashuttle-chart.tgz</code>. For full Kubernetes
+                installs, see the docs for ingress / persistent volumes.
+              </p>
+            </a>
+          </div>
+        </section>
+
+        <section className="ds-sec" id="verify">
+          <div className="ds-sec-head">
             <div className="eyebrow">02 · verify</div>
             <h2>Verify your download.</h2>
             <p>
