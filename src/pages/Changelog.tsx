@@ -54,7 +54,7 @@ export default function Changelog() {
               Curated highlights of what we've shipped recently. This page is
               not the full version log — for the complete history, see{' '}
               <a
-                href="https://github.com/datashuttle-ai/datashuttle/releases"
+                href="https://github.com/datashuttle-io/releases/releases"
                 style={{ color: 'var(--accent-400)' }}
               >
                 GitHub Releases

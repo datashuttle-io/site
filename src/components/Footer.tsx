@@ -29,14 +29,14 @@ export default function Footer() {
             <a href="https://docs.datashuttle.ai/api-reference/rest.html">API reference</a>
             <a href="https://docs.datashuttle.ai/sql-reference/connections.html">SQL reference</a>
             <Link to="/install">Install</Link>
-            <a href="https://github.com/datashuttle-ai/datashuttle/releases">Releases</a>
+            <a href="https://github.com/datashuttle-io/releases/releases">Releases</a>
           </div>
           <div className="col">
             <h4>Company</h4>
             <a href="mailto:hello@datashuttle.ai">Contact</a>
             <a href="mailto:sales@datashuttle.ai">Sales</a>
             <a href="mailto:security@datashuttle.ai">Security</a>
-            <a href="https://github.com/datashuttle-ai/datashuttle">GitHub</a>
+            <a href="https://github.com/datashuttle-io/releases">GitHub</a>
           </div>
         </div>
         <div className="ds-footer-base">

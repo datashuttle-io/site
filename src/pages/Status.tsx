@@ -15,7 +15,7 @@ const RELEASE_ROWS: StatusRow[] = [
     label: 'Latest release',
     value: (
       <a
-        href="https://github.com/datashuttle-ai/datashuttle/releases"
+        href="https://github.com/datashuttle-io/releases/releases"
         style={{ color: 'var(--accent-400)' }}
       >
         See GitHub Releases →
@@ -261,7 +261,7 @@ export default function Status() {
             <Link className="ds-btn ds-btn-secondary" to="/changelog">
               Release highlights <Icon name="arrow-right" />
             </Link>
-            <a className="ds-btn ds-btn-ghost" href="https://github.com/datashuttle-ai/datashuttle/releases">
+            <a className="ds-btn ds-btn-ghost" href="https://github.com/datashuttle-io/releases/releases">
               GitHub releases ↗
             </a>
           </div>

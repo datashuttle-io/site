@@ -15,7 +15,7 @@
 
 set -euo pipefail
 
-REPO="datashuttle-ai/datashuttle"
+REPO="datashuttle-io/releases"
 BASE_URL="https://github.com/${REPO}/releases"
 INSTALL_DIR="${DATASHUTTLE_INSTALL_DIR:-/usr/local/bin}"
 VERSION="${DATASHUTTLE_VERSION:-}"

@@ -37,7 +37,7 @@ const TABS: InstallTab[] = [
   {
     key: 'docker',
     label: 'Docker',
-    command: 'docker pull ghcr.io/datashuttle-ai/datashuttle:latest',
+    command: 'docker pull ghcr.io/datashuttle-io/datashuttle:latest',
     footnote:
       'Multi-arch image (linux/amd64 + linux/arm64). A working compose bundle lives under `deploy/` in the repo — use it as a reference stack, not a production template.',
     os: ['linux', 'macos', 'windows'],
@@ -45,7 +45,7 @@ const TABS: InstallTab[] = [
   {
     key: 'homebrew',
     label: 'Homebrew',
-    command: 'brew install datashuttle-ai/tap/datashuttle',
+    command: 'brew install datashuttle-io/tap/datashuttle',
     footnote:
       'macOS + Linuxbrew. Ships the full daemon binary; the `datashuttle-client` bottle is a follow-up. Tap auto-updates on each release.',
     os: ['macos'],
@@ -211,7 +211,7 @@ export default function Install() {
             {(activeTab.key === 'deb' || activeTab.key === 'rpm') && (
               <p className="footnote">
                 <a
-                  href="https://github.com/datashuttle-ai/datashuttle/releases/latest"
+                  href="https://github.com/datashuttle-io/releases/releases/latest"
                   target="_blank"
                   rel="noopener"
                 >
@@ -234,8 +234,8 @@ export default function Install() {
           <div className="ds-verify">
             <pre>
 {`# Download the binary + its checksum
-curl -LO https://github.com/datashuttle-ai/datashuttle/releases/latest/download/datashuttle-<platform>.tar.gz
-curl -LO https://github.com/datashuttle-ai/datashuttle/releases/latest/download/datashuttle-<platform>.tar.gz.sha256
+curl -LO https://github.com/datashuttle-io/releases/releases/latest/download/datashuttle-<platform>.tar.gz
+curl -LO https://github.com/datashuttle-io/releases/releases/latest/download/datashuttle-<platform>.tar.gz.sha256
 
 # Verify
 sha256sum -c datashuttle-<platform>.tar.gz.sha256`}
