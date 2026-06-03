@@ -110,7 +110,7 @@ export default function Home() {
             <p>
               A typical lakehouse ingestion stack is four or five moving parts plus
               orchestration. DataShuttle replaces that chain with a single Rust
-              daemon that speaks source protocols, commits to Iceberg, and handles
+              binary that speaks source protocols, commits to Iceberg, and handles
               schema evolution.
             </p>
           </div>
@@ -133,7 +133,7 @@ export default function Home() {
               </div>
             </div>
             <div className="col">
-              <h3>DataShuttle <span className="tag">1 daemon</span></h3>
+              <h3>DataShuttle <span className="tag">1 binary</span></h3>
               <div className="after-sole">
                 <img className="mark" src="/brand/logo-mark.svg" alt="" />
                 <div>
@@ -198,7 +198,7 @@ export default function Home() {
                 Early access
               </p>
               <p>
-                systemd, Docker, or Kubernetes via Helm. You run the daemon; we
+                systemd, Docker, or Kubernetes via Helm. You run it; we
                 support the engine. Same binary as Cloud.
               </p>
             </div>

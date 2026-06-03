@@ -203,7 +203,7 @@ export default function Pricing() {
               <p style={{ font: '500 28px var(--font-sans)', color: 'var(--fg)' }}>$0.20<span style={{ font: '500 12px var(--font-mono)', color: 'var(--fg-3)', marginLeft: 6 }}>/ DPU</span></p>
               <p>
                 Annual capacity licence against an agreed DPU floor. You run
-                the daemon, we support the engine.
+                the binary, we support the engine.
               </p>
             </div>
             <div className="ds-feat">

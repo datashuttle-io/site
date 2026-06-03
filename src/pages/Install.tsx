@@ -18,11 +18,11 @@ interface InstallTab {
 const TABS: InstallTab[] = [
   {
     key: 'server',
-    label: 'Server (daemon)',
+    label: 'systemd service',
     command:
       'curl -fsSL https://datashuttle.ai/install.sh | sudo bash -s -- --systemd',
     footnote:
-      'Installs `datashuttle` + `datashuttled` (daemon alias) and drops a hardened systemd unit. Includes 23 connectors. Run `sudo datashuttle setup --quickstart` after install.',
+      'Installs the `datashuttle` binary and drops a hardened systemd unit that runs `datashuttle start`. Includes 23 connectors. Run `sudo datashuttle setup --quickstart` after install.',
     os: ['linux'],
   },
   {
@@ -34,19 +34,11 @@ const TABS: InstallTab[] = [
     os: ['linux', 'windows'],
   },
   {
-    key: 'homebrew',
-    label: 'Homebrew',
-    command: 'brew install datashuttle-io/tap/datashuttle',
-    footnote:
-      'Linuxbrew (amd64 / arm64). Ships the full daemon binary; tap auto-updates on each release. Includes 23 connectors.',
-    os: ['linux'],
-  },
-  {
     key: 'deb',
     label: 'DEB (Debian/Ubuntu)',
     command: 'sudo dpkg -i datashuttle_<version>_amd64.deb',
     footnote:
-      'Download the `.deb` from the latest GitHub Release. Ships the full daemon + `datashuttled` alias. apt-repo landing in a follow-up release.',
+      'Download the `.deb` from the latest GitHub Release. Ships the `datashuttle` binary + systemd unit. apt-repo landing in a follow-up release.',
     os: ['linux'],
   },
   {
@@ -125,7 +117,7 @@ export default function Install() {
     <>
       <SEO
         title="Install DataShuttle"
-        description="systemd, Docker, Homebrew, DEB, RPM — pick your platform. DataShuttle is proprietary software; Community tier is free to evaluate."
+        description="systemd, Docker, DEB, RPM — pick your platform. DataShuttle is proprietary software; Community tier is free to evaluate."
         path="/install"
         ogImage="og-download.jpg"
       />
@@ -149,10 +141,10 @@ export default function Install() {
             </div>
             <h1>Run DataShuttle on your own infrastructure.</h1>
             <p className="lede">
-              One Rust daemon, an optional ~15–25&nbsp;MB CLI, zero orchestration
-              dependencies. DataShuttle is distributed under a proprietary
-              license; the Community tier is free to evaluate, Team and above
-              require a license file.
+              One Rust binary that serves as both CLI and long-running server,
+              zero orchestration dependencies. DataShuttle is distributed under
+              a proprietary license; the Community tier is free to evaluate,
+              Team and above require a license file.
             </p>
           </div>
         </section>

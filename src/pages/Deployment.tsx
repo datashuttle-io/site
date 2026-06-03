@@ -120,7 +120,7 @@ export default function Deployment() {
             <div className="ds-plan featured">
               <h3>Self-hosted</h3>
               <p className="desc">
-                <strong>Early access.</strong> Run the daemon on your own
+                <strong>Early access.</strong> Run DataShuttle on your own
                 infrastructure. systemd, Docker, or Kubernetes via Helm — same
                 binary as Cloud. Daily heartbeat to the licensing endpoint.
               </p>
