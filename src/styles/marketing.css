@@ -116,11 +116,12 @@ body { font-family: 'Inter Tight', ui-sans-serif, system-ui, sans-serif; }
 .ds-copy { font: 500 11px var(--font-mono); letter-spacing: 0.04em; padding: 5px 10px; border-radius: var(--radius-xs); border: 1px solid var(--border); background: var(--bg); color: var(--fg-2); cursor: pointer; white-space: nowrap; }
 .ds-copy:hover { border-color: var(--border-strong); color: var(--fg); }
 
-/* /download — verify-download block (dark code well). */
-.ds-verify { background: var(--bg-raised); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 24px; }
+/* /download — verify-download block. Matches .ds-cmd styling for visual
+   consistency: same raised bg, same monospace size, no inverted dark well. */
+.ds-verify { background: var(--bg-raised); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px 18px; }
 .ds-verify h3 { font: 600 16px var(--font-sans); letter-spacing: -0.01em; color: var(--fg); margin-bottom: 10px; }
 .ds-verify p { font: 400 14px/1.55 var(--font-sans); color: var(--fg-2); margin-bottom: 14px; }
-.ds-verify pre { margin: 0; padding: 14px 16px; background: var(--fg); color: var(--bg); font: 500 12px/1.6 var(--font-mono); border-radius: var(--radius-xs); overflow-x: auto; }
+.ds-verify pre { margin: 0; overflow-x: auto; font: 500 13px/1.55 var(--font-mono); color: var(--fg); white-space: pre; }
 
 /* /whats-new — showcase card (description + optional snippet). */
 .ds-showcase { display: grid; gap: 48px; }

@@ -34,7 +34,7 @@ const RELEASE_ROWS: StatusRow[] = [
   {
     label: 'Self-hosted',
     value:
-      'Early access. systemd, Docker, Helm supported. OSS engine ships 4 Tier-1 connectors; the Cloud image bundles all 23 — no recompile.',
+      'Early access. systemd, Docker, Helm supported. Includes 23 connectors.',
   },
   {
     label: 'Airgapped',
@@ -51,18 +51,24 @@ interface FeatureStatus {
 
 const FEATURES: FeatureStatus[] = [
   { area: 'SQL-first control plane (CREATE / ALTER / DROP SHUTTLE)', maturity: 'ga', note: 'Public API; stable.' },
-  { area: 'Iceberg V3 writer — deletion vectors, partition evolution, schema evolution', maturity: 'beta', note: 'Default ON. Interoperability with other V3 readers tracked via integration tests.' },
+  { area: 'Iceberg V3 writer — deletion vectors, partition evolution, schema evolution', maturity: 'ga', note: 'Default ON since v0.5. Interoperability with other V3 readers tracked via integration tests.' },
   { area: 'Commit batching + per-shuttle WAL', maturity: 'ga', note: 'Default thresholds tuned for snapshot and CDC paths separately.' },
   { area: 'Continuous CDC — Postgres WAL, MySQL binlog, MongoDB oplog, Kafka', maturity: 'beta', note: 'Exactly-once commit protocol is TLA+-specified; implementation hardening ongoing.' },
   { area: 'Snapshot resume / crash-safe checkpointing', maturity: 'beta', note: 'Catalog snapshot summary is the source of truth. Single-shard exactly-once today; multi-shard parallel snapshot resume is a tracked follow-up.' },
-  { area: 'Arrow Flight hot buffer', maturity: 'alpha', note: 'Behaviour specified, observability and unit-test coverage being expanded.' },
+  { area: 'Arrow Flight hot buffer', maturity: 'beta', note: 'In every production path. Observability and unit-test coverage being expanded.' },
   { area: 'Lineage (table, column, snapshot) + OpenLineage export', maturity: 'beta', note: 'Interactive DAG viewer in the control plane.' },
   { area: 'Resource pools (cgroups v2)', maturity: 'beta', note: 'shared / dedicated / elastic pool kinds.' },
   { area: 'Ed25519 audit chain', maturity: 'beta', note: '`datashuttle audit verify` walks the chain and rejects tampered rows.' },
-  { area: 'Tenant isolation — S3 prefix + IAM, JWT scoping', maturity: 'beta', note: 'Middleware prevents X-Tenant-ID spoofing.' },
+  { area: 'Tenant isolation — S3 prefix + IAM, JWT scoping', maturity: 'ga', note: 'Middleware prevents X-Tenant-ID spoofing.' },
   { area: 'RBAC enforcement on API endpoints', maturity: 'alpha', note: 'Role model defined; enforcement hardening across routes in progress.' },
-  { area: 'DPU metering — cloud, self-hosted, airgapped', maturity: 'beta', note: 'Local bucket persistence to Postgres in active work.' },
+  { area: 'DPU metering — cloud, self-hosted, airgapped', maturity: 'ga', note: 'Streamed live in Cloud; daily heartbeat self-hosted; signed ledger airgapped.' },
   { area: 'Signed license (Ed25519), hot reload via SIGHUP', maturity: 'ga', note: 'Validated offline with a key compiled into the binary.' },
+  { area: 'Stripe billing — subscriptions, plan upgrades, webhooks, customer portal', maturity: 'beta', note: 'Cloud-only. Signed webhook ingestion; hourly DPU reconciliation.' },
+  { area: 'OAuth2 / SAML SSO (Google, GitHub, enterprise IdPs)', maturity: 'beta', note: 'Per-org IdP config in cloud admin console.' },
+  { area: 'Polaris-aware tenant catalog', maturity: 'beta', note: 'Multi-tenant Iceberg catalog with provisioning wizard.' },
+  { area: 'Multi-cloud parity — AWS / GCP / Azure (Helm + Terraform)', maturity: 'beta', note: 'CI-asserted: same install runbook + always-deploy cloud-mode artifacts on every cloud.' },
+  { area: 'Multi-arch native release — linux/amd64 + linux/arm64', maturity: 'ga', note: 'Tarball, DEB, RPM, Helm chart, multi-arch Docker manifest. No QEMU emulation.' },
+  { area: 'Cloud image — 23 connectors bundled at build time', maturity: 'ga', note: 'Single `ghcr.io/datashuttle-io/cloud` image; deployed identically across all three clouds.' },
 ]
 
 const LIMITATIONS = [

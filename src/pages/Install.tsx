@@ -12,7 +12,7 @@ interface InstallTab {
   label: string
   command: string
   footnote?: string
-  os?: Array<'linux' | 'macos' | 'windows'>
+  os?: Array<'linux' | 'windows'>
 }
 
 const TABS: InstallTab[] = [
@@ -22,32 +22,23 @@ const TABS: InstallTab[] = [
     command:
       'curl -fsSL https://datashuttle.ai/install.sh | sudo bash -s -- --systemd',
     footnote:
-      'Installs `datashuttle` + `datashuttled` (daemon alias) and drops a hardened systemd unit. The OSS engine ships 4 Tier-1 connectors (postgres, kafka, file, rest-api) as sidecars; the Cloud image bundles all 23 connectors. Run `sudo datashuttle setup --quickstart` after install.',
+      'Installs `datashuttle` + `datashuttled` (daemon alias) and drops a hardened systemd unit. Includes 23 connectors. Run `sudo datashuttle setup --quickstart` after install.',
     os: ['linux'],
-  },
-  {
-    key: 'client',
-    label: 'CLI (your laptop)',
-    command:
-      'curl -fsSL https://datashuttle.ai/install.sh | bash -s -- --client-only',
-    footnote:
-      'Installs the thin `datashuttle-client` binary (~15–25 MB stripped). No server, no connector drivers, no embedded UI. Point at a remote daemon with the `DS_SERVER` env var or the `--server` flag.',
-    os: ['linux', 'macos'],
   },
   {
     key: 'docker',
     label: 'Docker',
     command: 'docker pull ghcr.io/datashuttle-io/datashuttle:latest',
     footnote:
-      'Multi-arch image (linux/amd64 + linux/arm64). A working compose bundle lives under `deploy/` in the repo — use it as a reference stack, not a production template.',
-    os: ['linux', 'macos', 'windows'],
+      'Multi-arch image (linux/amd64 + linux/arm64). Includes 23 connectors. A working compose bundle lives under `deploy/` in the repo — use it as a reference stack, not a production template.',
+    os: ['linux', 'windows'],
   },
   {
     key: 'homebrew',
     label: 'Homebrew',
     command: 'brew install datashuttle-io/tap/datashuttle',
     footnote:
-      'Linuxbrew (amd64 / arm64). Ships the full daemon binary; the `datashuttle-client` bottle is a follow-up. Tap auto-updates on each release. macOS bottle on the roadmap.',
+      'Linuxbrew (amd64 / arm64). Ships the full daemon binary; tap auto-updates on each release. Includes 23 connectors.',
     os: ['linux'],
   },
   {
@@ -68,12 +59,11 @@ const TABS: InstallTab[] = [
   },
 ]
 
-type OsKind = 'linux' | 'macos' | 'windows' | 'unknown'
+type OsKind = 'linux' | 'windows' | 'unknown'
 
 function detectOs(): OsKind {
   if (typeof navigator === 'undefined') return 'unknown'
   const ua = navigator.userAgent.toLowerCase()
-  if (ua.includes('mac')) return 'macos'
   if (ua.includes('win')) return 'windows'
   if (ua.includes('linux') || ua.includes('x11')) return 'linux'
   return 'unknown'
@@ -102,7 +92,6 @@ function CopyButton({ text }: { text: string }) {
 
 // Initial tab for a given OS — picked once at mount.
 function defaultTabForOs(os: OsKind): string {
-  if (os === 'macos') return 'client'
   if (os === 'windows') return 'docker'
   return 'server'
 }
@@ -154,7 +143,7 @@ export default function Install() {
                     marginLeft: 6,
                   }}
                 >
-                  · detected {os === 'macos' ? 'macOS' : os}
+                  · detected {os}
                 </span>
               )}
             </div>
@@ -180,7 +169,7 @@ export default function Install() {
             className="ds-tabs"
           >
             {TABS.map((t) => {
-              const recommended = t.os?.includes(os as 'linux' | 'macos' | 'windows')
+              const recommended = t.os?.includes(os as 'linux' | 'windows')
               return (
                 <button
                   key={t.key}
@@ -229,8 +218,8 @@ export default function Install() {
             <p>
               All assets ship with a sibling{' '}
               <code>.sha256</code> file — see <a href="#verify">step 02</a>{' '}
-              before running on production. Stable channel; for the
-              <code>v0.2.0-beta</code> pre-release see the{' '}
+              before running on production. Current release{' '}
+              <code>v0.7.2-rc1</code>; see the{' '}
               <a
                 href="https://github.com/datashuttle-io/releases/releases"
                 target="_blank"
@@ -253,8 +242,8 @@ export default function Install() {
               <h4>Linux · x86_64 →</h4>
               <p>
                 <code>datashuttle-linux-amd64.tar.gz</code> — ~50&nbsp;MB.
-                Glibc 2.31+ (Debian 11+, Ubuntu 20.04+, RHEL 9+). Engine
-                + 4 Tier-1 connector sidecars.
+                Glibc 2.31+ (Debian 11+, Ubuntu 20.04+, RHEL 9+). Includes
+                23 connectors.
               </p>
             </a>
             <a
@@ -265,8 +254,8 @@ export default function Install() {
               <h4>Linux · ARM64 →</h4>
               <p>
                 <code>datashuttle-linux-arm64.tar.gz</code> — ~47&nbsp;MB.
-                Graviton / Ampere / Raspberry Pi 5 etc. Engine + 4 Tier-1
-                connector sidecars.
+                Graviton / Ampere / Raspberry Pi 5 etc. Includes 23
+                connectors.
               </p>
             </a>
             <a
@@ -279,8 +268,8 @@ export default function Install() {
               <h4>Docker · multi-arch →</h4>
               <p>
                 <code>ghcr.io/datashuttle-io/datashuttle:latest</code> —
-                multi-arch (linux/amd64 + linux/arm64), engine + 4 Tier-1
-                sidecars. Pull the Cloud image for all 23 connectors.
+                multi-arch (linux/amd64 + linux/arm64). Includes 23
+                connectors.
               </p>
             </a>
             <a
@@ -370,9 +359,9 @@ sha256sum -c datashuttle-<platform>.tar.gz.sha256`}
             >
               <h4>Connect your first source →</h4>
               <p>
-                Postgres, Kafka, file, and REST sources ship in every build.
-                The full 23-connector catalogue (MySQL, MongoDB, Snowflake,
-                BigQuery, …) is bundled in the Cloud image.
+                Postgres, MySQL, MongoDB, Kafka, Snowflake, BigQuery — all 23
+                connectors ship in every install. One <code>CREATE CONNECTION</code>
+                away.
               </p>
             </a>
           </div>

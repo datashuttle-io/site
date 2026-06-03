@@ -144,20 +144,24 @@ export default function Product() {
             <div className="eyebrow">02 · sources</div>
             <h2>Connectors.</h2>
             <p>
-              4 Tier-1 sources ship in the OSS engine binary. The full
-              23-connector catalogue is bundled in the Cloud image — no
-              recompile, no feature flags.
+              23 connectors ship in every install — relational, NoSQL,
+              warehouse, streaming, and object storage. No feature flags,
+              no separate downloads.
             </p>
           </div>
           <div className="ds-compare">
             <div className="col">
-              <h3>Tier-1 <span className="tag">OSS engine</span></h3>
+              <h3>Relational &amp; CDC</h3>
               <div className="stack-list">
                 {[
                   ['PostgreSQL', 'WAL CDC'],
-                  ['Kafka', 'consumer group'],
-                  ['File', 'Parquet / CSV / JSONL'],
-                  ['REST API', 'polled ingest'],
+                  ['MySQL', 'binlog CDC'],
+                  ['Oracle', 'LogMiner'],
+                  ['SQL Server', 'CDC tables'],
+                  ['CockroachDB', 'changefeeds'],
+                  ['Greenplum · Vertica · StarRocks', 'bulk + CDC'],
+                  ['MongoDB', 'oplog CDC'],
+                  ['Cassandra / Scylla', 'CDC log'],
                 ].map(([name, note]) => (
                   <div className="item" key={name}>
                     <span className="x">·</span><span>{name}</span><span className="note">{note}</span>
@@ -166,24 +170,20 @@ export default function Product() {
               </div>
             </div>
             <div className="col">
-              <h3>Tier-2 catalogue <span className="tag">Cloud image</span></h3>
+              <h3>Warehouse, streaming &amp; storage</h3>
               <div className="stack-list">
                 {[
-                  ['MySQL', 'binlog CDC'],
-                  ['MongoDB', 'oplog CDC'],
-                  ['Oracle', 'LogMiner'],
-                  ['SQL Server', 'CDC tables'],
                   ['Snowflake', 'unload'],
                   ['Databricks', 'SQL Warehouse'],
                   ['BigQuery', 'Storage API'],
                   ['ClickHouse', 'native block'],
                   ['Redshift', 'unload'],
-                  ['Cassandra / Scylla', 'CDC log'],
-                  ['CockroachDB', 'changefeeds'],
-                  ['Greenplum · Vertica · StarRocks', 'bulk + CDC'],
+                  ['Kafka', 'consumer group'],
                   ['DynamoDB · Kinesis', 'streams'],
-                  ['Hadoop · cloud storage', 'batch'],
                   ['Redis', 'stream'],
+                  ['Hadoop · cloud storage', 'batch'],
+                  ['File', 'Parquet / CSV / JSONL'],
+                  ['REST API', 'polled ingest'],
                 ].map(([name, note]) => (
                   <div className="item" key={name}>
                     <span className="x">·</span><span>{name}</span><span className="note">{note}</span>
