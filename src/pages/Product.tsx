@@ -144,19 +144,17 @@ export default function Product() {
             <div className="eyebrow">02 · sources</div>
             <h2>Connectors.</h2>
             <p>
-              Core sources are available on every build. The full catalogue is
-              available in Cloud and in source builds with{' '}
-              <code>--features cdc-all</code>.
+              4 Tier-1 sources ship in the OSS engine binary. The full
+              23-connector catalogue is bundled in the Cloud image — no
+              recompile, no feature flags.
             </p>
           </div>
           <div className="ds-compare">
             <div className="col">
-              <h3>Core (every build)</h3>
+              <h3>Tier-1 <span className="tag">OSS engine</span></h3>
               <div className="stack-list">
                 {[
                   ['PostgreSQL', 'WAL CDC'],
-                  ['MySQL', 'binlog CDC'],
-                  ['MongoDB', 'oplog CDC'],
                   ['Kafka', 'consumer group'],
                   ['File', 'Parquet / CSV / JSONL'],
                   ['REST API', 'polled ingest'],
@@ -168,9 +166,11 @@ export default function Product() {
               </div>
             </div>
             <div className="col">
-              <h3>Extended catalogue <span className="tag">cdc-all / Cloud</span></h3>
+              <h3>Tier-2 catalogue <span className="tag">Cloud image</span></h3>
               <div className="stack-list">
                 {[
+                  ['MySQL', 'binlog CDC'],
+                  ['MongoDB', 'oplog CDC'],
                   ['Oracle', 'LogMiner'],
                   ['SQL Server', 'CDC tables'],
                   ['Snowflake', 'unload'],
@@ -183,6 +183,7 @@ export default function Product() {
                   ['Greenplum · Vertica · StarRocks', 'bulk + CDC'],
                   ['DynamoDB · Kinesis', 'streams'],
                   ['Hadoop · cloud storage', 'batch'],
+                  ['Redis', 'stream'],
                 ].map(([name, note]) => (
                   <div className="item" key={name}>
                     <span className="x">·</span><span>{name}</span><span className="note">{note}</span>

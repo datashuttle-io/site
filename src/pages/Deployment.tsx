@@ -30,9 +30,9 @@ const ROWS: Row[] = [
   },
   {
     label: 'Connector catalogue',
-    cloud: 'Full (Cloud build)',
-    selfHosted: 'Core (6 connectors) by default; full via --features cdc-all',
-    airgapped: 'Full, bundled in the tarball',
+    cloud: 'Full — 23 connectors bundled in the Cloud image',
+    selfHosted: '4 Tier-1 in the OSS engine; pull the Cloud image for all 23',
+    airgapped: 'Full — 23 connectors bundled in the signed tarball',
   },
   {
     label: 'License telemetry',
@@ -126,7 +126,7 @@ export default function Deployment() {
               </p>
               <ul>
                 <li><Icon name="check" /><span>Your compute, your VPC, your data</span></li>
-                <li><Icon name="check" /><span>Core connectors by default; full catalogue via <code>--features cdc-all</code></span></li>
+                <li><Icon name="check" /><span>4 Tier-1 connectors in the OSS engine; pull the Cloud image for all 23 (no recompile)</span></li>
                 <li><Icon name="check" /><span>Hardened systemd unit; Helm chart</span></li>
                 <li><Icon name="check" /><span>OpenTelemetry + Prometheus included</span></li>
               </ul>

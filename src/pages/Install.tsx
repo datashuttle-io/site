@@ -22,7 +22,7 @@ const TABS: InstallTab[] = [
     command:
       'curl -fsSL https://datashuttle.ai/install.sh | sudo bash -s -- --systemd',
     footnote:
-      'Installs `datashuttle` + `datashuttled` (daemon alias) and drops a hardened systemd unit. Default build ships core connectors (postgres, mysql, mongodb, kafka, file, rest-api); the full catalogue is available via `cargo build --release --features cdc-all` from source. Run `sudo datashuttle setup --quickstart` after install.',
+      'Installs `datashuttle` + `datashuttled` (daemon alias) and drops a hardened systemd unit. The OSS engine ships 4 Tier-1 connectors (postgres, kafka, file, rest-api) as sidecars; the Cloud image bundles all 23 connectors. Run `sudo datashuttle setup --quickstart` after install.',
     os: ['linux'],
   },
   {
@@ -47,8 +47,8 @@ const TABS: InstallTab[] = [
     label: 'Homebrew',
     command: 'brew install datashuttle-io/tap/datashuttle',
     footnote:
-      'macOS + Linuxbrew. Ships the full daemon binary; the `datashuttle-client` bottle is a follow-up. Tap auto-updates on each release.',
-    os: ['macos'],
+      'Linuxbrew (amd64 / arm64). Ships the full daemon binary; the `datashuttle-client` bottle is a follow-up. Tap auto-updates on each release. macOS bottle on the roadmap.',
+    os: ['linux'],
   },
   {
     key: 'deb',
@@ -247,24 +247,14 @@ export default function Install() {
           >
             <a
               className="ds-feat"
-              href="https://github.com/datashuttle-io/releases/releases/latest/download/datashuttle-macos-arm64.tar.gz"
-              style={{ textDecoration: 'none' }}
-            >
-              <h4>macOS · Apple Silicon →</h4>
-              <p>
-                <code>datashuttle-macos-arm64.tar.gz</code> — ~45&nbsp;MB.
-                Tarball; extract and put <code>datashuttle</code> on PATH.
-              </p>
-            </a>
-            <a
-              className="ds-feat"
               href="https://github.com/datashuttle-io/releases/releases/latest/download/datashuttle-linux-amd64.tar.gz"
               style={{ textDecoration: 'none' }}
             >
               <h4>Linux · x86_64 →</h4>
               <p>
                 <code>datashuttle-linux-amd64.tar.gz</code> — ~50&nbsp;MB.
-                Glibc 2.31+ (Debian 11+, Ubuntu 20.04+, RHEL 9+).
+                Glibc 2.31+ (Debian 11+, Ubuntu 20.04+, RHEL 9+). Engine
+                + 4 Tier-1 connector sidecars.
               </p>
             </a>
             <a
@@ -275,7 +265,22 @@ export default function Install() {
               <h4>Linux · ARM64 →</h4>
               <p>
                 <code>datashuttle-linux-arm64.tar.gz</code> — ~47&nbsp;MB.
-                Graviton / Ampere / Raspberry Pi 5 etc.
+                Graviton / Ampere / Raspberry Pi 5 etc. Engine + 4 Tier-1
+                connector sidecars.
+              </p>
+            </a>
+            <a
+              className="ds-feat"
+              href="https://github.com/datashuttle-io/datashuttle/pkgs/container/datashuttle"
+              target="_blank"
+              rel="noopener"
+              style={{ textDecoration: 'none' }}
+            >
+              <h4>Docker · multi-arch →</h4>
+              <p>
+                <code>ghcr.io/datashuttle-io/datashuttle:latest</code> —
+                multi-arch (linux/amd64 + linux/arm64), engine + 4 Tier-1
+                sidecars. Pull the Cloud image for all 23 connectors.
               </p>
             </a>
             <a
@@ -365,8 +370,9 @@ sha256sum -c datashuttle-<platform>.tar.gz.sha256`}
             >
               <h4>Connect your first source →</h4>
               <p>
-                Postgres, MySQL, MongoDB, Kafka are on every build. REST and
-                file-based sources are one <code>CREATE CONNECTION</code> away.
+                Postgres, Kafka, file, and REST sources ship in every build.
+                The full 23-connector catalogue (MySQL, MongoDB, Snowflake,
+                BigQuery, …) is bundled in the Cloud image.
               </p>
             </a>
           </div>

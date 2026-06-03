@@ -34,7 +34,7 @@ const RELEASE_ROWS: StatusRow[] = [
   {
     label: 'Self-hosted',
     value:
-      'Early access. systemd, Docker, Helm supported. Core connectors default; full catalogue via --features cdc-all.',
+      'Early access. systemd, Docker, Helm supported. OSS engine ships 4 Tier-1 connectors; the Cloud image bundles all 23 — no recompile.',
   },
   {
     label: 'Airgapped',
