@@ -106,7 +106,7 @@ export default function Home() {
         <section className="ds-sec" id="why">
           <div className="ds-sec-head">
             <div className="eyebrow">01 · why a dedicated engine</div>
-            <h2>Stop gluing Kafka, Debezium, Flink, and custom code for every shuttle.</h2>
+            <h2>Stop gluing Kafka, Debezium, Flink, and custom code for every pipeline.</h2>
             <p>
               A typical lakehouse ingestion stack is four or five moving parts plus
               orchestration. DataShuttle replaces that chain with a single Rust
