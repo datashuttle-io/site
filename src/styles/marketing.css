@@ -34,10 +34,42 @@ body { font-family: var(--font-sans); overflow-x: hidden; }
 .ds-nav .cta { display: flex; gap: 10px; flex-shrink: 0; }
 .ds-nav .brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
 .ds-nav .brand img { height: 24px; }
+
+/* Hamburger + compact Sign in + dropdown: desktop hides them entirely. */
+.ds-nav .menu-btn,
+.ds-nav .signin-compact,
+.ds-nav .mobile-menu { display: none; }
+.ds-nav .menu-btn {
+  align-items: center; justify-content: center; width: 40px; height: 40px;
+  border: 1px solid var(--border-strong); border-radius: var(--radius-sm);
+  background: var(--bg-raised); color: var(--fg); cursor: pointer; flex-shrink: 0;
+}
+.ds-nav .menu-btn .i { width: 20px; height: 20px; }
+
 @media (max-width: 860px) {
-  .ds-nav .row { height: 58px; }
-  .ds-nav .links { display: none; }
-  .ds-nav .cta .ds-btn-ghost, .ds-nav .cta .ds-btn-secondary { display: none; }
+  .ds-nav .row { height: 58px; gap: 12px; }
+  /* Desktop links + full CTA row collapse into the hamburger dropdown. */
+  .ds-nav .links,
+  .ds-nav .cta { display: none; }
+  /* Keep the login button reachable at all times, plus the menu toggle. */
+  .ds-nav .signin-compact { display: inline-flex; margin-left: auto; }
+  .ds-nav .menu-btn { display: inline-flex; }
+
+  .ds-nav .mobile-menu {
+    display: block; position: fixed; left: 0; right: 0; top: 58px; z-index: 29;
+    max-height: calc(100dvh - 58px); overflow-y: auto;
+    background: var(--bg); border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow-3);
+  }
+  .ds-nav .mobile-menu[hidden] { display: none; }
+  .ds-nav .mobile-menu .mm-inner { display: flex; flex-direction: column; padding: 12px 20px 20px; gap: 2px; }
+  .ds-nav .mobile-menu a {
+    color: var(--fg); text-decoration: none; font: 500 16px var(--font-sans);
+    padding: 12px 4px; border-bottom: 1px solid var(--border-muted);
+  }
+  .ds-nav .mobile-menu a:active { color: var(--brand); }
+  .ds-nav .mobile-menu .mm-cta { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+  .ds-nav .mobile-menu .mm-cta .ds-btn { justify-content: center; padding: 12px 16px; }
 }
 
 /* -------------------------------------------------------------------------
@@ -123,7 +155,12 @@ body { font-family: var(--font-sans); overflow-x: hidden; }
 @media (max-width: 860px) {
   .ds-hero-wrap { background-image: url('/hero/hero-dust-light-mobile.jpg'); background-position: center top; }
   [data-theme="dark"] .ds-hero-wrap { background-image: url('/hero/hero-dust-dark-mobile.jpg'); }
-  .ds-hero-wrap::before { background: linear-gradient(180deg, transparent 30%, var(--bg) 64%); }
+  /* Single-column mobile: the headline/eyebrow sit at the very top, so the
+   * scrim must back the TEXT (not leave the top transparent like before, which
+   * left near-white text floating over bright dust plumes in dark theme). Keep
+   * a faint dust wash up top, but enough --bg behind the copy to stay legible. */
+  .ds-hero-wrap::before { background: linear-gradient(180deg, color-mix(in oklab, var(--bg) 60%, transparent) 0%, var(--bg) 58%); }
+  [data-theme="dark"] .ds-hero-wrap::before { background: linear-gradient(180deg, color-mix(in oklab, var(--bg) 84%, transparent) 0%, var(--bg) 52%); }
   .ds-hero { padding: 56px 0 44px; grid-template-columns: 1fr; gap: 36px; }
   .ds-hero.solo { padding: 52px 0 36px; }
   .ds-hero h1 { font-size: clamp(34px, 9vw, 50px); }
