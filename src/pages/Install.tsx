@@ -122,8 +122,8 @@ export default function Install() {
         ogImage="og-download.jpg"
       />
       <div className="ds-wrap">
-        <section className="ds-hero" style={{ gridTemplateColumns: '1fr' }}>
-          <div>
+        <section className="ds-hero solo">
+          <div data-reveal>
             <div className="eyebrow">
               <span className="pill">Self-hosted · early access</span>
               {os !== 'unknown' && (
@@ -150,7 +150,7 @@ export default function Install() {
         </section>
 
         <section className="ds-sec">
-          <div className="ds-sec-head">
+          <div className="ds-sec-head" data-reveal>
             <div className="eyebrow">01 · install channels</div>
             <h2>Pick your packaging.</h2>
           </div>
@@ -204,7 +204,7 @@ export default function Install() {
         </section>
 
         <section className="ds-sec">
-          <div className="ds-sec-head">
+          <div className="ds-sec-head" data-reveal>
             <div className="eyebrow">01a · direct downloads</div>
             <h2>Or grab a binary directly.</h2>
             <p>
@@ -227,7 +227,7 @@ export default function Install() {
             style={{ gridTemplateColumns: 'repeat(3,1fr)' }}
           >
             <a
-              className="ds-feat"
+              className="ds-feat" data-reveal
               href="https://github.com/datashuttle-io/releases/releases/latest/download/datashuttle-linux-amd64.tar.gz"
               style={{ textDecoration: 'none' }}
             >
@@ -239,7 +239,7 @@ export default function Install() {
               </p>
             </a>
             <a
-              className="ds-feat"
+              className="ds-feat" data-reveal
               href="https://github.com/datashuttle-io/releases/releases/latest/download/datashuttle-linux-arm64.tar.gz"
               style={{ textDecoration: 'none' }}
             >
@@ -251,7 +251,7 @@ export default function Install() {
               </p>
             </a>
             <a
-              className="ds-feat"
+              className="ds-feat" data-reveal
               href="https://github.com/datashuttle-io/datashuttle/pkgs/container/datashuttle"
               target="_blank"
               rel="noopener"
@@ -265,7 +265,7 @@ export default function Install() {
               </p>
             </a>
             <a
-              className="ds-feat"
+              className="ds-feat" data-reveal
               href="https://github.com/datashuttle-io/releases/releases/latest"
               target="_blank"
               rel="noopener"
@@ -279,7 +279,7 @@ export default function Install() {
               </p>
             </a>
             <a
-              className="ds-feat"
+              className="ds-feat" data-reveal
               href="https://github.com/datashuttle-io/releases/releases/latest"
               target="_blank"
               rel="noopener"
@@ -293,7 +293,7 @@ export default function Install() {
               </p>
             </a>
             <a
-              className="ds-feat"
+              className="ds-feat" data-reveal
               href="https://github.com/datashuttle-io/releases/releases/latest/download/datashuttle-chart.tgz"
               style={{ textDecoration: 'none' }}
             >
@@ -307,7 +307,7 @@ export default function Install() {
         </section>
 
         <section className="ds-sec" id="verify">
-          <div className="ds-sec-head">
+          <div className="ds-sec-head" data-reveal>
             <div className="eyebrow">02 · verify</div>
             <h2>Verify your download.</h2>
             <p>
@@ -328,13 +328,13 @@ sha256sum -c datashuttle-<platform>.tar.gz.sha256`}
         </section>
 
         <section className="ds-sec">
-          <div className="ds-sec-head">
+          <div className="ds-sec-head" data-reveal>
             <div className="eyebrow">03 · next steps</div>
             <h2>Where to go from here.</h2>
           </div>
           <div className="ds-features" style={{ gridTemplateColumns: 'repeat(2,1fr)' }}>
             <a
-              className="ds-feat"
+              className="ds-feat" data-reveal
               href="https://docs.datashuttle.ai/quickstart"
               style={{ textDecoration: 'none' }}
             >
@@ -345,7 +345,7 @@ sha256sum -c datashuttle-<platform>.tar.gz.sha256`}
               </p>
             </a>
             <a
-              className="ds-feat"
+              className="ds-feat" data-reveal
               href="https://docs.datashuttle.ai/connectors/postgresql"
               style={{ textDecoration: 'none' }}
             >

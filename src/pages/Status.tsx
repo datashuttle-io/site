@@ -113,8 +113,8 @@ export default function Status() {
         path="/status"
       />
       <div className="ds-wrap">
-        <section className="ds-hero" style={{ gridTemplateColumns: '1fr' }}>
-          <div>
+        <section className="ds-hero solo">
+          <div data-reveal>
             <div className="eyebrow">
               <span className="pill">Status</span>
             </div>
@@ -128,7 +128,7 @@ export default function Status() {
         </section>
 
         <section className="ds-sec">
-          <div className="ds-sec-head">
+          <div className="ds-sec-head" data-reveal>
             <div className="eyebrow">01 · release & availability</div>
             <h2>Current state.</h2>
           </div>
@@ -140,7 +140,7 @@ export default function Status() {
         </section>
 
         <section className="ds-sec">
-          <div className="ds-sec-head">
+          <div className="ds-sec-head" data-reveal>
             <div className="eyebrow">02 · feature maturity</div>
             <h2>What each part of the engine is labelled.</h2>
             <p>
@@ -174,7 +174,7 @@ export default function Status() {
         </section>
 
         <section className="ds-sec">
-          <div className="ds-sec-head">
+          <div className="ds-sec-head" data-reveal>
             <div className="eyebrow">03 · known limitations</div>
             <h2>What we'd tell you on a call.</h2>
             <p>
@@ -198,7 +198,7 @@ export default function Status() {
         </section>
 
         <section className="ds-sec">
-          <div className="ds-sec-head">
+          <div className="ds-sec-head" data-reveal>
             <div className="eyebrow">04 · security architecture</div>
             <h2>What's implemented.</h2>
             <p>
@@ -222,7 +222,7 @@ export default function Status() {
         </section>
 
         <section className="ds-sec">
-          <div className="ds-sec-head">
+          <div className="ds-sec-head" data-reveal>
             <div className="eyebrow">05 · compliance</div>
             <h2>Attestations.</h2>
             <p>
@@ -257,7 +257,7 @@ export default function Status() {
         </section>
 
         <section className="ds-sec">
-          <div className="ds-sec-head">
+          <div className="ds-sec-head" data-reveal>
             <h2>Keep going.</h2>
           </div>
           <div className="actions" style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>

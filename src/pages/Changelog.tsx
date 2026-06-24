@@ -9,7 +9,7 @@ import { SEO } from '../components/SEO'
 function ShowcaseCard({ card }: { card: (typeof CARDS)[number] }) {
   if (!card.snippet) {
     return (
-      <article className="ds-shot solo">
+      <article className="ds-shot solo" data-reveal>
         <div>
           <span className="badge">{card.badge}</span>
           <h3>{card.title}</h3>
@@ -19,7 +19,7 @@ function ShowcaseCard({ card }: { card: (typeof CARDS)[number] }) {
     )
   }
   return (
-    <article className="ds-shot">
+    <article className="ds-shot" data-reveal>
       <div>
         <span className="badge">{card.badge}</span>
         <h3>{card.title}</h3>
@@ -44,8 +44,8 @@ export default function Changelog() {
         ogImage="og-whatsnew.jpg"
       />
       <div className="ds-wrap">
-        <section className="ds-hero" style={{ gridTemplateColumns: '1fr' }}>
-          <div>
+        <section className="ds-hero solo">
+          <div data-reveal>
             <div className="eyebrow">
               <span className="pill">Changelog</span>
             </div>

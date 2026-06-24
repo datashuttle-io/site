@@ -75,8 +75,8 @@ export default function Deployment() {
         path="/deployment"
       />
       <div className="ds-wrap">
-        <section className="ds-hero" style={{ gridTemplateColumns: '1fr' }}>
-          <div>
+        <section className="ds-hero solo">
+          <div data-reveal>
             <div className="eyebrow">
               <span className="pill">Deployment</span>
             </div>
@@ -91,12 +91,12 @@ export default function Deployment() {
         </section>
 
         <section className="ds-sec">
-          <div className="ds-sec-head">
+          <div className="ds-sec-head" data-reveal>
             <div className="eyebrow">01 · at a glance</div>
             <h2>Three modes.</h2>
           </div>
           <div className="ds-pricing">
-            <div className="ds-plan">
+            <div className="ds-plan" data-reveal>
               <h3>Cloud</h3>
               <p className="desc">
                 <strong>Private beta · by invitation.</strong> Fully managed
@@ -117,7 +117,7 @@ export default function Deployment() {
                 Create account
               </a>
             </div>
-            <div className="ds-plan featured">
+            <div className="ds-plan featured" data-reveal>
               <h3>Self-hosted</h3>
               <p className="desc">
                 <strong>Early access.</strong> Run DataShuttle on your own
@@ -134,7 +134,7 @@ export default function Deployment() {
                 Install guide
               </Link>
             </div>
-            <div className="ds-plan">
+            <div className="ds-plan" data-reveal>
               <h3>Airgapped</h3>
               <p className="desc">
                 <strong>Early access.</strong> Signed tarball for networks
@@ -158,7 +158,7 @@ export default function Deployment() {
         </section>
 
         <section className="ds-sec">
-          <div className="ds-sec-head">
+          <div className="ds-sec-head" data-reveal>
             <div className="eyebrow">02 · side by side</div>
             <h2>What differs between modes.</h2>
             <p>
@@ -190,7 +190,7 @@ export default function Deployment() {
         </section>
 
         <section className="ds-sec">
-          <div className="ds-sec-head">
+          <div className="ds-sec-head" data-reveal>
             <div className="eyebrow">03 · cloud signup flow</div>
             <h2>How account approval works.</h2>
             <p>

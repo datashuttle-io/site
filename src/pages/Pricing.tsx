@@ -109,8 +109,8 @@ export default function Pricing() {
         path="/pricing"
       />
       <div className="ds-wrap">
-        <section className="ds-hero" style={{ gridTemplateColumns: '1fr' }}>
-          <div>
+        <section className="ds-hero solo">
+          <div data-reveal>
             <div className="eyebrow"><span className="pill">Pricing</span></div>
             <h1>Usage-based, measured in DPUs.</h1>
             <p className="lede">
@@ -131,6 +131,7 @@ export default function Pricing() {
             {TIERS.map((t) => (
               <div
                 className={`ds-plan${t.featured ? ' featured' : ''}`}
+                data-reveal
                 key={t.name}
               >
                 <h3>{t.name}</h3>
@@ -172,7 +173,7 @@ export default function Pricing() {
         </section>
 
         <section className="ds-sec">
-          <div className="ds-sec-head">
+          <div className="ds-sec-head" data-reveal>
             <div className="eyebrow">Community tier</div>
             <h2>Free to evaluate, not a production tier.</h2>
             <p>
@@ -184,31 +185,31 @@ export default function Pricing() {
         </section>
 
         <section className="ds-sec">
-          <div className="ds-sec-head">
+          <div className="ds-sec-head" data-reveal>
             <div className="eyebrow">Self-hosted & airgapped rates</div>
             <h2>Lower per-DPU rate when you provide the compute.</h2>
           </div>
           <div className="ds-features" style={{ gridTemplateColumns: 'repeat(3,1fr)' }}>
-            <div className="ds-feat">
+            <div className="ds-feat" data-reveal>
               <h4>Cloud (PAYG)</h4>
-              <p style={{ font: '500 28px var(--font-sans)', color: 'var(--fg)' }}>$0.50<span style={{ font: '500 12px var(--font-mono)', color: 'var(--fg-3)', marginLeft: 6 }}>/ DPU</span></p>
+              <p style={{ font: '600 30px var(--font-sans)', color: 'var(--vivid-500)', letterSpacing: '-0.02em' }}>$0.50<span style={{ font: '500 12px var(--font-mono)', color: 'var(--fg-3)', marginLeft: 6 }}>/ DPU</span></p>
               <p>
                 On-demand rate if you choose not to commit. No contract, no
                 minimum, billed monthly. Overage on committed tiers falls back
                 to this rate.
               </p>
             </div>
-            <div className="ds-feat">
+            <div className="ds-feat" data-reveal>
               <h4>Self-hosted</h4>
-              <p style={{ font: '500 28px var(--font-sans)', color: 'var(--fg)' }}>$0.20<span style={{ font: '500 12px var(--font-mono)', color: 'var(--fg-3)', marginLeft: 6 }}>/ DPU</span></p>
+              <p style={{ font: '600 30px var(--font-sans)', color: 'var(--vivid-500)', letterSpacing: '-0.02em' }}>$0.20<span style={{ font: '500 12px var(--font-mono)', color: 'var(--fg-3)', marginLeft: 6 }}>/ DPU</span></p>
               <p>
                 Annual capacity licence against an agreed DPU floor. You run
                 the binary, we support the engine.
               </p>
             </div>
-            <div className="ds-feat">
+            <div className="ds-feat" data-reveal>
               <h4>Airgapped</h4>
-              <p style={{ font: '500 28px var(--font-sans)', color: 'var(--fg)' }}>$0.30<span style={{ font: '500 12px var(--font-mono)', color: 'var(--fg-3)', marginLeft: 6 }}>/ DPU</span></p>
+              <p style={{ font: '600 30px var(--font-sans)', color: 'var(--vivid-500)', letterSpacing: '-0.02em' }}>$0.30<span style={{ font: '500 12px var(--font-mono)', color: 'var(--fg-3)', marginLeft: 6 }}>/ DPU</span></p>
               <p>
                 Annual capacity licence with extended support windows and a
                 local signed usage ledger. Enterprise tier only.

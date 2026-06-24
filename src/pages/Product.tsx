@@ -87,8 +87,8 @@ export default function Product() {
         path="/product"
       />
       <div className="ds-wrap">
-        <section className="ds-hero" style={{ gridTemplateColumns: '1fr' }}>
-          <div>
+        <section className="ds-hero solo">
+          <div data-reveal>
             <div className="eyebrow">
               <span className="pill">Product</span>
             </div>
@@ -110,7 +110,7 @@ export default function Product() {
         </section>
 
         <section className="ds-sec">
-          <div className="ds-sec-head">
+          <div className="ds-sec-head" data-reveal>
             <div className="eyebrow">01 · capabilities</div>
             <h2>Engine surface.</h2>
             <p>
@@ -128,7 +128,7 @@ export default function Product() {
           </div>
           <div className="ds-features">
             {CAPS.map((c) => (
-              <div className="ds-feat" key={c.title}>
+              <div className="ds-feat" data-reveal key={c.title}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <h4 style={{ margin: 0 }}>{c.title}</h4>
                   <MaturityBadge m={c.maturity} />
@@ -140,7 +140,7 @@ export default function Product() {
         </section>
 
         <section className="ds-sec">
-          <div className="ds-sec-head">
+          <div className="ds-sec-head" data-reveal>
             <div className="eyebrow">02 · sources</div>
             <h2>Connectors.</h2>
             <p>

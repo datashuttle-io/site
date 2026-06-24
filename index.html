@@ -3,8 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/brand/safari-pinned-tab.svg" color="#1FC3A1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#020617" />
+    <!-- Theme-color tracks the active scheme; set after first paint by the
+         FOUC script below so it matches the v3 paper / graphite backgrounds. -->
+    <meta name="theme-color" content="#FAFAFB" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0B0C0E" media="(prefers-color-scheme: dark)" />
+    <!-- v3 fonts: Inter Tight (UI+display), JetBrains Mono (code+numeric),
+         Source Serif 4 (long-form only). The CSS @import in datashuttle.css
+         (colors_and_type.css) is authoritative; preconnect just warms it. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <title>DataShuttle — Iceberg-native ingestion engine</title>
     <meta name="description" content="Move operational data from Postgres, MySQL, MongoDB, and Kafka into Apache Iceberg with one SQL statement. One Rust binary — managed cloud, self-hosted, or airgapped." />
     <meta property="og:title" content="DataShuttle — Iceberg-native ingestion engine" />

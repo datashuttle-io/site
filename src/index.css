@@ -1,6 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
-@import "tailwindcss";
+/* Foundation first: v3 tokens (colors_and_type.css) own the font @import,
+ * Inter Tight / JetBrains Mono / Source Serif 4, plus every design token. */
 @import "./styles/datashuttle.css";
+@import "tailwindcss";
 
 /* DataShuttle quiet-technical palette overlaid onto Tailwind's default
  * color families so existing `bg-slate-*`, `text-indigo-*`, `bg-blue-*`
@@ -37,6 +38,8 @@
   --color-stone-600: #6B6B73;   --color-stone-700: #484851;  --color-stone-800: #2C2C30;
   --color-stone-900: #1E1E21;   --color-stone-950: #141416;
 
+  /* Primary/brand-leaning families retint to the v3 vivid spring-teal
+   * (#1FC3A1 family). Cooler info/link families keep the calm slate-teal. */
   --color-blue-50: #EEF2F2;    --color-blue-100: #D9E2E2;  --color-blue-200: #B4C4C4;
   --color-blue-300: #7F9797;   --color-blue-400: #527273;  --color-blue-500: #3D5A5B;
   --color-blue-600: #2B4142;   --color-blue-700: #1E2E2F;  --color-blue-800: #132021;
@@ -46,30 +49,31 @@
   --color-cyan-300: #7F9797;  --color-cyan-400: #527273;  --color-cyan-500: #3D5A5B;
   --color-cyan-600: #2B4142;
 
-  --color-indigo-50: #EEF2F2;  --color-indigo-100: #D9E2E2; --color-indigo-200: #B4C4C4;
-  --color-indigo-300: #7F9797; --color-indigo-400: #527273; --color-indigo-500: #527273;
-  --color-indigo-600: #3D5A5B; --color-indigo-700: #2B4142; --color-indigo-800: #1E2E2F;
-  --color-indigo-900: #132021; --color-indigo-950: #0A1415;
-  --color-violet-300: #7F9797; --color-violet-400: #527273; --color-violet-500: #527273;
-  --color-violet-600: #3D5A5B; --color-violet-700: #2B4142;
-  --color-purple-300: #7F9797; --color-purple-400: #527273; --color-purple-500: #527273;
-  --color-purple-600: #3D5A5B; --color-purple-700: #2B4142;
-  --color-fuchsia-300: #7F9797; --color-fuchsia-400: #527273; --color-fuchsia-500: #527273;
+  /* indigo/violet/purple → vivid spring-teal (primary accent in v3) */
+  --color-indigo-50: #E6FBF6;  --color-indigo-100: #C2F4E9; --color-indigo-200: #8DE9D5;
+  --color-indigo-300: #4FD8BC; --color-indigo-400: #1FC3A1; --color-indigo-500: #10A083;
+  --color-indigo-600: #0C7A66; --color-indigo-700: #0A5E50; --color-indigo-800: #0A5E50;
+  --color-indigo-900: #06231D; --color-indigo-950: #06231D;
+  --color-violet-300: #4FD8BC; --color-violet-400: #1FC3A1; --color-violet-500: #10A083;
+  --color-violet-600: #0C7A66; --color-violet-700: #0A5E50;
+  --color-purple-300: #4FD8BC; --color-purple-400: #1FC3A1; --color-purple-500: #10A083;
+  --color-purple-600: #0C7A66; --color-purple-700: #0A5E50;
+  --color-fuchsia-300: #4FD8BC; --color-fuchsia-400: #1FC3A1; --color-fuchsia-500: #10A083;
 
   --color-orange-300: #7F9797; --color-orange-400: #527273; --color-orange-500: #3D5A5B;
 
-  --color-red-300: #B06C62;   --color-red-400: #9C4A3D;   --color-red-500: #713528;
-  --color-red-600: #4D231A;
-  --color-pink-400: #9C4A3D;   --color-pink-500: #713528;
-  --color-rose-400: #9C4A3D;   --color-rose-500: #713528;
+  --color-red-300: #D89189;   --color-red-400: #C6584A;   --color-red-500: #993B30;
+  --color-red-600: #993B30;
+  --color-pink-400: #C6584A;   --color-pink-500: #993B30;
+  --color-rose-400: #C6584A;   --color-rose-500: #993B30;
 
-  --color-yellow-300: #C2A65E; --color-yellow-400: #A88A3E; --color-yellow-500: #7A6229;
-  --color-amber-300: #C2A65E; --color-amber-400: #A88A3E; --color-amber-500: #7A6229;
+  --color-yellow-300: #DDBA6B; --color-yellow-400: #C79237; --color-yellow-500: #936A22;
+  --color-amber-300: #DDBA6B; --color-amber-400: #C79237; --color-amber-500: #936A22;
 
-  --color-emerald-300: #8B9B82; --color-emerald-400: #5E7357; --color-emerald-500: #445240;
-  --color-green-400: #5E7357;   --color-green-500: #445240;
-  --color-teal-400: #527273;    --color-teal-500: #3D5A5B;
-  --color-lime-400: #5E7357;    --color-lime-500: #445240;
+  --color-emerald-300: #84C2A3; --color-emerald-400: #4FA17C; --color-emerald-500: #3A7B5E;
+  --color-green-400: #4FA17C;   --color-green-500: #3A7B5E;
+  --color-teal-300: #4FD8BC;     --color-teal-400: #1FC3A1;    --color-teal-500: #10A083;
+  --color-lime-400: #4FA17C;    --color-lime-500: #3A7B5E;
 }
 
 /* iOS Safari hardening — see iPhone bug report */
