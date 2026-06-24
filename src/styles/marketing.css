@@ -116,6 +116,9 @@ body { font-family: var(--font-sans); overflow-x: hidden; }
     linear-gradient(90deg, var(--bg) 30%, transparent 72%),
     linear-gradient(180deg, transparent 52%, var(--bg) 97%);
 }
+/* Pull the next section back up by the same amount the dust was extended, so
+   the render fades DOWN behind the content without shifting anything. */
+.ds-hero-wrap + .ds-wrap { margin-top: -140px; position: relative; z-index: 1; }
 
 .ds-hero { position: relative; z-index: 1; padding: 92px 0 72px; display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; align-items: center; }
 /* Hero with a single column (sub-pages) shouldn't reserve the figure track. */
@@ -163,6 +166,7 @@ body { font-family: var(--font-sans); overflow-x: hidden; }
   /* The mobile scrim already fades the dust to --bg, so the desktop bottom
      extension would just be empty space here — trim it. */
   .ds-hero-wrap { padding-bottom: 24px; }
+  .ds-hero-wrap + .ds-wrap { margin-top: -24px; }
   .ds-hero-wrap { background-image: url('/hero/hero-dust-light-mobile.jpg'); background-position: center top; }
   [data-theme="dark"] .ds-hero-wrap { background-image: url('/hero/hero-dust-dark-mobile.jpg'); }
   /* Single-column mobile: the headline sits at the top, so back the text with
