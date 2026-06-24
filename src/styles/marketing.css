@@ -99,11 +99,12 @@ body { font-family: var(--font-sans); overflow-x: hidden; }
 /* -------------------------------------------------------------------------
    HERO — dust backdrop + aurora mask + code figure with glow.
    ------------------------------------------------------------------------- */
-/* Dust render lives here — a soft ambient backdrop behind the metric cards,
-   not behind the hero copy (where it muddied the text). A constant --bg veil
-   over the whole band keeps it a subtle tint instead of a loud, off-centre
-   photo crop, and it fades fully into the page bg top and bottom. Cards are
-   opaque (--bg-raised), so the render only tints the gaps around them. */
+/* Dust render lives here — a tall, full-bleed backdrop behind the metric
+   cards (not behind the hero copy, where it muddied the text). The render is
+   a hero composition: colourful burst on the right, clean space on the left.
+   Give the band real height so the burst breathes (not a thin crop), keep it
+   vivid (no mute), and only fade into the page bg at the very top and bottom.
+   Cards are opaque (--bg-raised), so they stay perfectly legible over it. */
 .ds-dust-band {
   position: relative; overflow: hidden;
   background-image: url('/hero/hero-dust-light.jpg');
@@ -112,12 +113,10 @@ body { font-family: var(--font-sans); overflow-x: hidden; }
 [data-theme="dark"] .ds-dust-band { background-image: url('/hero/hero-dust-dark.jpg'); }
 .ds-dust-band::before {
   content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background:
-    linear-gradient(180deg, var(--bg) 0%, transparent 42%, transparent 58%, var(--bg) 100%),
-    color-mix(in oklab, var(--bg) 52%, transparent);
+  background: linear-gradient(180deg, var(--bg) 0%, transparent 22%, transparent 78%, var(--bg) 100%);
 }
 .ds-dust-band > .ds-wrap { position: relative; z-index: 1; }
-.ds-dust-band .ds-sec.flush { padding: 40px 0 48px; }
+.ds-dust-band .ds-sec.flush { padding: 104px 0 112px; }
 
 .ds-hero { position: relative; z-index: 1; padding: 92px 0 72px; display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; align-items: center; }
 /* Hero with a single column (sub-pages) shouldn't reserve the figure track. */
