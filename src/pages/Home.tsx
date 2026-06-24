@@ -52,9 +52,8 @@ export default function Home() {
         path="/"
       />
 
-      <div className="ds-hero-wrap">
-        <div className="ds-wrap">
-          <section className="ds-hero">
+      <div className="ds-wrap">
+        <section className="ds-hero">
             <div data-reveal>
               <div className="eyebrow">
                 <span className="pill">Iceberg V3 · pre-1.0</span>
@@ -116,13 +115,15 @@ export default function Home() {
                 {'  '}<span className="punc">)</span>;
               </pre>
             </div>
-          </section>
-        </div>
+        </section>
       </div>
 
-      <div className="ds-wrap">
-        <section className="ds-sec flush">
-          <div className="ds-metrics">
+      {/* Dust render relocated here, behind the metric cards, so it no longer
+          competes with the hero copy. Full-bleed band, fades into page bg. */}
+      <div className="ds-dust-band">
+        <div className="ds-wrap">
+          <section className="ds-sec flush">
+            <div className="ds-metrics">
             <div className="ds-metric" data-reveal>
               <div className="n"><span className="ds-count" data-to="57586">0</span></div>
               <div className="l">rows / sec sustained</div>
@@ -139,9 +140,12 @@ export default function Home() {
               <div className="n">23</div>
               <div className="l">connectors, every install</div>
             </div>
-          </div>
-        </section>
+            </div>
+          </section>
+        </div>
+      </div>
 
+      <div className="ds-wrap">
         <section className="ds-sec" id="why">
           <div className="ds-sec-head" data-reveal>
             <div className="eyebrow">Why a dedicated engine</div>
