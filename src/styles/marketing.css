@@ -106,10 +106,10 @@ body { font-family: var(--font-sans); overflow-x: hidden; }
 .ds-hero-wrap { position: relative; }
 .ds-hero-wrap::before,
 .ds-hero-wrap::after {
-  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 880px;
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 160vh;
   z-index: 0; pointer-events: none;
-  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 46%, transparent 92%);
-          mask-image: linear-gradient(180deg, #000 0%, #000 46%, transparent 92%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 40%, transparent 96%);
+          mask-image: linear-gradient(180deg, #000 0%, #000 40%, transparent 96%);
 }
 .ds-hero-wrap::before {
   background-image: url('/hero/hero-dust-light.jpg');
