@@ -101,13 +101,20 @@ body { font-family: var(--font-sans); overflow-x: hidden; }
    ------------------------------------------------------------------------- */
 .ds-hero-wrap {
   position: relative; overflow: hidden;
+  /* Extra room below the hero so the dust render carries on past the copy and
+     fades out, instead of stopping on a hard horizontal edge. */
+  padding-bottom: 140px;
   background-image: url('/hero/hero-dust-light.jpg');
   background-repeat: no-repeat; background-position: right top; background-size: cover;
 }
 [data-theme="dark"] .ds-hero-wrap { background-image: url('/hero/hero-dust-dark.jpg'); }
 .ds-hero-wrap::before {
   content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background: linear-gradient(90deg, var(--bg) 30%, transparent 72%);
+  /* Left: --bg scrim so the headline stays legible. Bottom: fade the render
+     out into the page bg so it extends downward smoothly. */
+  background:
+    linear-gradient(90deg, var(--bg) 30%, transparent 72%),
+    linear-gradient(180deg, transparent 52%, var(--bg) 97%);
 }
 
 .ds-hero { position: relative; z-index: 1; padding: 92px 0 72px; display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; align-items: center; }
@@ -153,6 +160,9 @@ body { font-family: var(--font-sans); overflow-x: hidden; }
 .kw { color: var(--vivid-500); } .str { color: var(--success-500); } .cmt { color: var(--fg-4); } .punc { color: var(--fg-3); }
 
 @media (max-width: 860px) {
+  /* The mobile scrim already fades the dust to --bg, so the desktop bottom
+     extension would just be empty space here — trim it. */
+  .ds-hero-wrap { padding-bottom: 24px; }
   .ds-hero-wrap { background-image: url('/hero/hero-dust-light-mobile.jpg'); background-position: center top; }
   [data-theme="dark"] .ds-hero-wrap { background-image: url('/hero/hero-dust-dark-mobile.jpg'); }
   /* Single-column mobile: the headline sits at the top, so back the text with
