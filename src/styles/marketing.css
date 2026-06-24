@@ -99,26 +99,26 @@ body { font-family: var(--font-sans); overflow-x: hidden; }
 /* -------------------------------------------------------------------------
    HERO — dust backdrop + aurora mask + code figure with glow.
    ------------------------------------------------------------------------- */
-.ds-hero-wrap {
-  position: relative; overflow: hidden;
-  /* Extra room below the hero so the dust render carries on past the copy and
-     fades out, instead of stopping on a hard horizontal edge. */
-  padding-bottom: 140px;
+/* Dust render as an out-of-flow layer (absolute), so it can run the full
+   vertical height and fade out at the bottom WITHOUT ever changing layout or
+   pushing content down. ::before = the image, ::after = the --bg scrim that
+   keeps the headline legible. Both dissolve into the page via a bottom mask. */
+.ds-hero-wrap { position: relative; }
+.ds-hero-wrap::before,
+.ds-hero-wrap::after {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 880px;
+  z-index: 0; pointer-events: none;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 46%, transparent 92%);
+          mask-image: linear-gradient(180deg, #000 0%, #000 46%, transparent 92%);
+}
+.ds-hero-wrap::before {
   background-image: url('/hero/hero-dust-light.jpg');
   background-repeat: no-repeat; background-position: right top; background-size: cover;
 }
-[data-theme="dark"] .ds-hero-wrap { background-image: url('/hero/hero-dust-dark.jpg'); }
-.ds-hero-wrap::before {
-  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  /* Left: --bg scrim so the headline stays legible. Bottom: fade the render
-     out into the page bg so it extends downward smoothly. */
-  background:
-    linear-gradient(90deg, var(--bg) 30%, transparent 72%),
-    linear-gradient(180deg, transparent 52%, var(--bg) 97%);
-}
-/* Pull the next section back up by the same amount the dust was extended, so
-   the render fades DOWN behind the content without shifting anything. */
-.ds-hero-wrap + .ds-wrap { margin-top: -140px; position: relative; z-index: 1; }
+[data-theme="dark"] .ds-hero-wrap::before { background-image: url('/hero/hero-dust-dark.jpg'); }
+.ds-hero-wrap::after { background: linear-gradient(90deg, var(--bg) 30%, transparent 72%); }
+/* Content sits above the dust layer. */
+.ds-hero-wrap + .ds-wrap { position: relative; z-index: 1; }
 
 .ds-hero { position: relative; z-index: 1; padding: 92px 0 72px; display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; align-items: center; }
 /* Hero with a single column (sub-pages) shouldn't reserve the figure track. */
@@ -163,17 +163,14 @@ body { font-family: var(--font-sans); overflow-x: hidden; }
 .kw { color: var(--vivid-500); } .str { color: var(--success-500); } .cmt { color: var(--fg-4); } .punc { color: var(--fg-3); }
 
 @media (max-width: 860px) {
-  /* The mobile scrim already fades the dust to --bg, so the desktop bottom
-     extension would just be empty space here — trim it. */
-  .ds-hero-wrap { padding-bottom: 24px; }
-  .ds-hero-wrap + .ds-wrap { margin-top: -24px; }
-  .ds-hero-wrap { background-image: url('/hero/hero-dust-light-mobile.jpg'); background-position: center top; }
-  [data-theme="dark"] .ds-hero-wrap { background-image: url('/hero/hero-dust-dark-mobile.jpg'); }
-  /* Single-column mobile: the headline sits at the top, so back the text with
-   * a real --bg scrim (stronger in dark) instead of leaving the top clear —
-   * otherwise near-white copy floats over bright dust and is unreadable. */
-  .ds-hero-wrap::before { background: linear-gradient(180deg, color-mix(in oklab, var(--bg) 60%, transparent) 0%, var(--bg) 58%); }
-  [data-theme="dark"] .ds-hero-wrap::before { background: linear-gradient(180deg, color-mix(in oklab, var(--bg) 84%, transparent) 0%, var(--bg) 52%); }
+  /* Mobile dust: swap to the portrait render. Single-column, so the scrim
+     (::after) runs vertically — solid --bg behind the top copy (otherwise
+     near-white text floats over bright dust), clearing lower down so the
+     render shows and then fades out via the shared bottom mask. */
+  .ds-hero-wrap::before { background-image: url('/hero/hero-dust-light-mobile.jpg'); background-position: center top; }
+  [data-theme="dark"] .ds-hero-wrap::before { background-image: url('/hero/hero-dust-dark-mobile.jpg'); }
+  .ds-hero-wrap::after { background: linear-gradient(180deg, var(--bg) 0%, color-mix(in oklab, var(--bg) 55%, transparent) 36%, transparent 72%); }
+  [data-theme="dark"] .ds-hero-wrap::after { background: linear-gradient(180deg, var(--bg) 0%, color-mix(in oklab, var(--bg) 72%, transparent) 40%, transparent 74%); }
   .ds-hero { padding: 56px 0 44px; grid-template-columns: 1fr; gap: 36px; }
   .ds-hero.solo { padding: 52px 0 36px; }
   .ds-hero h1 { font-size: clamp(34px, 9vw, 50px); }
