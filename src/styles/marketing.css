@@ -106,14 +106,18 @@ body { font-family: var(--font-sans); overflow-x: hidden; }
 .ds-hero-wrap { position: relative; }
 .ds-hero-wrap::before,
 .ds-hero-wrap::after {
-  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 160vh;
+  content: ""; position: absolute; top: 0; left: 0; right: 0;
+  /* Height tracks the image's natural aspect at full width (1429/2560 ≈ 0.558)
+     plus a little fade room, so the WHOLE render shows top-to-bottom at its
+     natural scale — not cropped, and not zoomed in like `cover` was. */
+  height: 60vw;
   z-index: 0; pointer-events: none;
-  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 40%, transparent 96%);
-          mask-image: linear-gradient(180deg, #000 0%, #000 40%, transparent 96%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 74%, transparent 99%);
+          mask-image: linear-gradient(180deg, #000 0%, #000 74%, transparent 99%);
 }
 .ds-hero-wrap::before {
   background-image: url('/hero/hero-dust-light.jpg');
-  background-repeat: no-repeat; background-position: right top; background-size: cover;
+  background-repeat: no-repeat; background-position: center top; background-size: 100% auto;
 }
 [data-theme="dark"] .ds-hero-wrap::before { background-image: url('/hero/hero-dust-dark.jpg'); }
 .ds-hero-wrap::after { background: linear-gradient(90deg, var(--bg) 30%, transparent 72%); }
@@ -163,11 +167,14 @@ body { font-family: var(--font-sans); overflow-x: hidden; }
 .kw { color: var(--vivid-500); } .str { color: var(--success-500); } .cmt { color: var(--fg-4); } .punc { color: var(--fg-3); }
 
 @media (max-width: 860px) {
-  /* Mobile dust: swap to the portrait render. Single-column, so the scrim
-     (::after) runs vertically — solid --bg behind the top copy (otherwise
-     near-white text floats over bright dust), clearing lower down so the
-     render shows and then fades out via the shared bottom mask. */
-  .ds-hero-wrap::before { background-image: url('/hero/hero-dust-light-mobile.jpg'); background-position: center top; }
+  /* Mobile dust: portrait render, sized to cover the column at a sensible
+     height (the desktop 60vw + 100%-width sizing doesn't suit the portrait).
+     Single-column, so the scrim (::after) runs vertically — solid --bg behind
+     the top copy (otherwise near-white text floats over bright dust), clearing
+     lower down so the render shows and then fades out via the shared mask. */
+  .ds-hero-wrap::before,
+  .ds-hero-wrap::after { height: 150vw; }
+  .ds-hero-wrap::before { background-image: url('/hero/hero-dust-light-mobile.jpg'); background-position: center top; background-size: cover; }
   [data-theme="dark"] .ds-hero-wrap::before { background-image: url('/hero/hero-dust-dark-mobile.jpg'); }
   .ds-hero-wrap::after { background: linear-gradient(180deg, var(--bg) 0%, color-mix(in oklab, var(--bg) 55%, transparent) 36%, transparent 72%); }
   [data-theme="dark"] .ds-hero-wrap::after { background: linear-gradient(180deg, var(--bg) 0%, color-mix(in oklab, var(--bg) 72%, transparent) 40%, transparent 74%); }
