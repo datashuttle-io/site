@@ -99,25 +99,16 @@ body { font-family: var(--font-sans); overflow-x: hidden; }
 /* -------------------------------------------------------------------------
    HERO — dust backdrop + aurora mask + code figure with glow.
    ------------------------------------------------------------------------- */
-/* Dust render lives here — a tall, full-bleed backdrop behind the metric
-   cards (not behind the hero copy, where it muddied the text). The render is
-   a hero composition: colourful burst on the right, clean space on the left.
-   Give the band real height so the burst breathes (not a thin crop), keep it
-   vivid (no mute), and only fade into the page bg at the very top and bottom.
-   Cards are opaque (--bg-raised), so they stay perfectly legible over it. */
-.ds-dust-band {
-  position: relative; overflow: hidden; display: flex; align-items: center;
-  min-height: 600px;
+.ds-hero-wrap {
+  position: relative; overflow: hidden;
   background-image: url('/hero/hero-dust-light.jpg');
-  background-repeat: no-repeat; background-position: center; background-size: cover;
+  background-repeat: no-repeat; background-position: right top; background-size: cover;
 }
-[data-theme="dark"] .ds-dust-band { background-image: url('/hero/hero-dust-dark.jpg'); }
-.ds-dust-band::before {
+[data-theme="dark"] .ds-hero-wrap { background-image: url('/hero/hero-dust-dark.jpg'); }
+.ds-hero-wrap::before {
   content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background: linear-gradient(180deg, var(--bg) 0%, transparent 18%, transparent 82%, var(--bg) 100%);
+  background: linear-gradient(90deg, var(--bg) 30%, transparent 72%);
 }
-.ds-dust-band > .ds-wrap { position: relative; z-index: 1; width: 100%; }
-.ds-dust-band .ds-sec.flush { padding: 0; }
 
 .ds-hero { position: relative; z-index: 1; padding: 92px 0 72px; display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; align-items: center; }
 /* Hero with a single column (sub-pages) shouldn't reserve the figure track. */
@@ -162,10 +153,13 @@ body { font-family: var(--font-sans); overflow-x: hidden; }
 .kw { color: var(--vivid-500); } .str { color: var(--success-500); } .cmt { color: var(--fg-4); } .punc { color: var(--fg-3); }
 
 @media (max-width: 860px) {
-  .ds-dust-band { background-image: url('/hero/hero-dust-light-mobile.jpg'); background-position: center; }
-  [data-theme="dark"] .ds-dust-band { background-image: url('/hero/hero-dust-dark-mobile.jpg'); }
-  .ds-dust-band { min-height: 520px; }
-  .ds-dust-band .ds-sec.flush { padding: 32px 0; }
+  .ds-hero-wrap { background-image: url('/hero/hero-dust-light-mobile.jpg'); background-position: center top; }
+  [data-theme="dark"] .ds-hero-wrap { background-image: url('/hero/hero-dust-dark-mobile.jpg'); }
+  /* Single-column mobile: the headline sits at the top, so back the text with
+   * a real --bg scrim (stronger in dark) instead of leaving the top clear —
+   * otherwise near-white copy floats over bright dust and is unreadable. */
+  .ds-hero-wrap::before { background: linear-gradient(180deg, color-mix(in oklab, var(--bg) 60%, transparent) 0%, var(--bg) 58%); }
+  [data-theme="dark"] .ds-hero-wrap::before { background: linear-gradient(180deg, color-mix(in oklab, var(--bg) 84%, transparent) 0%, var(--bg) 52%); }
   .ds-hero { padding: 56px 0 44px; grid-template-columns: 1fr; gap: 36px; }
   .ds-hero.solo { padding: 52px 0 36px; }
   .ds-hero h1 { font-size: clamp(34px, 9vw, 50px); }
