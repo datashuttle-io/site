@@ -11,10 +11,12 @@
     <meta name="theme-color" content="#FAFAFB" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0B0C0E" media="(prefers-color-scheme: dark)" />
     <!-- v3 fonts: Inter Tight (UI+display), JetBrains Mono (code+numeric),
-         Source Serif 4 (long-form only). The CSS @import in datashuttle.css
-         (colors_and_type.css) is authoritative; preconnect just warms it. -->
+         Source Serif 4 (long-form only). Loaded as a parallel stylesheet
+         <link> (NOT a CSS @import) so it never blocks first paint; display=swap
+         shows fallback text immediately. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&display=swap" />
     <title>DataShuttle — Iceberg-native ingestion engine</title>
     <meta name="description" content="Move operational data from Postgres, MySQL, MongoDB, and Kafka into Apache Iceberg with one SQL statement. One Rust binary — managed cloud, self-hosted, or airgapped." />
     <meta property="og:title" content="DataShuttle — Iceberg-native ingestion engine" />
