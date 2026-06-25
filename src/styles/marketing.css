@@ -87,8 +87,12 @@ body { font-family: var(--font-sans); overflow-x: hidden; }
               color var(--dur-fast) var(--ease-out);
 }
 .ds-btn:active { transform: translateY(1px) scale(0.98); }
-.ds-btn-primary { background: var(--grad-duo); color: #fff; box-shadow: 0 4px 16px rgba(31,195,161,0.34); }
-.ds-btn-primary:hover { transform: translateY(-2px); filter: brightness(1.07); box-shadow: 0 10px 28px rgba(31,195,161,0.46); color: #fff; }
+/* Negative spread keeps the teal shadow grounded below the button instead of
+   blooming sideways — the lateral bloom read as a bright vertical "strip" on
+   the right edge against the dark nav/hero (the teal glow contrasts the
+   button's indigo right end). */
+.ds-btn-primary { background: var(--grad-duo); color: #fff; box-shadow: 0 8px 18px -8px rgba(31,195,161,0.50); }
+.ds-btn-primary:hover { transform: translateY(-2px); filter: brightness(1.07); box-shadow: 0 12px 26px -10px rgba(31,195,161,0.58); color: #fff; }
 .ds-btn-secondary { background: var(--bg-raised); color: var(--fg); border-color: var(--border-strong); }
 .ds-btn-secondary:hover { background: var(--bg-muted); color: var(--fg); transform: translateY(-2px); }
 .ds-btn-ghost { background: transparent; color: var(--fg-2); }
