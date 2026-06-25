@@ -107,17 +107,18 @@ body { font-family: var(--font-sans); overflow-x: hidden; }
 .ds-hero-wrap::before,
 .ds-hero-wrap::after {
   content: ""; position: absolute; top: 0; left: 0; right: 0;
-  /* Height tracks the image's natural aspect at full width (1429/2560 ≈ 0.558)
-     plus a little fade room, so the WHOLE render shows top-to-bottom at its
-     natural scale — not cropped, and not zoomed in like `cover` was. */
-  height: 60vw;
+  /* Height = the image's natural aspect at full width (1429/2560 ≈ 0.558), so
+     `cover` fills the layer edge-to-edge at natural scale (no zoom, no hard
+     image edge). The mask fades all the way to transparent at the very bottom
+     so the render dissolves smoothly into the page bg instead of cutting off. */
+  height: 56vw;
   z-index: 0; pointer-events: none;
-  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 74%, transparent 99%);
-          mask-image: linear-gradient(180deg, #000 0%, #000 74%, transparent 99%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 50%, transparent 100%);
+          mask-image: linear-gradient(180deg, #000 0%, #000 50%, transparent 100%);
 }
 .ds-hero-wrap::before {
   background-image: url('/hero/hero-dust-light.jpg');
-  background-repeat: no-repeat; background-position: center top; background-size: 100% auto;
+  background-repeat: no-repeat; background-position: center top; background-size: cover;
 }
 [data-theme="dark"] .ds-hero-wrap::before { background-image: url('/hero/hero-dust-dark.jpg'); }
 .ds-hero-wrap::after { background: linear-gradient(90deg, var(--bg) 30%, transparent 72%); }
