@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { SEO } from '../components/SEO'
 import { Icon } from '../components/Icon'
@@ -44,6 +45,19 @@ const FEATURES: Array<[string, string, string]> = [
 ]
 
 export default function Home() {
+  // Hero badge tracks the latest release, fetched live from the public release
+  // host (datashuttle-io/releases) so it updates the moment a release ships —
+  // no per-release edit to this file. Falls back to the last-known tag if the
+  // GitHub API is rate-limited or unreachable.
+  const [version, setVersion] = useState('v1.1.3')
+  useEffect(() => {
+    fetch('https://api.github.com/repos/datashuttle-io/releases/releases/latest')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (d?.tag_name) setVersion(d.tag_name)
+      })
+      .catch(() => {})
+  }, [])
   return (
     <>
       <SEO
@@ -57,7 +71,7 @@ export default function Home() {
           <section className="ds-hero">
             <div data-reveal>
               <div className="eyebrow">
-                <span className="pill">Iceberg V3 · pre-1.0</span>
+                <span className="pill">Iceberg V3 · {version}</span>
                 cloud private beta
               </div>
               <h1>
