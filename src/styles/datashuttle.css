@@ -162,9 +162,11 @@
   /* =======================================================================
      TYPOGRAPHY
      ======================================================================= */
-  --font-sans:  'Inter Tight', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-mono:  'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
-  --font-serif: 'Source Serif 4', ui-serif, Georgia, 'Times New Roman', serif;
+  /* 'X Variable' = the self-hosted @fontsource-variable family (see main.tsx);
+     'X' kept as a fallback for any cached Google-Fonts visit. */
+  --font-sans:  'Inter Tight Variable', 'Inter Tight', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:  'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --font-serif: 'Source Serif 4 Variable', 'Source Serif 4', ui-serif, Georgia, 'Times New Roman', serif;
 
   /* Display scale — a touch bigger + airier than v1. */
   --text-d1: clamp(52px, 7vw, 100px);

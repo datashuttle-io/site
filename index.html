@@ -10,26 +10,11 @@
          FOUC script below so it matches the v3 paper / graphite backgrounds. -->
     <meta name="theme-color" content="#FAFAFB" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0B0C0E" media="(prefers-color-scheme: dark)" />
-    <!-- v3 fonts: Inter Tight (UI+display), JetBrains Mono (code+numeric),
-         Source Serif 4 (long-form only). Loaded as a parallel stylesheet
-         <link> (NOT a CSS @import) so it never blocks first paint; display=swap
-         shows fallback text immediately. -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- NON-render-blocking: a plain stylesheet <link> DOES block first paint
-         (a @import vs <link> swap alone does not fix that). Google Fonts can be
-         very slow/blocked on some networks (~18s observed from DXB), hanging the
-         whole page. media="print" loads it without blocking paint; onload flips
-         it to "all". display=swap → fallback text shows instantly. -->
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&display=swap"
-      media="print"
-      onload="this.media='all'"
-    />
-    <noscript>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&display=swap" />
-    </noscript>
+    <!-- v3 fonts (Inter Tight, JetBrains Mono, Source Serif 4) are SELF-HOSTED
+         via @fontsource-variable, imported in main.tsx and bundled by Vite — no
+         external Google Fonts request. This removes the render-blocking
+         dependency that hung first paint ~18s on networks where
+         fonts.googleapis.com is slow/throttled. -->
     <title>DataShuttle — Iceberg-native ingestion engine</title>
     <meta name="description" content="Move operational data from Postgres, MySQL, MongoDB, and Kafka into Apache Iceberg with one SQL statement. One Rust binary — managed cloud, self-hosted, or airgapped." />
     <meta property="og:title" content="DataShuttle — Iceberg-native ingestion engine" />
