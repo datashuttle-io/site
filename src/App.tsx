@@ -7,6 +7,7 @@ import Pricing from './pages/Pricing'
 import Install from './pages/Install'
 import Status from './pages/Status'
 import Changelog from './pages/Changelog'
+import Order from './pages/Order'
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="install" element={<Install />} />
         <Route path="status" element={<Status />} />
         <Route path="changelog" element={<Changelog />} />
+        <Route path="order" element={<Order />} />
         {/* Renamed paths — keep old bookmarks working. /cloud was removed
             intentionally; bookmarks to it 404. */}
         <Route path="download" element={<Navigate to="/install" replace />} />
